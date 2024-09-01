@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 10f;
 
     CapsuleCollider2D myBodyCollider;
-    BoxCollider2D myFeetCollider;
     public bool isAlive = true;
 
     void Start()
@@ -41,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         if (!isAlive) { return; }
-        bool isTouchingGround = myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        bool isTouchingGround = myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
         if(!isTouchingGround) 
         {
             return;

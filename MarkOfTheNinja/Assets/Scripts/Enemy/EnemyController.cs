@@ -2,17 +2,21 @@ using Assets.Scripts.Enemy.States;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
 
+    public Camera cam;
+    public Transform target;
+    public float patrollingSpeed = 200f;
     private State currentState;
     private StateContext context;
     public enum EnemyStates
     {
         Chilling, GoingAtSound, Detected
     }
-    private Dictionary<EnemyStates, State> posibleStates;
+    public Dictionary<EnemyStates, State> posibleStates;
 
     // Start is called before the first frame update
     void Start()

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Enemy.States
         Pathfinder pathfinder;
         public override void Do(StateContext context)
         {
-            var cam = context.Parent.cam;
+            var cam = context.Parent.chillingSettings.cam;
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -33,8 +33,8 @@ namespace Assets.Scripts.Enemy.States
 
         public override void FixedDo(StateContext context)
         {
-            var speed = context.Parent.patrollingSpeed;
-            var minDistance = context.Parent.minDistance;
+            var speed = context.Parent.chillingSettings.patrollingSpeed;
+            var minDistance = context.Parent.chillingSettings.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }
     }

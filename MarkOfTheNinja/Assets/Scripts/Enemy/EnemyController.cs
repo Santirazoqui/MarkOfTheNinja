@@ -6,18 +6,17 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-
-    public Camera cam;
-    public Transform target;
-    public float patrollingSpeed = 200f;
-    public float minDistance = 0.01f;
     private State currentState;
     private StateContext context;
     public enum EnemyStates
     {
         Chilling, GoingAtSound, Detected
     }
-    public Dictionary<EnemyStates, State> posibleStates;
+    private Dictionary<EnemyStates, State> posibleStates;
+
+    public ChillingSettings chillingSettings;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -61,4 +60,13 @@ public class EnemyController : MonoBehaviour
         currentState = posibleStates[EnemyStates.Chilling];
         currentState.Enter(context);
     }
+}
+
+[System.Serializable]
+public class ChillingSettings
+{
+    public Camera cam;
+    public Transform target;
+    public float patrollingSpeed = 200f;
+    public float minDistance = 0.01f;
 }

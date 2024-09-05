@@ -33,8 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Run()
     {
-        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, myRigidbody.velocity.y);
-        myRigidbody.velocity = playerVelocity;
+        /*Si no hay input 
+        if(moveInput.x == 0)
+        {
+           myRigidbody.velocity= new Vector2((myRigidbody.velocity.x*0.8f), myRigidbody.velocity.y);
+        }*/
+        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, 0/*myRigidbody.velocity.y*/);
+        myRigidbody.AddForce(playerVelocity, ForceMode2D.Force);
+        //myRigidbody.velocity = new Vector2(moveInput.x * runSpeed, myRigidbody.velocity.y);
     }
 
     void OnJump(InputValue value)

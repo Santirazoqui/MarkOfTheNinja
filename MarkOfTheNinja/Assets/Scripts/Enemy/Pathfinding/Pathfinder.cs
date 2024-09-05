@@ -11,7 +11,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
     public class Pathfinder:MonoBehaviour
     {
         public Vector2 targetPosition;
-        private float speed = 30f;
 
         Rigidbody2D rb;
 
@@ -21,21 +20,48 @@ namespace Assets.Scripts.Enemy.Pathfinding
             targetPosition = target;
         }
 
+        public void AdjustPosition(float speed, float minDistance)
+        {
+            ReajustPosition(speed, minDistance);
+            ChangeCharacterOrientationDependingOnVelocity();
+        }
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             targetPosition = rb.position;
         }
 
-        private void FixedUpdate()
+        private void ChangeCharacterOrientationDependingOnVelocity()
         {
+            bool lookingRight = rb.velocity.x >= 0.1f;
+            bool lookingLeft = rb.velocity.x <= -0.1f;
+            if (lookingRight)
+            {
+                transform.localScale = Vector3.one;
+            }
+            else if (lookingLeft)
+            {
+                transform.localScale = new Vector3(-1,1,1);
+            }
+        }
 
-            float direction = (targetPosition.x - rb.position.x);
+        private void ReajustPosition(float speed, float minDistance)
+        {
+            
+            float distance = targetPosition.x - rb.position.x;
+            bool closeEnough = Math.Abs(distance) < minDistance;
+            if (closeEnough) {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                return;
+            }
+            
+            float direction = Math.Sign(distance);
             float velocity = speed * Time.deltaTime * direction;
 
-            rb.velocity = new Vector2(velocity,rb.velocity.y);
-            Debug.Log($"Added force: {velocity}");
-
+            rb.velocity = new Vector2(velocity, rb.velocity.y);
         }
+
+
     }
 }

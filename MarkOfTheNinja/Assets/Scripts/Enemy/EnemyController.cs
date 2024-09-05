@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public Camera cam;
     public Transform target;
     public float patrollingSpeed = 200f;
+    public float minDistance = 0.01f;
     private State currentState;
     private StateContext context;
     public enum EnemyStates

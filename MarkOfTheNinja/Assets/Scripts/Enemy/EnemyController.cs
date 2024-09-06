@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     {
         Chilling, GoingAtSound, Detected
     }
+    
     private Dictionary<EnemyStates, State> posibleStates;
 
     public ChillingSettings chillingSettings;
@@ -65,8 +66,7 @@ public class EnemyController : MonoBehaviour
 [System.Serializable]
 public class ChillingSettings
 {
-    public Camera cam;
-    public Transform target;
     public float patrollingSpeed = 200f;
-    public float minDistance = 0.01f;
+    public float minDistance = 0.1f;
+    public float searchingRadius = 5f;
 }

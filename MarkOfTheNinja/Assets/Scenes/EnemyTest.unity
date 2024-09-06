@@ -779,9 +779,17 @@ PrefabInstance:
       propertyPath: patrollingSpeed
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: chillingSettings.minDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: chillingSettings.searchingRadius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.73
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -829,6 +837,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7123457603394103045, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8086424708738135314, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: detailedGizmos
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

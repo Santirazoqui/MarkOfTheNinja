@@ -13,11 +13,12 @@ namespace Assets.Scripts.Enemy.Pathfinding
         public Vector2 targetPosition;
 
         Rigidbody2D rb;
+        private Action onReached;
 
-
-        public void SetDestination(Vector3 target)
+        public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
+            this.onReached = onReached;
         }
 
         public void AdjustPosition(float speed, float minDistance)
@@ -34,6 +35,8 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
+            if (AnyOfTheGlobalsAreNull()) return;
+
             bool lookingRight = rb.velocity.x >= 0.1f;
             bool lookingLeft = rb.velocity.x <= -0.1f;
             if (lookingRight)
@@ -48,11 +51,13 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void ReajustPosition(float speed, float minDistance)
         {
-            
+            if (AnyOfTheGlobalsAreNull()) return;
+
             float distance = targetPosition.x - rb.position.x;
             bool closeEnough = Math.Abs(distance) < minDistance;
             if (closeEnough) {
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                onReached();
                 return;
             }
             
@@ -62,6 +67,10 @@ namespace Assets.Scripts.Enemy.Pathfinding
             rb.velocity = new Vector2(velocity, rb.velocity.y);
         }
 
-
+        // Creo que esto pasa por un tema de concurrencia entre la inicializacion de todos los objetos
+        private bool AnyOfTheGlobalsAreNull()
+        {
+            return targetPosition != null || rb == null;
+        }
     }
 }

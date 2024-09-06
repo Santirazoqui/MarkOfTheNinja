@@ -13,11 +13,12 @@ namespace Assets.Scripts.Enemy.States
     {
         private Pathfinder pathfinder;
         private Rigidbody2D rb;
-        private float[] searchingLimits = new float[2];
+        private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
+        private Vector2 initialPosition;
         public override void Do(StateContext context)
         {
-
+            UpdateSearchRadius(context);
             CheckForMouseSounds(context);
         }
 
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Enemy.States
         {
             pathfinder = gameObject.AddComponent<Pathfinder>();
             rb = GetComponent<Rigidbody2D>();
+            initialPosition = rb.position;
             UpdateSearchRadius(context);
             StartSearch();
         }
@@ -56,9 +58,10 @@ namespace Assets.Scripts.Enemy.States
         private void UpdateSearchRadius(StateContext context)
         {
             var searchingRadius = context.Parent.chillingSettings.searchingRadius;
-            var x = transform.position.x;
+            var x = initialPosition.x;
             searchingLimits[0] = x - searchingRadius;
             searchingLimits[1] = x + searchingRadius;
+            
         }
 
         private void StartSearch()

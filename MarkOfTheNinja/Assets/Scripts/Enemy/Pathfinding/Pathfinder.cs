@@ -14,7 +14,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         Rigidbody2D rb;
         private Action onReached;
-
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
@@ -66,11 +65,30 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
             rb.velocity = new Vector2(velocity, rb.velocity.y);
         }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Debug.Log("Entro a onCollision");
+            var collider = GetComponentInParent<BoxCollider2D>();
+            if (collider.IsTouchingLayers(LayerMask.GetMask("Walls")))
+            {
+                Debug.Log("Se llamo onReached");
+                onReached();
+            }
+        }
 
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            onReached();
+        }
+        
         // Creo que esto pasa por un tema de concurrencia entre la inicializacion de todos los objetos
         private bool AnyOfTheGlobalsAreNull()
         {
-            return targetPosition != null || rb == null;
+            return targetPosition == null || rb == null;
         }
+
+
     }
 }

@@ -55,7 +55,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
             float distance = targetPosition.x - rb.position.x;
             bool closeEnough = Math.Abs(distance) < minDistance;
             if (closeEnough) {
-                rb.velocity = new Vector2(0, rb.velocity.y);
+                ResetVelocity();
                 onReached();
                 return;
             }
@@ -68,25 +68,31 @@ namespace Assets.Scripts.Enemy.Pathfinding
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log("Entro a onCollision");
             var collider = GetComponentInParent<BoxCollider2D>();
             if (collider.IsTouchingLayers(LayerMask.GetMask("Walls")))
             {
-                Debug.Log("Se llamo onReached");
                 onReached();
             }
         }
 
-        
-        private void OnTriggerEnter(Collider other)
+
+        public void OnBorderTrigger()
         {
+            ResetVelocity();
             onReached();
         }
+        
+
         
         // Creo que esto pasa por un tema de concurrencia entre la inicializacion de todos los objetos
         private bool AnyOfTheGlobalsAreNull()
         {
             return targetPosition == null || rb == null;
+        }
+
+        private void ResetVelocity()
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
 

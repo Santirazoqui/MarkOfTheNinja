@@ -19,7 +19,7 @@ namespace Assets.Scripts.Enemy.States
         public override void Do(StateContext context)
         {
             UpdateSearchRadius(context);
-            CheckForMouseSounds(context);
+            
         }
 
         public override void Enter(StateContext context)
@@ -44,16 +44,8 @@ namespace Assets.Scripts.Enemy.States
             pathfinder.AdjustPosition(speed, minDistance);
         }
 
-        private void CheckForMouseSounds(StateContext context)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pathfinder.SetDestination(mousePosition, StartSearch);
-                Debug.Log($"Mouse position: {mousePosition}");
-            }
-           
-        }
+
+        
         
         private void UpdateSearchRadius(StateContext context)
         {
@@ -68,7 +60,6 @@ namespace Assets.Scripts.Enemy.States
         {
             var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
             pathfinder.SetDestination(target, SwitchTargets);
-            Debug.Log($"Starting search to position {target}");
         }
 
         private void SwitchTargets()
@@ -85,7 +76,7 @@ namespace Assets.Scripts.Enemy.States
             StartSearch();
         }
 
-
-
     }
+
+    
 }

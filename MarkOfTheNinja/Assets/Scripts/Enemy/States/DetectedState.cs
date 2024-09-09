@@ -3,27 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
     public class DetectedState : State
     {
-        public override void Do(StateContext context)
+        public override void TriggerEnter(Collider2D collision)
         {
             throw new NotImplementedException();
         }
 
-        public override void Enter(StateContext context)
+        protected override void _Do()
         {
             throw new NotImplementedException();
         }
 
-        public override void Exit(StateContext context)
+        protected override void _Enter()
         {
             throw new NotImplementedException();
         }
 
-        public override void FixedDo(StateContext context)
+        protected override void _Exit()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void _FixedDo()
         {
             throw new NotImplementedException();
         }

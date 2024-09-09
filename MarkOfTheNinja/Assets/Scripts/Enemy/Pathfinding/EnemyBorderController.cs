@@ -9,13 +9,5 @@ namespace Assets.Scripts.Enemy.Pathfinding
 {
     public class EnemyBorderController:MonoBehaviour
     {
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Enemy"))
-            {
-                var pathfinder = other.gameObject.GetComponentInChildren<Pathfinder>();
-                pathfinder.OnBorderTrigger();
-            }
-        }
     }
 }

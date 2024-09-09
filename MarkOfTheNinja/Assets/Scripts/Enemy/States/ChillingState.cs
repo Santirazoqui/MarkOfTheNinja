@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
+using Assets.Scripts.Sound;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,45 +12,60 @@ namespace Assets.Scripts.Enemy.States
 {
     public class ChillingState : State
     {
+        private Vector2 initialPosition;
         private Pathfinder pathfinder;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
-        private Vector2 initialPosition;
-        public override void Do(StateContext context)
-        {
-            UpdateSearchRadius(context);
-            
-        }
+        private readonly string _soundTag = "Sound";
+        private EnemyController parent;
 
-        public override void Enter(StateContext context)
+        private bool initiated = false;
+
+        // Si en vez de poner el codigo en esta funcion, se pone en el start, tira null pointer exceptions 
+        private void FakeStart()
         {
-            pathfinder = gameObject.AddComponent<Pathfinder>();
+            if (initiated) return;
             rb = GetComponent<Rigidbody2D>();
             initialPosition = rb.position;
-            UpdateSearchRadius(context);
+            pathfinder = _lastRecivedContext.Pathfinder;
+            parent = _lastRecivedContext.Parent;
+            initiated = true;
+        }
+
+        protected override void _Enter()
+        {
+            FakeStart(); 
+            UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
         }
 
+        protected override void _Do()
+        {
+            UpdateSearchRadius(_lastRecivedContext);
+        }
 
-        public override void Exit(StateContext context)
+        protected override void _FixedDo()
+        {
+            var speed = _lastRecivedContext.Parent.chillingSettings.patrollingSpeed;
+            var minDistance = _lastRecivedContext.Parent.chillingSettings.minDistance;
+            pathfinder.AdjustPosition(speed, minDistance);
+        }
+
+        protected override void _Exit()
         {
             //throw new NotImplementedException();
         }
 
-        public override void FixedDo(StateContext context)
+        public override void TriggerEnter(Collider2D collision)
         {
-            var speed = context.Parent.chillingSettings.patrollingSpeed;
-            var minDistance = context.Parent.chillingSettings.minDistance;
-            pathfinder.AdjustPosition(speed, minDistance);
+            HandleSoundCollition(collision);
         }
 
-
-        
-        
         private void UpdateSearchRadius(StateContext context)
         {
             var searchingRadius = context.Parent.chillingSettings.searchingRadius;
+            Debug.Log("Searching radius:" + searchingRadius);
             var x = initialPosition.x;
             searchingLimits[0] = x - searchingRadius;
             searchingLimits[1] = x + searchingRadius;
@@ -64,6 +80,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void SwitchTargets()
         {
+            Debug.Log("Switch targets called");
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;
@@ -72,9 +89,19 @@ namespace Assets.Scripts.Enemy.States
             {
                 searchingIndex++;
             }
-            Debug.Log($"Switch to position {searchingLimits[searchingIndex]}");
+           
             StartSearch();
         }
+
+        private void HandleSoundCollition(Collider2D collision)
+        {
+            bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
+            if (!collidedWithASound) return;
+            var soundOrigin = collision.gameObject.transform.position;
+            _lastRecivedContext.SoundPosition = soundOrigin;
+            parent.ChangeStates(EnemyController.EnemyStates.GoingAtSound,_lastRecivedContext);
+        }
+
 
     }
 

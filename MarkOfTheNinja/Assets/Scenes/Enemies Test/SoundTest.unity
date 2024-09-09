@@ -134,9 +134,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: chillingSettings.searchingRadius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.6747737
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -526,7 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundType: {fileID: 6190716470552032698, guid: e5dc54f4c9c3ba8429116c202bd612be, type: 3}
   soundLifeExpectancy: 2
-  radius: 1
+  radius: 30
 --- !u!4 &2047020724
 Transform:
   m_ObjectHideFlags: 0

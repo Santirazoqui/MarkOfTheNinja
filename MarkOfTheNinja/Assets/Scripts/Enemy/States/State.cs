@@ -5,21 +5,45 @@ using UnityEngine;
 
 public abstract class State : MonoBehaviour
 {
-    
-    /// <summary>
-    ///  Alias para el Start() 
-    /// </summary>
-    public abstract void Enter(StateContext context);
+    protected StateContext _lastRecivedContext;
+    public void Enter(StateContext context)
+    {
+        _lastRecivedContext = context;
+        _Enter();
+    }
+    protected abstract void _Enter();
+        
     /// <summary>
     /// Alias para el Update()
     /// </summary>    
-    public abstract void Do(StateContext context);
+    public void Do(StateContext context)
+    {
+        _lastRecivedContext = context;
+        _Do();
+    }
+
+    protected abstract void _Do();
     /// <summary>
     /// Alias para el FixedDo()
     /// </summary>
-    public abstract void FixedDo(StateContext context);
+    public void FixedDo(StateContext context)
+    {
+        _lastRecivedContext = context;
+        _FixedDo();
+    }
+
+    protected abstract void _FixedDo();
+
     /// <summary>
     /// Para hacer algo antes de tracisionar de estado. Bastante explicito el nombre
     /// </summary>
-    public abstract void Exit(StateContext context);
+    public void Exit(StateContext context)
+    {
+        _lastRecivedContext = context;
+        _Exit();
+    }
+
+    protected abstract void _Exit();
+    public abstract void TriggerEnter(Collider2D collision);
+
 }

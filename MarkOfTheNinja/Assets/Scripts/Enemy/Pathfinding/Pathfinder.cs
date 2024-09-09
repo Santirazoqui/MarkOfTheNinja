@@ -75,13 +75,17 @@ namespace Assets.Scripts.Enemy.Pathfinding
             }
         }
 
-
-        public void OnBorderTrigger()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            ResetVelocity();
-            onReached();
+            Debug.Log("Trigger detected");
+            if (collision.CompareTag("Border"))
+            {
+                Debug.Log("Border detected");
+                ResetVelocity();
+                onReached();
+            }
         }
-        
+
 
         
         // Creo que esto pasa por un tema de concurrencia entre la inicializacion de todos los objetos

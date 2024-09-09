@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7123457603394103045}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +51,9 @@ MonoBehaviour:
     patrollingSpeed: 200
     minDistance: 0.1
     searchingRadius: 10
+  searchingSettings:
+    searchingSpeed: 300
+    minDistance: 0.1
 --- !u!61 &7270506227756914554
 BoxCollider2D:
   m_ObjectHideFlags: 0

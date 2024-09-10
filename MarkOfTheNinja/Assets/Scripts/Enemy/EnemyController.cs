@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public GameObject player;
     private State currentState;
     private StateContext context;
     private Pathfinder pathfinder;
@@ -19,6 +20,7 @@ public class EnemyController : MonoBehaviour
 
     public ChillingSettings chillingSettings;
     public SearchingSettings searchingSettings;
+    public DetectedSettings detectedSettings;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,11 @@ public class EnemyController : MonoBehaviour
         currentState.TriggerEnter(collision);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        currentState.CollitionEnter(collision);
+    }
+
     public void ChangeStates(EnemyStates state)
     {
         currentState.Exit(context);
@@ -60,10 +67,7 @@ public class EnemyController : MonoBehaviour
     private void InitializeStates()
     {
         pathfinder = gameObject.AddComponent<Pathfinder>();
-        context = new(this)
-        {
-            Pathfinder = pathfinder
-        };
+        context = new(this,pathfinder,player,chillingSettings,searchingSettings,detectedSettings);
 
         posibleStates = new Dictionary<EnemyStates, State>()
         {
@@ -76,7 +80,7 @@ public class EnemyController : MonoBehaviour
 
     private void SetInitialState()
     {
-        currentState = posibleStates[EnemyStates.Chilling];
+        currentState = detectedSettings.startOnDetected ? posibleStates[EnemyStates.Detected] : posibleStates[EnemyStates.Chilling];
         currentState.Enter(context);
     }
 
@@ -97,3 +101,12 @@ public class SearchingSettings
     public float searchingSpeed = 300f;
     public float minDistance = 0.1f;
 }
+
+[System.Serializable]
+public class DetectedSettings
+{
+    public float persectutionSpeed = 300f;
+    public float minDistance = 0.1f;
+    public bool startOnDetected = false;
+}
+

@@ -9,30 +9,30 @@ public abstract class State : MonoBehaviour
     public void Enter(StateContext context)
     {
         _lastRecivedContext = context;
-        _Enter();
+        EnterImplementation();
     }
-    protected abstract void _Enter();
-        
+    protected virtual void EnterImplementation() { }
+
     /// <summary>
     /// Alias para el Update()
     /// </summary>    
     public void Do(StateContext context)
     {
         _lastRecivedContext = context;
-        _Do();
+        DoImplementation();
     }
 
-    protected abstract void _Do();
+    protected virtual void DoImplementation() { }
     /// <summary>
     /// Alias para el FixedDo()
     /// </summary>
     public void FixedDo(StateContext context)
     {
         _lastRecivedContext = context;
-        _FixedDo();
+        FixedDoImplementation();
     }
 
-    protected abstract void _FixedDo();
+    protected virtual void FixedDoImplementation() { }
 
     /// <summary>
     /// Para hacer algo antes de tracisionar de estado. Bastante explicito el nombre
@@ -40,10 +40,12 @@ public abstract class State : MonoBehaviour
     public void Exit(StateContext context)
     {
         _lastRecivedContext = context;
-        _Exit();
+        ExitImplementation();
     }
 
-    protected abstract void _Exit();
-    public abstract void TriggerEnter(Collider2D collision);
+    protected virtual void ExitImplementation() { }
+    public virtual void TriggerEnter(Collider2D collision) { }
+    
+    public virtual void CollitionEnter(Collision2D collision) { }
 
 }

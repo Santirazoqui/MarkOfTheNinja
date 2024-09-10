@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9270926a1c5c894da1bee96a45fe8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2087585520791709963, guid: 928d80a6e8597eb40a56bd90d1725157, type: 3}
   chillingSettings:
     patrollingSpeed: 200
     minDistance: 0.1
@@ -54,6 +55,10 @@ MonoBehaviour:
   searchingSettings:
     searchingSpeed: 300
     minDistance: 0.1
+  detectedSettings:
+    persectutionSpeed: 300
+    minDistance: 0.1
+    startOnDetected: 0
 --- !u!61 &7270506227756914554
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -27,12 +27,8 @@ namespace Assets.Scripts.Enemy.States
             pathfinder.SetDestination(soundOrigin, ChangeBackToChilling);
         }
 
-        protected override void _Do()
-        {
-            //throw new NotImplementedException();
-        }
 
-        protected override void _Enter()
+        protected override void EnterImplementation()
         {
             pathfinder = _lastRecivedContext.Pathfinder;
             parent = _lastRecivedContext.Parent;
@@ -40,15 +36,10 @@ namespace Assets.Scripts.Enemy.States
             pathfinder.SetDestination(_lastRecivedContext.SoundPosition, ChangeBackToChilling);
         }
 
-        protected override void _Exit()
+        protected override void FixedDoImplementation()
         {
-            
-        }
-
-        protected override void _FixedDo()
-        {
-            var speed = _lastRecivedContext.Parent.searchingSettings.searchingSpeed;
-            var minDistance = _lastRecivedContext.Parent.searchingSettings.minDistance;
+            var speed = _lastRecivedContext.searchingSettings.searchingSpeed;
+            var minDistance = _lastRecivedContext.searchingSettings.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }
 

@@ -33,28 +33,23 @@ namespace Assets.Scripts.Enemy.States
             initiated = true;
         }
 
-        protected override void _Enter()
+        protected override void EnterImplementation()
         {
             FakeStart(); 
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
         }
 
-        protected override void _Do()
+        protected override void DoImplementation()
         {
             UpdateSearchRadius(_lastRecivedContext);
         }
 
-        protected override void _FixedDo()
+        protected override void FixedDoImplementation()
         {
-            var speed = _lastRecivedContext.Parent.chillingSettings.patrollingSpeed;
-            var minDistance = _lastRecivedContext.Parent.chillingSettings.minDistance;
+            var speed = _lastRecivedContext.chillingSettings.patrollingSpeed;
+            var minDistance = _lastRecivedContext.chillingSettings.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
-        }
-
-        protected override void _Exit()
-        {
-            //throw new NotImplementedException();
         }
 
         public override void TriggerEnter(Collider2D collision)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Enemy.Pathfinding;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,29 +10,46 @@ namespace Assets.Scripts.Enemy.States
 {
     public class DetectedState : State
     {
-        public override void TriggerEnter(Collider2D collision)
+        private Pathfinder pathfinder;
+        private EnemyController parent;
+        private GameObject player;
+        
+        private readonly string _playerTag = "Player";
+
+        public override void CollitionEnter(Collision2D collision)
         {
-            throw new NotImplementedException();
+            HandlePlayerCollition(collision);
         }
 
-        protected override void _Do()
+        private void HandlePlayerCollition(Collision2D collision)
         {
-            throw new NotImplementedException();
+            bool collidedWithPlayer = collision.gameObject.CompareTag(_playerTag);
+            if (!collidedWithPlayer) return;
+            KillPlayer(collision.gameObject);
+            parent.ChangeStates(EnemyController.EnemyStates.Chilling);
         }
 
-        protected override void _Enter()
+        private void KillPlayer(GameObject player)
         {
-            throw new NotImplementedException();
+            player.SetActive(false);
         }
 
-        protected override void _Exit()
+
+        protected override void EnterImplementation()
         {
-            throw new NotImplementedException();
+            pathfinder = _lastRecivedContext.Pathfinder;
+            parent = _lastRecivedContext.Parent;
+            player = _lastRecivedContext.Player;
         }
 
-        protected override void _FixedDo()
+        protected override void FixedDoImplementation()
         {
-            throw new NotImplementedException();
+            pathfinder.SetDestination(player.transform.position, DoNothing);
+            var speed = _lastRecivedContext.detectedSettings.persectutionSpeed;
+            var minDistance = _lastRecivedContext.detectedSettings.minDistance;
+            pathfinder.AdjustPosition(speed,minDistance);
         }
+
+        private void DoNothing() { }
     }
 }

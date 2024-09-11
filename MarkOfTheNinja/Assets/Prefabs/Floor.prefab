@@ -218,7 +218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3080533756822260892, guid: 6d8eb193dac5e4e479762715969a323e, type: 3}
       propertyPath: m_TagString
-      value: Border
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5401368270996350791, guid: 6d8eb193dac5e4e479762715969a323e, type: 3}
       propertyPath: m_LocalScale.y
@@ -296,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3080533756822260892, guid: 6d8eb193dac5e4e479762715969a323e, type: 3}
       propertyPath: m_TagString
-      value: Border
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5401368270996350791, guid: 6d8eb193dac5e4e479762715969a323e, type: 3}
       propertyPath: m_LocalScale.y

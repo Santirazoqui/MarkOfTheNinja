@@ -14,6 +14,9 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         Rigidbody2D rb;
         private Action onReached;
+        private bool tourchingBorder;
+        private readonly string _wallsLayer = "Walls";
+        private readonly string _enemyWalls = "EnemyWall";
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
@@ -35,7 +38,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
             if (AnyOfTheGlobalsAreNull()) return;
-
             bool lookingRight = rb.velocity.x >= 0.1f;
             bool lookingLeft = rb.velocity.x <= -0.1f;
             if (lookingRight)
@@ -69,25 +71,13 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private void OnCollisionEnter2D(Collision2D collision)
         {
             var collider = GetComponentInParent<BoxCollider2D>();
-            if (collider.IsTouchingLayers(LayerMask.GetMask("Walls")))
+            if (collider.IsTouchingLayers(LayerMask.GetMask(_wallsLayer)) 
+                || collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)))
             {
                 onReached();
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            Debug.Log("Trigger detected");
-            if (collision.CompareTag("Border"))
-            {
-                Debug.Log("Border detected");
-                ResetVelocity();
-                onReached();
-            }
-        }
-
-
-        
         // Creo que esto pasa por un tema de concurrencia entre la inicializacion de todos los objetos
         private bool AnyOfTheGlobalsAreNull()
         {
@@ -98,6 +88,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
+
 
 
     }

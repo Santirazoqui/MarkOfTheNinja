@@ -1,6 +1,4 @@
 using Assets.Scripts.Enemy.States;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class State : MonoBehaviour

@@ -1,15 +1,14 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
     public class DetectedState : State
     {
+        public float persectutionSpeed = 300f;
+        public float minDistance = 0.1f;
+
+
         private Pathfinder pathfinder;
         private EnemyController parent;
         private GameObject player;
@@ -45,8 +44,8 @@ namespace Assets.Scripts.Enemy.States
         protected override void FixedDoImplementation()
         {
             pathfinder.SetDestination(player.transform.position, DoNothing);
-            var speed = _lastRecivedContext.detectedSettings.persectutionSpeed;
-            var minDistance = _lastRecivedContext.detectedSettings.minDistance;
+            var speed = persectutionSpeed;
+            var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed,minDistance);
         }
 

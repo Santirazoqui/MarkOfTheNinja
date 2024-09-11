@@ -1,17 +1,14 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
-using Assets.Scripts.Sound;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 namespace Assets.Scripts.Enemy.States
 {
     public class ChillingState : State
     {
+        public float patrollingSpeed = 200f;
+        public float minDistance = 0.1f;
+        public float searchingRadius = 5f;
+
         private Vector2 initialPosition;
         private Pathfinder pathfinder;
         private Rigidbody2D rb;
@@ -26,10 +23,12 @@ namespace Assets.Scripts.Enemy.States
         private void FakeStart()
         {
             if (initiated) return;
-            rb = GetComponent<Rigidbody2D>();
-            initialPosition = rb.position;
+            
             pathfinder = _lastRecivedContext.Pathfinder;
             parent = _lastRecivedContext.Parent;
+            
+            rb = parent.GetComponent<Rigidbody2D>();
+            initialPosition = rb.position;
             initiated = true;
         }
 
@@ -47,8 +46,8 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void FixedDoImplementation()
         {
-            var speed = _lastRecivedContext.chillingSettings.patrollingSpeed;
-            var minDistance = _lastRecivedContext.chillingSettings.minDistance;
+            var speed = patrollingSpeed;
+            var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }
 
@@ -59,7 +58,6 @@ namespace Assets.Scripts.Enemy.States
 
         private void UpdateSearchRadius(StateContext context)
         {
-            var searchingRadius = context.Parent.chillingSettings.searchingRadius;
             Debug.Log("Searching radius:" + searchingRadius);
             var x = initialPosition.x;
             searchingLimits[0] = x - searchingRadius;
@@ -71,6 +69,7 @@ namespace Assets.Scripts.Enemy.States
         {
             var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
             pathfinder.SetDestination(target, SwitchTargets);
+            Debug.Log("Destination set");
         }
 
         private void SwitchTargets()

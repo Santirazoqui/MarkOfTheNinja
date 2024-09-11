@@ -1,13 +1,13 @@
 using Assets.Scripts.Enemy.Pathfinding;
 using Assets.Scripts.Enemy.States;
-using System.Collections;
-using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
+    public EnemyStates defaultState = EnemyStates.Chilling;
+
     private State currentState;
     private StateContext context;
     private Pathfinder pathfinder;
@@ -15,12 +15,9 @@ public class EnemyController : MonoBehaviour
     {
         Chilling, GoingAtSound, Detected
     }
-    
-    private Dictionary<EnemyStates, State> posibleStates;
+    [SerializedDictionary("Posible enemy states", "State")]
+    public SerializedDictionary<EnemyStates, State> posibleStates;
 
-    public ChillingSettings chillingSettings;
-    public SearchingSettings searchingSettings;
-    public DetectedSettings detectedSettings;
 
     // Start is called before the first frame update
     void Start()
@@ -67,46 +64,14 @@ public class EnemyController : MonoBehaviour
     private void InitializeStates()
     {
         pathfinder = gameObject.AddComponent<Pathfinder>();
-        context = new(this,pathfinder,player,chillingSettings,searchingSettings,detectedSettings);
-
-        posibleStates = new Dictionary<EnemyStates, State>()
-        {
-            [EnemyStates.Chilling] = gameObject.AddComponent<ChillingState>(),
-            [EnemyStates.GoingAtSound] = gameObject.AddComponent<SearchingState>(),
-            [EnemyStates.Detected] = gameObject.AddComponent<DetectedState>(),
-        };
-        
+        context = new(this,pathfinder,player);
     }
 
     private void SetInitialState()
     {
-        currentState = detectedSettings.startOnDetected ? posibleStates[EnemyStates.Detected] : posibleStates[EnemyStates.Chilling];
+        currentState = posibleStates[defaultState];
         currentState.Enter(context);
     }
 
 
 }
-
-[System.Serializable]
-public class ChillingSettings
-{
-    public float patrollingSpeed = 200f;
-    public float minDistance = 0.1f;
-    public float searchingRadius = 5f;
-}
-
-[System.Serializable]
-public class SearchingSettings
-{
-    public float searchingSpeed = 300f;
-    public float minDistance = 0.1f;
-}
-
-[System.Serializable]
-public class DetectedSettings
-{
-    public float persectutionSpeed = 300f;
-    public float minDistance = 0.1f;
-    public bool startOnDetected = false;
-}
-

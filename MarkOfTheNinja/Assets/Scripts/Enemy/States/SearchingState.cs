@@ -1,15 +1,14 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
     public class SearchingState : State
     {
+        public float searchingSpeed = 300f;
+        public float minDistance = 0.1f;
+
+
         private Pathfinder pathfinder;
         private EnemyController parent;
         private readonly string _soundTag = "Sound";
@@ -38,8 +37,8 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void FixedDoImplementation()
         {
-            var speed = _lastRecivedContext.searchingSettings.searchingSpeed;
-            var minDistance = _lastRecivedContext.searchingSettings.minDistance;
+            var speed = this.searchingSpeed;
+            var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }
 

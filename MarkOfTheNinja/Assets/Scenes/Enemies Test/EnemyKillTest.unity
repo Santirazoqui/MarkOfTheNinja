@@ -122,6 +122,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &289704404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1188723507696010621, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+  m_PrefabInstance: {fileID: 955986308}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd8860a4679a1a4bb7929d55ff23035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &681570622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -205,9 +216,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 681570623}
     - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: detectedSettings.startOnDetected
+      propertyPath: defaultState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: posibleStates._serializedList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: posibleStates._serializedList.Array.data[1].Key
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: posibleStates._serializedList.Array.data[2].Key
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: posibleStates._serializedList.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 1646795457}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: posibleStates._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 1123513760}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: posibleStates._serializedList.Array.data[2].Value
+      value: 
+      objectReference: {fileID: 289704404}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.83953
@@ -287,6 +322,17 @@ Transform:
   - {fileID: 1505328549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1123513760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9165474255005956284, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+  m_PrefabInstance: {fileID: 955986308}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7897b4893332e3e45bccb7bd9fe2c637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1278356525
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +553,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4807466735839254512, guid: 9dd2e272789fc3c4685b35866f9aa44a, type: 3}
   m_PrefabInstance: {fileID: 1544398918}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1646795457 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9089575324707332882, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+  m_PrefabInstance: {fileID: 955986308}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c9267320a9abb4aa087f61b2411c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1723509670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,5 +632,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1278356528}
   - {fileID: 1033618771}
-  - {fileID: 955986308}
   - {fileID: 681570622}
+  - {fileID: 955986308}

@@ -46,4 +46,5 @@ public abstract class State : MonoBehaviour
     
     public virtual void CollitionEnter(Collision2D collision) { }
 
+    public void SetActive(bool value)  => gameObject.SetActive(value);
 }

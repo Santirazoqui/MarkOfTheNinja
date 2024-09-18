@@ -58,7 +58,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void UpdateSearchRadius(StateContext context)
         {
-            Debug.Log("Searching radius:" + searchingRadius);
+            //Debug.Log("Searching radius:" + searchingRadius);
             var x = initialPosition.x;
             searchingLimits[0] = x - searchingRadius;
             searchingLimits[1] = x + searchingRadius;
@@ -69,7 +69,7 @@ namespace Assets.Scripts.Enemy.States
         {
             var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
             pathfinder.SetDestination(target, SwitchTargets);
-            Debug.Log("Destination set");
+            //Debug.Log("Destination set");
         }
 
         private void SwitchTargets()
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Enemy.States
             if (!collidedWithASound) return;
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
-            parent.ChangeStates(EnemyController.EnemyStates.GoingAtSound,_lastRecivedContext);
+            parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);
         }
 
 

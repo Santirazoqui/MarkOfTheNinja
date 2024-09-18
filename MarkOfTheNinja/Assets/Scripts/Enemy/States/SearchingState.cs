@@ -44,7 +44,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void ChangeBackToChilling()
         {
-            parent.ChangeStates(EnemyController.EnemyStates.Chilling);
+            parent.ChangeStates(EnemyStates.Chilling);
         }
     }
 }

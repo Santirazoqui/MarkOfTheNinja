@@ -2,6 +2,10 @@ using Assets.Scripts.Enemy.Pathfinding;
 using Assets.Scripts.Enemy.States;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
+public enum EnemyStates
+{
+    Chilling, GoingAtSound, Detected
+}
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,10 +15,8 @@ public class EnemyController : MonoBehaviour
     private State currentState;
     private StateContext context;
     private Pathfinder pathfinder;
-    public enum EnemyStates
-    {
-        Chilling, GoingAtSound, Detected
-    }
+    private LevelManagerController levelManagerController;
+
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
 
@@ -22,10 +24,11 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         InitializeStates();
         SetInitialState();
+        SubscribeToLevelController();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -51,7 +54,9 @@ public class EnemyController : MonoBehaviour
     public void ChangeStates(EnemyStates state)
     {
         currentState.Exit(context);
+        currentState.SetActive(false);
         currentState = posibleStates[state];
+        currentState.SetActive(true);
         currentState.Enter(context);
     }
 
@@ -64,14 +69,22 @@ public class EnemyController : MonoBehaviour
     private void InitializeStates()
     {
         pathfinder = gameObject.AddComponent<Pathfinder>();
-        context = new(this,pathfinder,player);
+        levelManagerController = FindAnyObjectByType<LevelManagerController>();
+        context = new(this,pathfinder,player,levelManagerController);
+        foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 
     private void SetInitialState()
     {
         currentState = posibleStates[defaultState];
+        currentState.enabled = true;
         currentState.Enter(context);
     }
 
+    private void SubscribeToLevelController()
+    {
+        var controller = FindAnyObjectByType<LevelManagerController>();
+        controller.StateChanged += ChangeStates;
+    }
 
 }

@@ -12,20 +12,21 @@ namespace Assets.Scripts.Enemy.States
         private Pathfinder pathfinder;
         private EnemyController parent;
         private GameObject player;
+        private ILevelManager levelManagerController;
         
         private readonly string _playerTag = "Player";
 
         public override void CollitionEnter(Collision2D collision)
         {
-            HandlePlayerCollition(collision);
+            HandlePlayerCollition(collision.gameObject);
         }
 
-        private void HandlePlayerCollition(Collision2D collision)
+        private void HandlePlayerCollition(GameObject player)
         {
-            bool collidedWithPlayer = collision.gameObject.CompareTag(_playerTag);
+            bool collidedWithPlayer = player.CompareTag(_playerTag);
             if (!collidedWithPlayer) return;
-            KillPlayer(collision.gameObject);
-            parent.ChangeStates(EnemyController.EnemyStates.Chilling);
+            KillPlayer(player.gameObject);
+            levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 
         private void KillPlayer(GameObject player)
@@ -39,6 +40,7 @@ namespace Assets.Scripts.Enemy.States
             pathfinder = _lastRecivedContext.Pathfinder;
             parent = _lastRecivedContext.Parent;
             player = _lastRecivedContext.Player;
+            levelManagerController = _lastRecivedContext.LevelManagerController;
         }
 
         protected override void FixedDoImplementation()
@@ -50,5 +52,10 @@ namespace Assets.Scripts.Enemy.States
         }
 
         private void DoNothing() { }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            HandlePlayerCollition(collision.gameObject);
+        }
     }
 }

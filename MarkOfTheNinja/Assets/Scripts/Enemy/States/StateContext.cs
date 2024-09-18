@@ -9,12 +9,14 @@ namespace Assets.Scripts.Enemy.States
         public StateContext(EnemyController parent, 
                             Pathfinder pathfinder, 
                             GameObject player,
-                            LevelManagerController levelManager)
+                            LevelManagerController levelManager,
+                            EnemyAnimationController animation)
         {
             Parent = parent;
             Pathfinder = pathfinder;
             Player = player;
             LevelManagerController = levelManager;
+            AnimationController = animation;
         }
 
         public EnemyController Parent {  get; set; }    
@@ -22,5 +24,6 @@ namespace Assets.Scripts.Enemy.States
         public Pathfinder Pathfinder { get; set; }
         public GameObject Player { get; set; }  
         public ILevelManager LevelManagerController { get; set; }
+        public EnemyAnimationController AnimationController { get; set; }
     }
 }

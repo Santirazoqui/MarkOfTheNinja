@@ -677,9 +677,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7123457603394103045, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: m_Constraints
-      value: 4
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270506227756914554, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

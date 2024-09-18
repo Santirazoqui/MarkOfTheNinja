@@ -1,10 +1,12 @@
+using Assets.Scripts.Enemy;
 using Assets.Scripts.Enemy.Pathfinding;
 using Assets.Scripts.Enemy.States;
 using AYellowpaper.SerializedCollections;
+using System;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, Detected
+    Chilling, GoingAtSound, Detected, StayingStill
 }
 
 public class EnemyController : MonoBehaviour
@@ -16,6 +18,7 @@ public class EnemyController : MonoBehaviour
     private StateContext context;
     private Pathfinder pathfinder;
     private LevelManagerController levelManagerController;
+    private EnemyAnimationController enemyAnimationController;
 
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
@@ -24,9 +27,16 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitializeAnimator();
         InitializeStates();
         SetInitialState();
         SubscribeToLevelController();
+    }
+
+    private void InitializeAnimator()
+    {
+        enemyAnimationController = gameObject.AddComponent<EnemyAnimationController>();
+        enemyAnimationController.animator = GetComponent<Animator>();
     }
 
 
@@ -70,14 +80,18 @@ public class EnemyController : MonoBehaviour
     {
         pathfinder = gameObject.AddComponent<Pathfinder>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
-        context = new(this,pathfinder,player,levelManagerController);
+        context = new(this,
+                    pathfinder,
+                    player,
+                    levelManagerController, 
+                    enemyAnimationController);
         foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 
     private void SetInitialState()
     {
         currentState = posibleStates[defaultState];
-        currentState.enabled = true;
+        currentState.SetActive(true);
         currentState.Enter(context);
     }
 

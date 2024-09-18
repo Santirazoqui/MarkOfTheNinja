@@ -13,6 +13,7 @@ namespace Assets.Scripts.Enemy.States
         private EnemyController parent;
         private GameObject player;
         private ILevelManager levelManagerController;
+        private EnemyAnimationController animationController;
         
         private readonly string _playerTag = "Player";
 
@@ -26,12 +27,18 @@ namespace Assets.Scripts.Enemy.States
             bool collidedWithPlayer = player.CompareTag(_playerTag);
             if (!collidedWithPlayer) return;
             KillPlayer(player.gameObject);
-            levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 
         private void KillPlayer(GameObject player)
         {
+            animationController.Killing(PostKilling);
+            parent.ChangeStates(EnemyStates.StayingStill);
+        }
+
+        private void PostKilling()
+        {
             player.SetActive(false);
+            levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 
 
@@ -41,6 +48,7 @@ namespace Assets.Scripts.Enemy.States
             parent = _lastRecivedContext.Parent;
             player = _lastRecivedContext.Player;
             levelManagerController = _lastRecivedContext.LevelManagerController;
+            animationController = _lastRecivedContext.AnimationController;
         }
 
         protected override void FixedDoImplementation()

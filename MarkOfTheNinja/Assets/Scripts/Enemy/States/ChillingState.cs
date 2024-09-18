@@ -16,6 +16,7 @@ namespace Assets.Scripts.Enemy.States
         private int searchingIndex = 0;
         private readonly string _soundTag = "Sound";
         private EnemyController parent;
+        private EnemyAnimationController animationController;
 
         private bool initiated = false;
 
@@ -30,11 +31,13 @@ namespace Assets.Scripts.Enemy.States
             rb = parent.GetComponent<Rigidbody2D>();
             initialPosition = rb.position;
             initiated = true;
+            animationController = _lastRecivedContext.AnimationController;
         }
 
         protected override void EnterImplementation()
         {
-            FakeStart(); 
+            FakeStart();
+            PlayChillingAnimation();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
         }
@@ -96,6 +99,10 @@ namespace Assets.Scripts.Enemy.States
             parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);
         }
 
+        private void PlayChillingAnimation()
+        {
+            animationController.Walking();
+        }
 
     }
 

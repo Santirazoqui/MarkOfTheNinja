@@ -10,9 +10,6 @@ namespace Assets.Scripts.Enemy
     public class EnemyAnimationController : MonoBehaviour
     {
         public Animator animator;
-        private Action enquedAction;
-        private bool actionInQueue = false;
-        private string targetAnimationName = "";
         public enum AnimationStates
         {
             Chilling,
@@ -33,12 +30,9 @@ namespace Assets.Scripts.Enemy
             SetAnimationState(AnimationStates.Chilling);
         }
 
-        public void Killing(Action callBack)
+        public void Killing()
         {
             SetAnimationState(AnimationStates.Killing);
-            enquedAction = callBack;
-            actionInQueue = true;
-            targetAnimationName = "KillPlayerEnded";
         }
 
         public void Confused()
@@ -57,20 +51,6 @@ namespace Assets.Scripts.Enemy
 
         private void Update()
         {
-            CheckWhetherEnquedActionNeedsToBeCalled();
-        }
-
-        /// <summary>
-        /// Se fija si se llego al estado deseado (en el animator) y se llama al callback
-        /// </summary>
-        private void CheckWhetherEnquedActionNeedsToBeCalled()
-        {
-            if (!actionInQueue) return;
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName(targetAnimationName))
-            {
-                actionInQueue = false;
-                enquedAction();
-            }
         }
     }
 }

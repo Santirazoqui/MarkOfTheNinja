@@ -50,8 +50,9 @@ public abstract class State : MonoBehaviour
     public virtual void PlayerIsBeingSeen() { }
 
     public virtual void PlayerLeftVisionRadius(Vector2 lastPlayerPosition) { }
+    public virtual void AnimationEventFired(string eventDescription) { }
 
     public void SetActive(bool value) => gameObject.SetActive(value);
 
-
+    
 }

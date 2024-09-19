@@ -77,7 +77,6 @@ namespace Assets.Scripts.Enemy.States
 
         private void SwitchTargets()
         {
-            Debug.Log("Switch targets called");
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;

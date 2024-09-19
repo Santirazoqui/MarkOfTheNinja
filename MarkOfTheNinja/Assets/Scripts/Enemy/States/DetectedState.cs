@@ -15,8 +15,10 @@ namespace Assets.Scripts.Enemy.States
         private GameObject player;
         private ILevelManager levelManagerController;
         private EnemyAnimationController animationController;
+        private bool killingPlayer = false;
         
-        private readonly string _playerTag = "Player";
+        public string playerTag = "Player";
+        public string animationEventForKillingPlayer = "playerKilled";
 
         public override void CollitionEnter(Collision2D collision)
         {
@@ -25,15 +27,22 @@ namespace Assets.Scripts.Enemy.States
 
         private void HandlePlayerCollition(GameObject player)
         {
-            bool collidedWithPlayer = player.CompareTag(_playerTag);
+            bool collidedWithPlayer = player.CompareTag(playerTag);
             if (!collidedWithPlayer) return;
             KillPlayer(player.gameObject);
         }
 
         private void KillPlayer(GameObject player)
         {
-            animationController.Killing(PostKilling);
-            parent.ChangeStates(EnemyStates.StayingStill);
+            animationController.Killing();
+            killingPlayer = true;
+        }
+
+        public override void AnimationEventFired(string eventDescription)
+        {
+            Debug.Log("Animation event fired");
+            if (eventDescription != animationEventForKillingPlayer) return;
+            PostKilling();
         }
 
         private void PostKilling()
@@ -60,6 +69,11 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void FixedDoImplementation()
         {
+            if (killingPlayer)
+            {
+                pathfinder.AdjustPosition(0, 0);
+                return;
+            }
             pathfinder.SetDestination(player.transform.position, DoNothing);
             var speed = persectutionSpeed;
             var minDistance = this.minDistance;

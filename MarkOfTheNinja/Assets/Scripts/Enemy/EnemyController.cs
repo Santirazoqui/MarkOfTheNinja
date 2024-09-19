@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, Detected, StayingStill, Confused
+    Chilling, GoingAtSound, Detected, Confused
 }
 
 public class EnemyController : MonoBehaviour
@@ -84,6 +84,12 @@ public class EnemyController : MonoBehaviour
     public void PlayerLeftVisionRadius(Vector2 lastPlayerPosition)
     {
         currentState.PlayerLeftVisionRadius(lastPlayerPosition);
+    }
+
+    public void AnimationEventFired(string eventDescription)
+    {
+        Debug.Log("Event was fired from enemy controller");
+        currentState.AnimationEventFired(eventDescription);
     }
 
     private void InitializeStates()

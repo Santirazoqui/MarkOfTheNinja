@@ -17,10 +17,13 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private bool tourchingBorder;
         private readonly string _wallsLayer = "Walls";
         private readonly string _enemyWalls = "EnemyWall";
+        private Vector2 _previusPosition;
+        private Vector2 _previusVelocity;
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
             this.onReached = onReached;
+            Debug.Log("Position Reajusted");
         }
 
         public void AdjustPosition(float speed, float minDistance)
@@ -70,8 +73,35 @@ namespace Assets.Scripts.Enemy.Pathfinding
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            CollisionLogic();
+        }
+
+        private void FixedUpdate()
+        {
+            UnstuckingMechanism();
+        }
+
+        private void UnstuckingMechanism()
+        {
+            if (Stuck())
+            {
+                onReached();
+            }
+            _previusPosition = rb.position;
+            _previusVelocity = rb.velocity;
+        }
+
+        private bool Stuck()
+        {
+            bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == rb.position.x;
+            bool sameVelocity = _previusVelocity == rb.velocity;
+            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity;
+        }
+
+        private void CollisionLogic()
+        {
             var collider = GetComponentInParent<BoxCollider2D>();
-            if (collider.IsTouchingLayers(LayerMask.GetMask(_wallsLayer)) 
+            if (collider.IsTouchingLayers(LayerMask.GetMask(_wallsLayer))
                 || collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)))
             {
                 onReached();

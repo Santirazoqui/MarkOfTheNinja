@@ -47,7 +47,6 @@ namespace Assets.Scripts.Enemy.States
 
         private void PostKilling()
         {
-            
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 

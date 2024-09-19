@@ -24,7 +24,7 @@ namespace Assets.Scripts.Enemy.States
             bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
             if (!collidedWithASound) return;
             var soundOrigin = collision.gameObject.transform.position;
-            pathfinder.SetDestination(soundOrigin, ChangeBackToChilling);
+            pathfinder.SetDestination(soundOrigin, StartSearchAtSound);
         }
 
 
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Enemy.States
             pathfinder = _lastRecivedContext.Pathfinder;
             parent = _lastRecivedContext.Parent;
 
-            pathfinder.SetDestination(_lastRecivedContext.SoundPosition, ChangeBackToChilling);
+            pathfinder.SetDestination(_lastRecivedContext.SoundPosition, StartSearchAtSound);
             PlaySearchingAnimation();
         }
 
@@ -49,9 +49,9 @@ namespace Assets.Scripts.Enemy.States
             pathfinder.AdjustPosition(speed, minDistance);
         }
 
-        private void ChangeBackToChilling()
+        private void StartSearchAtSound()
         {
-            parent.ChangeStates(EnemyStates.Chilling);
+            parent.ChangeStates(EnemyStates.SearchingAtSound);
         }
     }
 }

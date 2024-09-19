@@ -36,18 +36,18 @@ namespace Assets.Scripts.Enemy.States
         {
             animationController.Killing();
             killingPlayer = true;
+            player.SetActive(false);
         }
 
         public override void AnimationEventFired(string eventDescription)
         {
-            Debug.Log("Animation event fired");
             if (eventDescription != animationEventForKillingPlayer) return;
             PostKilling();
         }
 
         private void PostKilling()
         {
-            player.SetActive(false);
+            
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 

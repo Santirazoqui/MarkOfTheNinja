@@ -183,17 +183,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dd2e272789fc3c4685b35866f9aa44a, type: 3}
---- !u!114 &233211456 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1188723507696010621, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-  m_PrefabInstance: {fileID: 1889003017}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd8860a4679a1a4bb7929d55ff23035, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &297276220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8084908797343329561, guid: ec793c13807d2e44497f42bd74944f1f, type: 3}
@@ -648,30 +637,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 577562281}
-    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: posibleStates._serializedList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: posibleStates._serializedList.Array.data[1].Key
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: posibleStates._serializedList.Array.data[2].Key
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: posibleStates._serializedList.Array.data[3].Key
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: posibleStates._serializedList.Array.data[2].Value
-      value: 
-      objectReference: {fileID: 2018673113}
-    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: posibleStates._serializedList.Array.data[3].Value
-      value: 
-      objectReference: {fileID: 233211456}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.9
@@ -752,17 +717,6 @@ Transform:
   - {fileID: 297276220}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2018673113 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9165474255005956284, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-  m_PrefabInstance: {fileID: 1889003017}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7897b4893332e3e45bccb7bd9fe2c637, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2100791691
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -57,6 +57,8 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value: {fileID: 9089575324707332882}
+    - Key: 4
+      Value: {fileID: 7839150326594544434}
     - Key: 3
       Value: {fileID: 2481716233836918489}
     - Key: 1
@@ -241,6 +243,7 @@ Transform:
   - {fileID: 3003711435960527670}
   - {fileID: 5252903184881649125}
   - {fileID: 5744273213632803953}
+  - {fileID: 6643374547508646116}
   m_Father: {fileID: 3193901619000172416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2352182784217460636
@@ -565,6 +568,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5406918578257683185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6643374547508646116}
+  - component: {fileID: 7839150326594544434}
+  m_Layer: 7
+  m_Name: SearchingAtSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6643374547508646116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5406918578257683185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8771445255682488135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7839150326594544434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5406918578257683185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477fd6edfee336f499cbe22611438e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationEndedEventName: searchAnimationEnded
 --- !u!1 &7979735365975301385
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   persectutionSpeed: 300
   minDistance: 0.1
+  playerTag: Player
+  animationEventForKillingPlayer: playerKilled
 --- !u!61 &9222602194335485337
 BoxCollider2D:
   m_ObjectHideFlags: 0

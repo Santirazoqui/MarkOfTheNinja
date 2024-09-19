@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, Detected, Confused
+    Chilling, GoingAtSound, Detected, Confused, SearchingAtSound
 }
 
 public class EnemyController : MonoBehaviour

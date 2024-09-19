@@ -14,13 +14,15 @@ namespace Assets.Scripts.Enemy
         {
             Chilling,
             Killing,
-            Confused
+            Confused,
+            SearchingAtSound
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
             { AnimationStates.Chilling, "Chill" },
             { AnimationStates.Killing, "Kill"},
-            { AnimationStates.Confused, "Confused"}
+            { AnimationStates.Confused, "Confused"},
+            { AnimationStates.SearchingAtSound, "Searching" }
         };
 
 
@@ -38,6 +40,11 @@ namespace Assets.Scripts.Enemy
         public void Confused()
         {
             SetAnimationState(AnimationStates.Confused);
+        }
+
+        public void SearchAtSound()
+        {
+            SetAnimationState(AnimationStates.SearchingAtSound);
         }
 
         private void SetAnimationState(AnimationStates state)

@@ -16,12 +16,14 @@ namespace Assets.Scripts.Enemy
         public enum AnimationStates
         {
             Chilling,
-            Killing
+            Killing,
+            Confused
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
             { AnimationStates.Chilling, "Chill" },
-            { AnimationStates.Killing, "Kill"}
+            { AnimationStates.Killing, "Kill"},
+            { AnimationStates.Confused, "Confused"}
         };
 
 
@@ -39,6 +41,11 @@ namespace Assets.Scripts.Enemy
             targetAnimationName = "KillPlayerEnded";
         }
 
+        public void Confused()
+        {
+            SetAnimationState(AnimationStates.Confused);
+        }
+
         private void SetAnimationState(AnimationStates state)
         {
             foreach (var (s, n) in mapper)
@@ -49,6 +56,14 @@ namespace Assets.Scripts.Enemy
         }
 
         private void Update()
+        {
+            CheckWhetherEnquedActionNeedsToBeCalled();
+        }
+
+        /// <summary>
+        /// Se fija si se llego al estado deseado (en el animator) y se llama al callback
+        /// </summary>
+        private void CheckWhetherEnquedActionNeedsToBeCalled()
         {
             if (!actionInQueue) return;
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(targetAnimationName))

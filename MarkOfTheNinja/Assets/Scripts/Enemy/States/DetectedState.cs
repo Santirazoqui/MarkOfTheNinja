@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
@@ -9,7 +10,7 @@ namespace Assets.Scripts.Enemy.States
         public float minDistance = 0.1f;
 
 
-        private Pathfinder pathfinder;
+        private IPathfinder pathfinder;
         private EnemyController parent;
         private GameObject player;
         private ILevelManager levelManagerController;
@@ -49,6 +50,12 @@ namespace Assets.Scripts.Enemy.States
             player = _lastRecivedContext.Player;
             levelManagerController = _lastRecivedContext.LevelManagerController;
             animationController = _lastRecivedContext.AnimationController;
+            PlayDetectedAnimation();
+        }
+
+        private void PlayDetectedAnimation()
+        {
+            animationController.Walking();
         }
 
         protected override void FixedDoImplementation()
@@ -59,11 +66,15 @@ namespace Assets.Scripts.Enemy.States
             pathfinder.AdjustPosition(speed,minDistance);
         }
 
+
+
         private void DoNothing() { }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             HandlePlayerCollition(collision.gameObject);
         }
+
+
     }
 }

@@ -36,7 +36,6 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
     {
         if (Detected) return;
         DetectionRate += detectionRate * multiplier * Time.deltaTime;
-        Debug.Log(DetectionRate);
         if (DetectionRate >= 100)
         {
             DetectionRate = 100;

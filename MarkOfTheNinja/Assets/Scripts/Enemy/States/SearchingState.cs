@@ -1,15 +1,16 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class SearchingState : State
+    public class SearchingState : NonDetectedState
     {
         public float searchingSpeed = 300f;
         public float minDistance = 0.1f;
 
 
-        private Pathfinder pathfinder;
+        private IPathfinder pathfinder;
         private EnemyController parent;
         private readonly string _soundTag = "Sound";
 
@@ -33,6 +34,12 @@ namespace Assets.Scripts.Enemy.States
             parent = _lastRecivedContext.Parent;
 
             pathfinder.SetDestination(_lastRecivedContext.SoundPosition, ChangeBackToChilling);
+            PlaySearchingAnimation();
+        }
+
+        private void PlaySearchingAnimation()
+        {
+            _lastRecivedContext.AnimationController.Walking();
         }
 
         protected override void FixedDoImplementation()

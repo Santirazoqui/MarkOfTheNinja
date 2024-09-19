@@ -21,7 +21,7 @@ namespace Assets.Scripts.Enemy.States
 
         public EnemyController Parent {  get; set; }    
         public Vector2 SoundPosition {  get; set; } 
-        public Pathfinder Pathfinder { get; set; }
+        public IPathfinder Pathfinder { get; set; }
         public GameObject Player { get; set; }  
         public ILevelManager LevelManagerController { get; set; }
         public EnemyAnimationController AnimationController { get; set; }

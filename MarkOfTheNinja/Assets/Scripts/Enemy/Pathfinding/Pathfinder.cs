@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.Pathfinding
 {
-    public class Pathfinder:MonoBehaviour
+    public class Pathfinder:MonoBehaviour, IPathfinder
     {
         public Vector2 targetPosition;
 
@@ -91,5 +91,11 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
 
 
+    }
+
+    public interface IPathfinder
+    {
+        void SetDestination(Vector2 destination, Action onReached);
+        void AdjustPosition(float speed, float minDistance);
     }
 }

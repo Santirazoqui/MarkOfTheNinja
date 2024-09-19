@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class ChillingState : State
+    public class ChillingState : NonDetectedState
     {
         public float patrollingSpeed = 200f;
         public float minDistance = 0.1f;
         public float searchingRadius = 5f;
 
         private Vector2 initialPosition;
-        private Pathfinder pathfinder;
+        private IPathfinder pathfinder;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;

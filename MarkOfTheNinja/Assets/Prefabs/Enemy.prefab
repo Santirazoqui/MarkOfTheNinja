@@ -57,6 +57,8 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value: {fileID: 9089575324707332882}
+    - Key: 4
+      Value: {fileID: 2481716233836918489}
     - Key: 3
       Value: {fileID: 7126414609986803135}
     - Key: 1
@@ -120,7 +122,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000000
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
@@ -241,6 +243,7 @@ Transform:
   - {fileID: 3003711435960527670}
   - {fileID: 5252903184881649125}
   - {fileID: 718412270581728924}
+  - {fileID: 5744273213632803953}
   m_Father: {fileID: 3193901619000172416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1826686281386673160
@@ -287,6 +290,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d665dd36f30a840886d21cb2684ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2352182784217460636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5744273213632803953}
+  - component: {fileID: 2481716233836918489}
+  m_Layer: 7
+  m_Name: Confused
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5744273213632803953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352182784217460636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8771445255682488135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2481716233836918489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352182784217460636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88df7da7fd64c904c90fb6981d14c0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownAfterPlayerLeavesFOV: 1
 --- !u!1 &3235897941253026979
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrollingSpeed: 200
   minDistance: 0.1
-  searchingRadius: 20
+  searchingRadius: 5
 --- !u!1 &3647597139210223633
 GameObject:
   m_ObjectHideFlags: 0

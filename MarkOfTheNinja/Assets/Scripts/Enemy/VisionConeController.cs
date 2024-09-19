@@ -16,6 +16,11 @@ public class VisionConeController : MonoBehaviour
     {
         PlayerWasSeen(collision);
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        PlayerLeftVisionRadius(collision);
+    }
     void Start()
     {
         
@@ -35,6 +40,14 @@ public class VisionConeController : MonoBehaviour
         var enemyPosition = enemy.transform.position;
         var playerPosition = collision.gameObject.transform.position;
         float distance = Vector2.Distance(enemyPosition, playerPosition);
+        enemy.PlayerIsBeingSeen();
         levelManager.PlayerIsBeingSeen(distance);
+    }
+
+    private void PlayerLeftVisionRadius(Collider2D collision)
+    {
+        if (!collision.gameObject.CompareTag(playerTag)) return;
+        var enemy = GetComponentInParent<EnemyController>();
+        enemy.PlayerLeftVisionRadius(collision.gameObject.transform.position);
     }
 }

@@ -534,7 +534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundType: {fileID: 6190716470552032698, guid: e5dc54f4c9c3ba8429116c202bd612be, type: 3}
   soundLifeExpectancy: 2
-  radius: 30
+  radius: 10
 --- !u!4 &2047020724
 Transform:
   m_ObjectHideFlags: 0

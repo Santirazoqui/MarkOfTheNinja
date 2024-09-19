@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d15921ff5d2a3f498fdc0c4d41b7f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualDetectionRate: 100
+  visualDetectionRate: 1
   audioDetectionRate: 50
 --- !u!1001 &577562280
 PrefabInstance:

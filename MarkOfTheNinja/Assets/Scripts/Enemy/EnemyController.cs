@@ -86,9 +86,10 @@ public class EnemyController : MonoBehaviour
         currentState.PlayerLeftVisionRadius(lastPlayerPosition);
     }
 
+
+    //NO BORRAR - LO USAN LAS ANIMACIONES 
     public void AnimationEventFired(string eventDescription)
     {
-        Debug.Log("Event was fired from enemy controller");
         currentState.AnimationEventFired(eventDescription);
     }
 

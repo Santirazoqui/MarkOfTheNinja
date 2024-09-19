@@ -21,6 +21,12 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
         StateChanged?.Invoke(state);
     }
     
+    public void PlayerWasInstaDetected()
+    {
+        DetectionRate = 100;
+        EnterDetectedPhase();
+    }
+
     public void PlayerIsBeingSeen(float distance)
     {
         var multiplier = distance != 0 ? 1 / distance : 1;

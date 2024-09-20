@@ -1,3 +1,4 @@
+using Assets.Scripts.Util;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,7 @@ public class VisionConeController : MonoBehaviour
         if (!collision.gameObject.CompareTag(playerTag)) return;
         levelManager = FindAnyObjectByType<LevelManagerController>();
         var enemy = GetComponentInParent<EnemyController>();
+        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject)) return;
         var enemyPosition = enemy.transform.position;
         var playerPosition = collision.gameObject.transform.position;
         float distance = Vector2.Distance(enemyPosition, playerPosition);
@@ -48,6 +50,7 @@ public class VisionConeController : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag(playerTag)) return;
         var enemy = GetComponentInParent<EnemyController>();
+        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject)) return;
         enemy.PlayerLeftVisionRadius(collision.gameObject.transform.position);
     }
 }

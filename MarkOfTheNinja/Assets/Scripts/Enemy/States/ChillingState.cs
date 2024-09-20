@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
@@ -93,6 +94,7 @@ namespace Assets.Scripts.Enemy.States
         {
             bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
             if (!collidedWithASound) return;
+            if (ObjectDetector.AnyObjectsBetween(parent.gameObject, collision.gameObject)) return;
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
             parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);

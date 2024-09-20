@@ -7,14 +7,18 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float jumpSpeed = 10f;
+    [SerializeField] AudioClip[] jumpSounds;
 
     CapsuleCollider2D myBodyCollider;
+    AudioSource myAudioSource;
+
     public bool isAlive = true;
 
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -52,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
         if(value.isPressed)
         {
             myRigidbody.velocity += new Vector2(0f, jumpSpeed);
+            int randomIndex = Random.Range(0, jumpSounds.Length);
+            AudioClip randomJumpSound = jumpSounds[randomIndex];
+            myAudioSource.PlayOneShot(randomJumpSound);
         }
     }
 }

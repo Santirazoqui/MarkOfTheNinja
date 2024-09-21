@@ -194,6 +194,11 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 57078791}
+--- !u!1 &17783056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2087585520791709963, guid: 928d80a6e8597eb40a56bd90d1725157, type: 3}
+  m_PrefabInstance: {fileID: 1927677066702646099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &57078790
 GameObject:
   m_ObjectHideFlags: 3
@@ -2933,6 +2938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 17783056}
     - target: {fileID: 3193901619000172416, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.0575514

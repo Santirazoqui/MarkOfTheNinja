@@ -23,7 +23,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             targetPosition = target;
             this.onReached = onReached;
-            Debug.Log("Position Reajusted");
+            //Debug.Log("Position Reajusted");
         }
 
         public void AdjustPosition(float speed, float minDistance)

@@ -1,4 +1,5 @@
 using Assets.Scripts.Enemy.States;
+using System;
 using UnityEngine;
 
 public abstract class State : MonoBehaviour
@@ -43,8 +44,15 @@ public abstract class State : MonoBehaviour
 
     protected virtual void ExitImplementation() { }
     public virtual void TriggerEnter(Collider2D collision) { }
-    
+
     public virtual void CollitionEnter(Collision2D collision) { }
 
-    public void SetActive(bool value)  => gameObject.SetActive(value);
+    public virtual void PlayerIsBeingSeen() { }
+
+    public virtual void PlayerLeftVisionRadius(Vector2 lastPlayerPosition) { }
+    public virtual void AnimationEventFired(string eventDescription) { }
+
+    public void SetActive(bool value) => gameObject.SetActive(value);
+
+    
 }

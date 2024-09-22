@@ -1,16 +1,17 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class ChillingState : State
+    public class ChillingState : NonDetectedState
     {
         public float patrollingSpeed = 200f;
         public float minDistance = 0.1f;
         public float searchingRadius = 5f;
 
         private Vector2 initialPosition;
-        private Pathfinder pathfinder;
+        private IPathfinder pathfinder;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
@@ -77,7 +78,6 @@ namespace Assets.Scripts.Enemy.States
 
         private void SwitchTargets()
         {
-            Debug.Log("Switch targets called");
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;
@@ -94,6 +94,7 @@ namespace Assets.Scripts.Enemy.States
         {
             bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
             if (!collidedWithASound) return;
+            if (ObjectDetector.AnyObjectsBetween(parent.gameObject, collision.gameObject)) return;
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
             parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);

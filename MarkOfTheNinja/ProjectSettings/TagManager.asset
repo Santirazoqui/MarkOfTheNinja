@@ -46,6 +46,15 @@ TagManager:
   - name: Background
     uniqueID: 785242395
     locked: 0
+  - name: Platforms
+    uniqueID: 3768839077
+    locked: 0
+  - name: Enemies
+    uniqueID: 3395727097
+    locked: 0
+  - name: Player
+    uniqueID: 3285007015
+    locked: 0
   - name: Middle
     uniqueID: 3715598827
     locked: 0

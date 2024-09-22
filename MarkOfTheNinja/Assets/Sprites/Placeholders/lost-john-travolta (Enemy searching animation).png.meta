@@ -1,0 +1,1060 @@
+fileFormatVersion: 2
+guid: 1347711fc8d7e76479b0c76dc0f15190
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1696
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b2c8915c9e53da4e99bf9408f1617a4
+      internalID: -145968212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_1
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 1696
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c1789468fe1321408717069fe158a26
+      internalID: -1193640809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_2
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 1696
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea56bf6292535ee45adc9fde3c27904f
+      internalID: -693521379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_3
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 1696
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ffa7047926d42c4b8194da15952941b
+      internalID: 94896875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_4
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 1696
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 452c37767cfe49642866186eb80c734a
+      internalID: -1628048534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1484
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c67c331e3a6b1764fbc8907c171aa0a7
+      internalID: 1599014157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_6
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 1484
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4013243a6b55afa42aa434a0a2c33334
+      internalID: -1395301390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_7
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 1484
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed94fd36c777cb442afe0bf6c6dafc78
+      internalID: -1326924420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_8
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 1484
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 730141e5dee2aff4b9787346fb9f5a08
+      internalID: -1162322098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_9
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 1484
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27cd14de811434744a055b2b89c8bd7c
+      internalID: 1424926510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1272
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e691557945a1c468251bd04a530139
+      internalID: -1360688566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_11
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 1272
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e95fbd062103c5d42a04d0ac1376601a
+      internalID: -1324122785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_12
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 1272
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000ba815682a7c84d9a958be63613a55
+      internalID: -926412415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_13
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 1272
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16da0304e078d904d9f66c1e5b8d9dab
+      internalID: 1080710887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_14
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 1272
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6e52bccd8abf80499e5ad07d0f4739f
+      internalID: -2050274561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1060
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914624df9488d93469552eed76019d59
+      internalID: -2112355227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_16
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 1060
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a75890a465fa6346be1e21e4119af8d
+      internalID: -1337288781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_17
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 1060
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bce1996a9722ed46a89505dbd4f47a9
+      internalID: 1272869797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_18
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 1060
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88a2269f0e4eb054b81a604a8165aabc
+      internalID: -1588367585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_19
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 1060
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4289db291c7b25849ac8c9e3e2abe0e3
+      internalID: -1704992522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 848
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bacd8cb77f4353c4c97bdd4e17a0da11
+      internalID: -496427675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_21
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 848
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a58b041eccd99d43bb14412b4ec4878
+      internalID: -114649225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_22
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 848
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d179e14b2dab7484e9b345ab70e6e182
+      internalID: 496244218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_23
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 848
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d259ed0bf93b7444c907a4daa25206d7
+      internalID: 460337136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_24
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 848
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff13f08c21889c9449d40fcabae0e939
+      internalID: -1026019442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 636
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c64bb62d0c9fe4698bfa44bc31d489
+      internalID: -1911631457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_26
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 636
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7605c7885a88fb347bc7aebb316b4c7b
+      internalID: -2066273554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_27
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 636
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2b4fe2f09884d74896691f215826e3f
+      internalID: 510175998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_28
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 636
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a473c1129917147883d398a35109df
+      internalID: -1619338691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_29
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 636
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77595d0356599434cad73ec4c7da86f8
+      internalID: -645616370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 424
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ccb5f8b1630d3149898808f38585c88
+      internalID: 1311992344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_31
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 424
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c882659133284e547a8ecff8f744c6d9
+      internalID: -590766069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_32
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 424
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7f01c85e5c3c14ba9272334e17f84b
+      internalID: 1598885326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_33
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 424
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9490586a9c18e1d44b4cfc6101d0ad9d
+      internalID: 84768264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_34
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 424
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db296d2489772cf45a29a01e68778666
+      internalID: -832947954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 212
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce8d8cb4205e2a46b7151c609c893e4
+      internalID: -1137716871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_36
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 212
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c73c41b4342354ea8d4a740bf387d1
+      internalID: 907558932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_37
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 212
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c53de42e20bfa74488142b776cf9e563
+      internalID: -478559232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_38
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 212
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd8cd8545687c74fb2d95b24ef35204
+      internalID: -1674801438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_39
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 212
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3baf71d938fb7bb4589ac776343b618f
+      internalID: 1354595662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54356fc0d53d22b44a9ec506eb4eba70
+      internalID: 721003222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_41
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 0
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 972286a7267f8954cb6a3e0dc8268981
+      internalID: 848422647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lost-john-travolta (Enemy searching animation)_42
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 0
+        width: 220
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21735d582fc22694d9b2c5d88afbea78
+      internalID: 830596169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      lost-john-travolta (Enemy searching animation)_0: -145968212
+      lost-john-travolta (Enemy searching animation)_1: -1193640809
+      lost-john-travolta (Enemy searching animation)_10: -1360688566
+      lost-john-travolta (Enemy searching animation)_11: -1324122785
+      lost-john-travolta (Enemy searching animation)_12: -926412415
+      lost-john-travolta (Enemy searching animation)_13: 1080710887
+      lost-john-travolta (Enemy searching animation)_14: -2050274561
+      lost-john-travolta (Enemy searching animation)_15: -2112355227
+      lost-john-travolta (Enemy searching animation)_16: -1337288781
+      lost-john-travolta (Enemy searching animation)_17: 1272869797
+      lost-john-travolta (Enemy searching animation)_18: -1588367585
+      lost-john-travolta (Enemy searching animation)_19: -1704992522
+      lost-john-travolta (Enemy searching animation)_2: -693521379
+      lost-john-travolta (Enemy searching animation)_20: -496427675
+      lost-john-travolta (Enemy searching animation)_21: -114649225
+      lost-john-travolta (Enemy searching animation)_22: 496244218
+      lost-john-travolta (Enemy searching animation)_23: 460337136
+      lost-john-travolta (Enemy searching animation)_24: -1026019442
+      lost-john-travolta (Enemy searching animation)_25: -1911631457
+      lost-john-travolta (Enemy searching animation)_26: -2066273554
+      lost-john-travolta (Enemy searching animation)_27: 510175998
+      lost-john-travolta (Enemy searching animation)_28: -1619338691
+      lost-john-travolta (Enemy searching animation)_29: -645616370
+      lost-john-travolta (Enemy searching animation)_3: 94896875
+      lost-john-travolta (Enemy searching animation)_30: 1311992344
+      lost-john-travolta (Enemy searching animation)_31: -590766069
+      lost-john-travolta (Enemy searching animation)_32: 1598885326
+      lost-john-travolta (Enemy searching animation)_33: 84768264
+      lost-john-travolta (Enemy searching animation)_34: -832947954
+      lost-john-travolta (Enemy searching animation)_35: -1137716871
+      lost-john-travolta (Enemy searching animation)_36: 907558932
+      lost-john-travolta (Enemy searching animation)_37: -478559232
+      lost-john-travolta (Enemy searching animation)_38: -1674801438
+      lost-john-travolta (Enemy searching animation)_39: 1354595662
+      lost-john-travolta (Enemy searching animation)_4: -1628048534
+      lost-john-travolta (Enemy searching animation)_40: 721003222
+      lost-john-travolta (Enemy searching animation)_41: 848422647
+      lost-john-travolta (Enemy searching animation)_42: 830596169
+      lost-john-travolta (Enemy searching animation)_5: 1599014157
+      lost-john-travolta (Enemy searching animation)_6: -1395301390
+      lost-john-travolta (Enemy searching animation)_7: -1326924420
+      lost-john-travolta (Enemy searching animation)_8: -1162322098
+      lost-john-travolta (Enemy searching animation)_9: 1424926510
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

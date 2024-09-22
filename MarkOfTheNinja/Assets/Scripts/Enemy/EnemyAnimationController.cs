@@ -10,18 +10,19 @@ namespace Assets.Scripts.Enemy
     public class EnemyAnimationController : MonoBehaviour
     {
         public Animator animator;
-        private Action enquedAction;
-        private bool actionInQueue = false;
-        private string targetAnimationName = "";
         public enum AnimationStates
         {
             Chilling,
-            Killing
+            Killing,
+            Confused,
+            SearchingAtSound
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
             { AnimationStates.Chilling, "Chill" },
-            { AnimationStates.Killing, "Kill"}
+            { AnimationStates.Killing, "Kill"},
+            { AnimationStates.Confused, "Confused"},
+            { AnimationStates.SearchingAtSound, "Searching" }
         };
 
 
@@ -31,12 +32,19 @@ namespace Assets.Scripts.Enemy
             SetAnimationState(AnimationStates.Chilling);
         }
 
-        public void Killing(Action callBack)
+        public void Killing()
         {
             SetAnimationState(AnimationStates.Killing);
-            enquedAction = callBack;
-            actionInQueue = true;
-            targetAnimationName = "KillPlayerEnded";
+        }
+
+        public void Confused()
+        {
+            SetAnimationState(AnimationStates.Confused);
+        }
+
+        public void SearchAtSound()
+        {
+            SetAnimationState(AnimationStates.SearchingAtSound);
         }
 
         private void SetAnimationState(AnimationStates state)
@@ -50,12 +58,6 @@ namespace Assets.Scripts.Enemy
 
         private void Update()
         {
-            if (!actionInQueue) return;
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName(targetAnimationName))
-            {
-                actionInQueue = false;
-                enquedAction();
-            }
         }
     }
 }

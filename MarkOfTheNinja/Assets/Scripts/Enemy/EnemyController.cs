@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, Detected, StayingStill
+    Chilling, GoingAtSound, Detected, Confused, SearchingAtSound
 }
 
 public class EnemyController : MonoBehaviour
@@ -74,6 +74,23 @@ public class EnemyController : MonoBehaviour
     {
         this.context = context;
         ChangeStates(state);
+    }
+
+    public void PlayerIsBeingSeen()
+    {
+        currentState.PlayerIsBeingSeen();
+    }
+
+    public void PlayerLeftVisionRadius(Vector2 lastPlayerPosition)
+    {
+        currentState.PlayerLeftVisionRadius(lastPlayerPosition);
+    }
+
+
+    //NO BORRAR - LO USAN LAS ANIMACIONES 
+    public void AnimationEventFired(string eventDescription)
+    {
+        currentState.AnimationEventFired(eventDescription);
     }
 
     private void InitializeStates()

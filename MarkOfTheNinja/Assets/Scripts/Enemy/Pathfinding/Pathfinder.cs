@@ -12,7 +12,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
     {
         public Vector2 targetPosition;
 
-        Rigidbody2D rb;
+        Rigidbody2D myRigidbody;
         private Action onReached;
         private bool tourchingBorder;
         private readonly string _wallsLayer = "Walls";
@@ -34,30 +34,35 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
-            targetPosition = rb.position;
+            myRigidbody = GetComponent<Rigidbody2D>();
+            targetPosition = myRigidbody.position;
         }
 
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
             if (AnyOfTheGlobalsAreNull()) return;
-            bool lookingRight = rb.velocity.x >= 0.1f;
+            bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+            if(playerHasHorizontalSpedd)
+            {
+                transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x), transform.localScale.y);
+            }
+            /*bool lookingRight = rb.velocity.x >= 0.1f;
             bool lookingLeft = rb.velocity.x <= -0.1f;
             if (lookingRight)
             {
-                transform.localScale = Vector3.one;
+                transform.localScale.x = 1;
             }
             else if (lookingLeft)
             {
-                transform.localScale = new Vector3(-1,1,1);
-            }
+                transform.localScale.x = -1;
+            }*/
         }
 
         private void ReajustPosition(float speed, float minDistance)
         {
             if (AnyOfTheGlobalsAreNull()) return;
 
-            float distance = targetPosition.x - rb.position.x;
+            float distance = targetPosition.x - myRigidbody.position.x;
             bool closeEnough = Math.Abs(distance) < minDistance;
             if (closeEnough) {
                 ResetVelocity();
@@ -68,7 +73,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
             float direction = Math.Sign(distance);
             float velocity = speed * Time.deltaTime * direction;
 
-            rb.velocity = new Vector2(velocity, rb.velocity.y);
+            myRigidbody.velocity = new Vector2(velocity, myRigidbody.velocity.y);
         }
         
         private void OnCollisionEnter2D(Collision2D collision)
@@ -87,14 +92,14 @@ namespace Assets.Scripts.Enemy.Pathfinding
             {
                 onReached();
             }
-            _previusPosition = rb.position;
-            _previusVelocity = rb.velocity;
+            _previusPosition = myRigidbody.position;
+            _previusVelocity = myRigidbody.velocity;
         }
 
         private bool Stuck()
         {
-            bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == rb.position.x;
-            bool sameVelocity = _previusVelocity == rb.velocity;
+            bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == myRigidbody.position.x;
+            bool sameVelocity = _previusVelocity == myRigidbody.velocity;
             return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity;
         }
 
@@ -111,12 +116,12 @@ namespace Assets.Scripts.Enemy.Pathfinding
         // Creo que esto pasa por un tema de concurrencia entre la inicializacion de todos los objetos
         private bool AnyOfTheGlobalsAreNull()
         {
-            return targetPosition == null || rb == null;
+            return targetPosition == null || myRigidbody == null;
         }
 
         private void ResetVelocity()
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            myRigidbody.velocity = new Vector2(0, myRigidbody.velocity.y);
         }
 
 

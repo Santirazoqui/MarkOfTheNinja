@@ -52,6 +52,9 @@ TagManager:
   - name: Enemies
     uniqueID: 3395727097
     locked: 0
+  - name: Decorations
+    uniqueID: 605498955
+    locked: 0
   - name: Player
     uniqueID: 3285007015
     locked: 0

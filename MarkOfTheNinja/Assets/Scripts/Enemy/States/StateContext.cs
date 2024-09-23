@@ -25,5 +25,6 @@ namespace Assets.Scripts.Enemy.States
         public GameObject Player { get; set; }  
         public ILevelManager LevelManagerController { get; set; }
         public EnemyAnimationController AnimationController { get; set; }
+        public (float, EnemyStates) WaitTime { get; set; } 
     }
 }

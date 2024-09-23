@@ -24,14 +24,15 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             targetPosition = target;
             this.onReached = onReached;
-            //Debug.Log("Position Reajusted");
         }
 
         public void AdjustPosition(float speed, float minDistance)
         {
+            if (AnyOfTheGlobalsAreNull()) return;
             currentSpeed = speed;
             ReajustPosition(speed, minDistance);
             ChangeCharacterOrientationDependingOnVelocity();
+            UnstuckingMechanism();
         }
 
         private void Start()
@@ -42,7 +43,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
-            if (AnyOfTheGlobalsAreNull()) return;
             bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
             if(playerHasHorizontalSpedd)
             {
@@ -62,7 +62,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void ReajustPosition(float speed, float minDistance)
         {
-            if (AnyOfTheGlobalsAreNull()) return;
 
             float distance = targetPosition.x - myRigidbody.position.x;
             bool closeEnough = Math.Abs(distance) < minDistance;
@@ -85,7 +84,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void FixedUpdate()
         {
-            UnstuckingMechanism();
+            //UnstuckingMechanism();
         }
 
         private void UnstuckingMechanism()

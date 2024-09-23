@@ -18,7 +18,6 @@ namespace Assets.Scripts.Enemy.States
 
         public override void AnimationEventFired(string eventDescription)
         {
-            if (eventDescription != animationEndedEventName) return;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.Chilling);
         }
     }

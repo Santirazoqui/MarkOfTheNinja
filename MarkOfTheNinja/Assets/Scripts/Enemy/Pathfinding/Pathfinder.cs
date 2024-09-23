@@ -19,6 +19,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private readonly string _enemyWalls = "EnemyWall";
         private Vector2 _previusPosition;
         private Vector2 _previusVelocity;
+        private float currentSpeed;
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         public void AdjustPosition(float speed, float minDistance)
         {
+            currentSpeed = speed;
             ReajustPosition(speed, minDistance);
             ChangeCharacterOrientationDependingOnVelocity();
         }
@@ -100,7 +102,8 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == myRigidbody.position.x;
             bool sameVelocity = _previusVelocity == myRigidbody.velocity;
-            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity;
+            bool speedIsNotCero = currentSpeed != 0;
+            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero;
         }
 
         private void CollisionLogic()

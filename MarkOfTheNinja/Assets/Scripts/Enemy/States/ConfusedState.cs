@@ -9,14 +9,24 @@ namespace Assets.Scripts.Enemy.States
 {
     public class ConfusedState:NonDetectedState
     {
+        public float cooldownAfterPlayerLeavesFOV = 1f;
+        private Vector2 lastPlayerPosition;
         protected override void EnterImplementation()
         {
             _lastRecivedContext.AnimationController.Confused();
             _lastRecivedContext.Pathfinder.AdjustPosition(0, 0);
         }
 
-        public override void PlayerIsBeingSeen()
+        public override void PlayerLeftVisionRadius(Vector2 lastPlayerPosition)
         {
+            this.lastPlayerPosition = lastPlayerPosition;
+            Invoke(nameof(GoAtLastKnownLocation), cooldownAfterPlayerLeavesFOV);
+        }
+
+        public void GoAtLastKnownLocation()
+        {
+            _lastRecivedContext.SoundPosition = lastPlayerPosition;
+            _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);
         }
     }
 }

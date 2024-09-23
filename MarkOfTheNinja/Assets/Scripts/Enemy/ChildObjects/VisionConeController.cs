@@ -7,6 +7,7 @@ public class VisionConeController : MonoBehaviour
 {
     // Start is called before the first frame update
     private readonly string playerTag = "Player";
+    private bool playerIsBeingSeen = false;
     private ILevelManager levelManager;
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -15,8 +16,6 @@ public class VisionConeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag(playerTag)) return;
-        Debug.Log("Player in");
         PlayerWasSeen(collision);
     }
 
@@ -45,6 +44,7 @@ public class VisionConeController : MonoBehaviour
         var enemyPosition = enemy.transform.position;
         var playerPosition = collision.gameObject.transform.position;
         float distance = Vector2.Distance(enemyPosition, playerPosition);
+        playerIsBeingSeen = true;
         enemy.PlayerIsBeingSeen();
         levelManager.PlayerIsBeingSeen(distance);
     }
@@ -52,10 +52,9 @@ public class VisionConeController : MonoBehaviour
     private void PlayerLeftVisionRadius(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag(playerTag)) return;
-        Debug.Log("Player left");
         var enemy = GetComponentInParent<EnemyController>();
-        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject)) return;
-        Debug.Log("It left and it triggered the correct code");
+        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject) && !playerIsBeingSeen) return;
+        playerIsBeingSeen = false;
         enemy.PlayerLeftVisionRadius(collision.gameObject.transform.position);
     }
 }

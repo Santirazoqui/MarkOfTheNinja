@@ -15,11 +15,14 @@ public class VisionConeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.gameObject.CompareTag(playerTag)) return;
+        Debug.Log("Player in");
         PlayerWasSeen(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+
         PlayerLeftVisionRadius(collision);
     }
     void Start()
@@ -49,8 +52,10 @@ public class VisionConeController : MonoBehaviour
     private void PlayerLeftVisionRadius(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag(playerTag)) return;
+        Debug.Log("Player left");
         var enemy = GetComponentInParent<EnemyController>();
         if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject)) return;
+        Debug.Log("It left and it triggered the correct code");
         enemy.PlayerLeftVisionRadius(collision.gameObject.transform.position);
     }
 }

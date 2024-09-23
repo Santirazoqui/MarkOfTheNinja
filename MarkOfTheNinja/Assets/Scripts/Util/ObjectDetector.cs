@@ -19,10 +19,8 @@ namespace Assets.Scripts.Util
             float distance = direction.magnitude;
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance: distance, layerMask: LayerMask.GetMask(layer));
             if (hit.collider == null) return false;
-            Debug.Log("Collider is not null");
             bool weHitThem = hit.point == goal;
             bool weHitSomethingBehindThem = hit.distance >= distance;
-            Debug.Log($"them position: {them.transform.position}, hit position: {hit.point}");
             return !(weHitThem || weHitSomethingBehindThem);
         }
     }

@@ -19,17 +19,20 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private readonly string _enemyWalls = "EnemyWall";
         private Vector2 _previusPosition;
         private Vector2 _previusVelocity;
+        private float currentSpeed;
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
             this.onReached = onReached;
-            //Debug.Log("Position Reajusted");
         }
 
         public void AdjustPosition(float speed, float minDistance)
         {
+            if (AnyOfTheGlobalsAreNull()) return;
+            currentSpeed = speed;
             ReajustPosition(speed, minDistance);
             ChangeCharacterOrientationDependingOnVelocity();
+            UnstuckingMechanism();
         }
 
         private void Start()
@@ -40,7 +43,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
-            if (AnyOfTheGlobalsAreNull()) return;
             bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
             if(playerHasHorizontalSpedd)
             {
@@ -60,7 +62,6 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void ReajustPosition(float speed, float minDistance)
         {
-            if (AnyOfTheGlobalsAreNull()) return;
 
             float distance = targetPosition.x - myRigidbody.position.x;
             bool closeEnough = Math.Abs(distance) < minDistance;
@@ -83,7 +84,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
         private void FixedUpdate()
         {
-            UnstuckingMechanism();
+            //UnstuckingMechanism();
         }
 
         private void UnstuckingMechanism()
@@ -100,7 +101,8 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == myRigidbody.position.x;
             bool sameVelocity = _previusVelocity == myRigidbody.velocity;
-            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity;
+            bool speedIsNotCero = currentSpeed != 0;
+            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero;
         }
 
         private void CollisionLogic()

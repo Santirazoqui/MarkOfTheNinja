@@ -7,16 +7,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class ConfusedState:State
+    public class ConfusedState:NonDetectedState
     {
         public float cooldownAfterPlayerLeavesFOV = 1f;
         private Vector2 lastPlayerPosition;
         protected override void EnterImplementation()
         {
-            Debug.Log("Entered confused state");
             _lastRecivedContext.AnimationController.Confused();
             _lastRecivedContext.Pathfinder.AdjustPosition(0, 0);
         }
+
         public override void PlayerLeftVisionRadius(Vector2 lastPlayerPosition)
         {
             this.lastPlayerPosition = lastPlayerPosition;

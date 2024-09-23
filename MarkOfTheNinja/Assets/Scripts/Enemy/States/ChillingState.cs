@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Enemy.Pathfinding;
 using Assets.Scripts.Util;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Enemy.States
         public float patrollingSpeed = 200f;
         public float minDistance = 0.1f;
         public float searchingRadius = 5f;
+        public float waitTimeWhenReach = 1f;
 
         private Vector2 initialPosition;
         private IPathfinder pathfinder;
@@ -41,6 +43,7 @@ namespace Assets.Scripts.Enemy.States
             PlayChillingAnimation();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
+            Debug.Log("Entered chilling");
         }
 
         protected override void DoImplementation()
@@ -86,8 +89,14 @@ namespace Assets.Scripts.Enemy.States
             {
                 searchingIndex++;
             }
-           
-            StartSearch();
+            //StartSearch();
+            WaitForNecessaryTime();
+        }
+
+        private void WaitForNecessaryTime()
+        {
+            _lastRecivedContext.WaitTime = (waitTimeWhenReach, EnemyStates.Chilling);
+            parent.ChangeStates(EnemyStates.Waiting);    
         }
 
         private void HandleSoundCollition(Collider2D collision)

@@ -46,18 +46,8 @@ namespace Assets.Scripts.Enemy.Pathfinding
             bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
             if(playerHasHorizontalSpedd)
             {
-                transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x), transform.localScale.y);
+                transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x) * Math.Abs(transform.localScale.x), transform.localScale.y);
             }
-            /*bool lookingRight = rb.velocity.x >= 0.1f;
-            bool lookingLeft = rb.velocity.x <= -0.1f;
-            if (lookingRight)
-            {
-                transform.localScale.x = 1;
-            }
-            else if (lookingLeft)
-            {
-                transform.localScale.x = -1;
-            }*/
         }
 
         private void ReajustPosition(float speed, float minDistance)

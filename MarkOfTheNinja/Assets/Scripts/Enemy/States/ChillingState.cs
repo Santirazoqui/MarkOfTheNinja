@@ -43,7 +43,7 @@ namespace Assets.Scripts.Enemy.States
             PlayChillingAnimation();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
-            Debug.Log("Entered chilling");
+            //Debug.Log("Entered chilling");
         }
 
         protected override void DoImplementation()

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Enemy.States
         {
             prevState = _lastRecivedContext.WaitTime.Item2;
             waitTime = _lastRecivedContext.WaitTime.Item1;
-            Debug.Log($"Waiting for {waitTime}");
+            //Debug.Log($"Waiting for {waitTime}");
         }
 
         protected override void DoImplementation()
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Enemy.States
         private IEnumerator Exit()
         {
             yield return new WaitForSeconds( waitTime );
-            Debug.Log("Wait time ended");
+            //Debug.Log("Wait time ended");
             _lastRecivedContext.Parent.ChangeStates(prevState);
         }
     }

@@ -34,7 +34,8 @@ public class PlayerSFX : MonoBehaviour
         {
             int randomIndex = Random.Range(0, jumpSounds.Length);
             AudioClip randomJumpSound = jumpSounds[randomIndex];
-            myAudioSource.PlayOneShot(randomJumpSound);
+            float volume = 0.2f;
+            myAudioSource.PlayOneShot(randomJumpSound, volume);
         }
     }
 

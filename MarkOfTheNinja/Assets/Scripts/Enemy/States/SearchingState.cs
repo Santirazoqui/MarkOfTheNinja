@@ -14,20 +14,6 @@ namespace Assets.Scripts.Enemy.States
         private EnemyController parent;
         private readonly string _soundTag = "Sound";
 
-        public override void TriggerEnter(Collider2D collision)
-        {
-            HandleSoundCollition(collision);
-        }
-
-        private void HandleSoundCollition(Collider2D collision)
-        {
-            bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
-            if (!collidedWithASound) return;
-            var soundOrigin = collision.gameObject.transform.position;
-            pathfinder.SetDestination(soundOrigin, StartSearchAtSound);
-        }
-
-
         protected override void EnterImplementation()
         {
             pathfinder = _lastRecivedContext.Pathfinder;

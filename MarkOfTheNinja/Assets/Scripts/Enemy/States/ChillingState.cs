@@ -101,11 +101,10 @@ namespace Assets.Scripts.Enemy.States
 
         private void HandleSoundCollition(Collider2D collision)
         {
-            bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
-            if (!collidedWithASound) return;
-            if (ObjectDetector.AnyObjectsBetween(parent.gameObject, collision.gameObject)) return;
+            if (!Util.CollidedWithSound(parent.gameObject, collision)) return;
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
+            _lastRecivedContext.LevelManagerController.SoundWasHeard();
             parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);
         }
 

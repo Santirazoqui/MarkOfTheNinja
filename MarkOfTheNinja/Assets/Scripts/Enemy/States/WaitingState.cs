@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class WaitingState:State
+    public class WaitingState:NonDetectedState
     {
         private EnemyStates prevState;
         private float waitTime;

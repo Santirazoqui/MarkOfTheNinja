@@ -45,8 +45,8 @@ public class VisionConeController : MonoBehaviour
         var playerPosition = collision.gameObject.transform.position;
         float distance = Vector2.Distance(enemyPosition, playerPosition);
         playerIsBeingSeen = true;
-        enemy.PlayerIsBeingSeen();
-        levelManager.PlayerIsBeingSeen(distance);
+        enemy.PlayerIsBeingSeen(distance);
+        
     }
 
     private void PlayerLeftVisionRadius(Collider2D collision)

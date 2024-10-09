@@ -47,7 +47,7 @@ public abstract class State : MonoBehaviour
 
     public virtual void CollitionEnter(Collision2D collision) { }
 
-    public virtual void PlayerIsBeingSeen() { }
+    public virtual void PlayerIsBeingSeen(float distance) { }
 
     public virtual void PlayerLeftVisionRadius(Vector2 lastPlayerPosition) { }
     public virtual void AnimationEventFired(string eventDescription) { }

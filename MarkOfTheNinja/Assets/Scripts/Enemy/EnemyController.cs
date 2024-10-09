@@ -76,9 +76,9 @@ public class EnemyController : MonoBehaviour
         ChangeStates(state);
     }
 
-    public void PlayerIsBeingSeen()
+    public void PlayerIsBeingSeen(float distance)
     {
-        currentState.PlayerIsBeingSeen();
+        currentState.PlayerIsBeingSeen(distance);
     }
 
     public void PlayerLeftVisionRadius(Vector2 lastPlayerPosition)

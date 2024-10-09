@@ -33,7 +33,7 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
         PlayerWasPerceived(visualDetectionRate, multiplier);
     }
 
-    public void PlayerWasHeard()
+    public void SoundWasHeard()
     {
         PlayerWasPerceived(audioDetectionRate);
     }
@@ -59,6 +59,6 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
 public interface ILevelManager
 {
     void PlayerIsBeingSeen(float distance);
-    void PlayerWasHeard();
+    void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
 }

@@ -47,6 +47,7 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
             DetectionRate = 100;
             EnterDetectedPhase();
         }
+        Debug.Log("Detection rate:" + DetectionRate);
     }
 
     private void EnterDetectedPhase()

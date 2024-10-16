@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 
 public class LevelManagerController : MonoBehaviour, ILevelManager
@@ -15,6 +16,13 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
     public float visualDetectionRate = 100f;
     public float audioDetectionRate = 50f;
     public float EnemySuspicionPercentage {  get; private set; }
+
+    private Light2D GlobalLight { get; set; }
+
+    private void Start()
+    {
+        GlobalLight = GetComponentInChildren<Light2D>();
+    }
 
     public void PublishEnemyStateChange(EnemyStates state)
     {
@@ -45,6 +53,7 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
         if (DetectionRate >= 100)
         {
             DetectionRate = 100;
+            GlobalLight.intensity = 0.5f;
             EnterDetectedPhase();
         }
         Debug.Log("Detection rate:" + DetectionRate);

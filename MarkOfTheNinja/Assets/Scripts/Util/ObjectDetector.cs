@@ -8,13 +8,19 @@ namespace Assets.Scripts.Util
         private static readonly string _groundLayer = "Ground";
         public static bool AnyObjectsBetween(GameObject you, GameObject them)
         {
-            return AnyObjectsBetweenWithLayer(you, them, _wallsLayer) || AnyObjectsBetweenWithLayer(you,them,_groundLayer);
-        }
-
-        private static bool AnyObjectsBetweenWithLayer(GameObject you, GameObject them, string layer)
-        {
             Vector2 origin = you.transform.position;
             Vector2 goal = them.transform.position;
+            return AnyObjectsBetweenWithLayer(origin, goal, _wallsLayer) || AnyObjectsBetweenWithLayer(origin,goal,_groundLayer);
+        }
+
+        public static bool AnyObjectsBetween(GameObject you, Vector2 goal)
+        {
+            Vector2 origin = you.transform.position;
+            return AnyObjectsBetweenWithLayer(origin, goal, _wallsLayer) || AnyObjectsBetweenWithLayer(origin, goal, _groundLayer);
+        }
+
+        private static bool AnyObjectsBetweenWithLayer(Vector2 origin, Vector2 goal, string layer)
+        {
             Vector2 direction = goal - origin;
             float distance = direction.magnitude;
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance: distance, layerMask: LayerMask.GetMask(layer));
@@ -23,5 +29,7 @@ namespace Assets.Scripts.Util
             bool weHitSomethingBehindThem = hit.distance >= distance;
             return !(weHitThem || weHitSomethingBehindThem);
         }
+
+
     }
 }

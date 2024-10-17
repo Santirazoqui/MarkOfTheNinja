@@ -21,10 +21,12 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
     public float EnemySuspicionPercentage {  get; private set; }
 
     private Light2D GlobalLight { get; set; }
+    private AudioPlayerController AudioController { get; set; }
 
     private void Start()
     {
         GlobalLight = GetComponentInChildren<Light2D>();
+        AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
     }
 
@@ -82,6 +84,7 @@ public class LevelManagerController : MonoBehaviour, ILevelManager
     private void EnterDetectedPhase()
     {
         Detected = true;
+        AudioController.PlayDetectedMusic();
         PublishEnemyStateChange(EnemyStates.Detected);
     }
 

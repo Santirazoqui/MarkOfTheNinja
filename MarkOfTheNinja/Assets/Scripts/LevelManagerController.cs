@@ -74,7 +74,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
             EnterDetectedPhase();
         }
-        Debug.Log("Detection rate:" + DetectionRate);
     }
 
     private void EnterDetectedPhase()

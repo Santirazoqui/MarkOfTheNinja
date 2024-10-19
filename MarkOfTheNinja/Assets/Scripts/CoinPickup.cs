@@ -12,7 +12,7 @@ public class CoinPickup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Coin collided with " + other.tag);
+        //Debug.Log("Coin collided with " + other.tag);
         if(other.tag == "Player" && !wasCollected)
         {
             wasCollected = true;

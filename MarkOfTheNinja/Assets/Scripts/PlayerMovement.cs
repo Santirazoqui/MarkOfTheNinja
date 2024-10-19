@@ -25,7 +25,13 @@ public class ExtendedPlayerController : MonoBehaviour {
        
         private bool _dashPressed;
 
+        Animator myAnimator;
+
         #endregion
+
+        void Start () {
+            myAnimator = GetComponent<Animator>();
+        }
         
 
         private void Update() {
@@ -169,16 +175,20 @@ public class ExtendedPlayerController : MonoBehaviour {
                 // Apply bonus at the apex of a jump
                 var apexBonus = Mathf.Sign(Input.X) * _apexBonus * _apexPoint;
                 _currentHorizontalSpeed += apexBonus * Time.deltaTime;
+                myAnimator.SetBool("isRunning", true);
+                FlipSprite(_currentHorizontalSpeed);
             }
             else {
                 // No input. Let's slow the character down
                 _currentHorizontalSpeed = Mathf.MoveTowards(_currentHorizontalSpeed, 0, _deAcceleration * Time.deltaTime);
+                myAnimator.SetBool("isRunning", false);
             }
 
             if (_currentHorizontalSpeed > 0 && _colRight || _currentHorizontalSpeed < 0 && _colLeft) {
                 // Don't walk through walls
                 _currentHorizontalSpeed = 0;
             }
+            
         }
 
         #endregion
@@ -359,6 +369,16 @@ public class ExtendedPlayerController : MonoBehaviour {
             }
         }
         #endregion
+    
+    void FlipSprite(float XVelocity)
+    {
+        //Debug.Log(XVelocity);
+        bool playerHasHorizontalSpedd = Mathf.Abs(XVelocity) > Mathf.Epsilon;
+        if(playerHasHorizontalSpedd)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(XVelocity) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+        }   
+    }
 }
 
 public struct FrameInput

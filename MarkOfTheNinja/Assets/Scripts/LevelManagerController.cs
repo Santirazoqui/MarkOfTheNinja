@@ -11,6 +11,9 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 {
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
+
+    public delegate void OnDetection();
+    public event OnDetection PlayerWasDetected;
     public float DetectionRate { get; private set; } = 0;
     public bool Detected { get; private set; }
 
@@ -74,7 +77,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
             EnterDetectedPhase();
         }
-        Debug.Log("Detection rate:" + DetectionRate);
     }
 
     private void EnterDetectedPhase()
@@ -83,6 +85,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         AudioController.PlayDetectedMusic();
         StartCoroutine(TurnLightsOn());
         PublishEnemyStateChange(EnemyStates.Detected);
+        PlayerWasDetected?.Invoke();
     }
 
 }

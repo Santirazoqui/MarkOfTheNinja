@@ -27,7 +27,7 @@ public class SuspicionRateScript : MonoBehaviour
 
     private void UpdateText()
     {
-        text.text = $"Sospecha: {Math.Round(levelManagerController.DetectionRate)}%";
+        text.text = $"Suspicion: {Math.Round(levelManagerController.DetectionRate)}%";
 
     }
     private void UpdateTextColor()

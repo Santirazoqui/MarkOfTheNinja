@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     public EnemyStates defaultState = EnemyStates.Chilling;
 
     private State currentState;
+    private EnemyStates currentStateName;
     private StateContext context;
     private Pathfinder pathfinder;
     private LevelManagerController levelManagerController;
@@ -63,11 +64,8 @@ public class EnemyController : MonoBehaviour
 
     public void ChangeStates(EnemyStates state)
     {
-        currentState.Exit(context);
-        currentState.SetActive(false);
-        currentState = posibleStates[state];
-        currentState.SetActive(true);
-        currentState.Enter(context);
+        if (currentStateName == EnemyStates.Detected) return; // Ignores enqued pathfinding changes when in detected mode. BugFix
+        SudoChangeStates(state);
     }
 
     public void ChangeStates(EnemyStates state, StateContext context)
@@ -108,6 +106,7 @@ public class EnemyController : MonoBehaviour
     private void SetInitialState()
     {
         currentState = posibleStates[defaultState];
+        currentStateName = defaultState;
         currentState.SetActive(true);
         currentState.Enter(context);
     }
@@ -115,7 +114,17 @@ public class EnemyController : MonoBehaviour
     private void SubscribeToLevelController()
     {
         var controller = FindAnyObjectByType<LevelManagerController>();
-        controller.StateChanged += ChangeStates;
+        controller.StateChanged += SudoChangeStates;
+    }
+
+    private void SudoChangeStates(EnemyStates state)
+    {
+        currentState.Exit(context);
+        currentState.SetActive(false);
+        currentState = posibleStates[state];
+        currentStateName = state;
+        currentState.SetActive(true);
+        currentState.Enter(context);
     }
 
 }

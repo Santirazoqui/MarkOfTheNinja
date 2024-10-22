@@ -33,7 +33,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int initialPoints = 1000;
     public int pointsPerCoin = 100;
     public int pointsLostWhenDetected = 500;
-    
+    public float minTimeToGetTimeBonus = 20;
+    public int fastTimeScoreBonus = 300;
     public float EnemySuspicionPercentage {  get; private set; }
     public float TimeSpentInLevel { get; private set; } = 0;
 
@@ -106,8 +107,19 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public void PlayerEndedLevel(string goToScreen)
     {
         StopAllCoroutines();
-        dataAccessManager.SaveData(new GameData() { Score = this.Score, GameSceneIndex = SceneManager.GetActiveScene().buildIndex, TimeSpentInLevel = this.TimeSpentInLevel });
+        var score = CalculateScore();
+        dataAccessManager.SaveData(new GameData() { Score = score, GameSceneIndex = SceneManager.GetActiveScene().buildIndex, TimeSpentInLevel = this.TimeSpentInLevel });
         SceneManager.LoadScene(goToScreen);
+    }
+
+    private int CalculateScore()
+    {
+        var score = Score;
+        if(TimeSpentInLevel <= minTimeToGetTimeBonus)
+        {
+            score += fastTimeScoreBonus;
+        }
+        return score;
     }
 
     private void PlayerWasPerceived(float detectionRate, float multiplier = 1)

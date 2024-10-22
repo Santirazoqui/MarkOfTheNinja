@@ -31,7 +31,7 @@ public class WinScreenScript : MonoBehaviour
     private void UpdateText()
     {
         if (dataAccess == null) return;
-        text.text = $"Score: {gameData.Score} \n High score: {gameData.HighScore}";
+        text.text = $"Raw score: {gameData.Score.RawPoints} \nFast bonus: {gameData.Score.TimeBonus} \nTotal: {gameData.Score.Total} \nHigh score: {gameData.HighScore}";
 
     }
 }

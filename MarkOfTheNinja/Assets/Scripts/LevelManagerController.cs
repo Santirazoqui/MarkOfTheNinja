@@ -121,21 +121,20 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             GameSceneIndex = SceneManager.GetActiveScene().buildIndex,
             TimeSpentInLevel = this.TimeSpentInLevel,
             Score = score,
-            HighScore = (previousScore.HighScore != null && score < previousScore.HighScore) ? previousScore.HighScore : score,
+            HighScore = (previousScore.HighScore != null && score.Total < previousScore.HighScore) ? previousScore.HighScore : score.Total,
         };
         
-        Debug.Log("Data being sent to be saved:");
-        Debug.Log($"GameSceneIndex: {data.GameSceneIndex}, TimeSpentInLevel: {data.TimeSpentInLevel}, Score: {data.Score}, HighScore: {data.HighScore}");
         dataAccessManager.SaveData(data);
     }
 
-    private int CalculateScore()
+    private Score CalculateScore()
     {
-        var score = Score;
-        if(TimeSpentInLevel <= minTimeToGetTimeBonus)
+        var score = new Score()
         {
-            score += fastTimeScoreBonus;
-        }
+            RawPoints = Score,
+            TimeBonus = TimeSpentInLevel <= minTimeToGetTimeBonus ? fastTimeScoreBonus : 0,
+        };
+        score.Total = score.RawPoints + score.TimeBonus; 
         return score;
     }
 

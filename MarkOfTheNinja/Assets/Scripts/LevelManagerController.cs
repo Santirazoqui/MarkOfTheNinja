@@ -35,10 +35,12 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int pointsLostWhenDetected = 500;
     
     public float EnemySuspicionPercentage {  get; private set; }
+    public float TimeSpentInLevel { get; private set; } = 0;
 
     private Light2D GlobalLight { get; set; }
     private AudioPlayerController AudioController { get; set; }
 
+    
     private IDataAccessManager dataAccessManager;
 
     [Inject]
@@ -53,6 +55,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
         Score = initialPoints;
+        StartCoroutine(StartTimer());
     }
 
     private IEnumerator TurnLightsOn()
@@ -63,6 +66,15 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         yield break;
+    }
+
+    private IEnumerator StartTimer()
+    {
+        while(true)
+        {
+            TimeSpentInLevel += Time.deltaTime;
+            yield return null;
+        }
     }
     public void PublishEnemyStateChange(EnemyStates state)
     {
@@ -93,7 +105,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public void PlayerEndedLevel(string goToScreen)
     {
-        dataAccessManager.SaveData(new GameData() { Score = this.Score, GameSceneIndex = SceneManager.GetActiveScene().buildIndex });
+        StopAllCoroutines();
+        dataAccessManager.SaveData(new GameData() { Score = this.Score, GameSceneIndex = SceneManager.GetActiveScene().buildIndex, TimeSpentInLevel = this.TimeSpentInLevel });
         SceneManager.LoadScene(goToScreen);
     }
 

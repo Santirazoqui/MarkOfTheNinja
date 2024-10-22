@@ -13,5 +13,7 @@ namespace Assets.Scripts.DataAccess
         public int? HighScore { get; set; }
 
         public int? GameSceneIndex { get; set; }
+
+        public float? TimeSpentInLevel { get; set; }
     }
 }

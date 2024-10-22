@@ -33,18 +33,22 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int initialPoints = 1000;
     public int pointsPerCoin = 100;
     public int pointsLostWhenDetected = 500;
-    
+    public float minTimeToGetTimeBonus = 20;
+    public int fastTimeScoreBonus = 300;
     public float EnemySuspicionPercentage {  get; private set; }
+    public float TimeSpentInLevel { get; private set; } = 0;
 
     private Light2D GlobalLight { get; set; }
     private AudioPlayerController AudioController { get; set; }
 
     private IDataAccessManager dataAccessManager;
+    private GameData previousScore;
 
     [Inject]
     public void Constructor(IDataAccessManager dataAccessManager)
     {
         this.dataAccessManager = dataAccessManager;
+        previousScore = dataAccessManager.LoadData();
     }
 
     private void Start()
@@ -53,6 +57,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
         Score = initialPoints;
+        StartCoroutine(StartTimer());
     }
 
     private IEnumerator TurnLightsOn()
@@ -63,6 +68,15 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         yield break;
+    }
+
+    private IEnumerator StartTimer()
+    {
+        while(true)
+        {
+            TimeSpentInLevel += Time.deltaTime;
+            yield return null;
+        }
     }
     public void PublishEnemyStateChange(EnemyStates state)
     {
@@ -93,8 +107,35 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public void PlayerEndedLevel(string goToScreen)
     {
-        dataAccessManager.SaveData(new GameData() { Score = this.Score, GameSceneIndex = SceneManager.GetActiveScene().buildIndex });
+        StopAllCoroutines();
+        SaveData();
+        
         SceneManager.LoadScene(goToScreen);
+    }
+
+    private void SaveData()
+    {
+        var score = CalculateScore();
+        var data = new GameData
+        {
+            GameSceneIndex = SceneManager.GetActiveScene().buildIndex,
+            TimeSpentInLevel = this.TimeSpentInLevel,
+            Score = score,
+            HighScore = (previousScore.HighScore != null && score.Total < previousScore.HighScore) ? previousScore.HighScore : score.Total,
+        };
+        
+        dataAccessManager.SaveData(data);
+    }
+
+    private Score CalculateScore()
+    {
+        var score = new Score()
+        {
+            RawPoints = Score,
+            TimeBonus = TimeSpentInLevel <= minTimeToGetTimeBonus ? fastTimeScoreBonus : 0,
+        };
+        score.Total = score.RawPoints + score.TimeBonus; 
+        return score;
     }
 
     private void PlayerWasPerceived(float detectionRate, float multiplier = 1)

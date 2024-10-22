@@ -6,6 +6,6 @@ public class DependencyInjectionInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<IDataAccessManager>().To<DataAccessManager>().AsSingle();
+        Container.Bind<IDataAccessManager>().To<FileDataAccess>().AsSingle();
     }
 }

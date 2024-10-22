@@ -1,3 +1,4 @@
+using Assets.Scripts.DataAccess;
 using Assets.Scripts.Util;
 using System;
 using System.Collections;
@@ -5,6 +6,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using Zenject;
 
 
 public class LevelManagerController : SubscribeOnUpdate, ILevelManager
@@ -17,24 +20,45 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public float DetectionRate { get; private set; } = 0;
     public bool Detected { get; private set; }
 
+    public int Score { get; private set; }
+
+    [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
     public float audioDetectionRate = 50f;
+    [Header("Global light")]
     public float globalLightMin = 0.1f;
     public float globalLightMax = 0.5f;
-    private float lightIncrementsPerTick = 0.01f;
+    private readonly float lightIncrementsPerTick = 0.01f;
+    [Header("Points")]
+    public int initialPoints = 1000;
+    public int pointsPerCoin = 100;
+    public int pointsLostWhenDetected = 500;
+    public float minTimeToGetTimeBonus = 20;
+    public int fastTimeScoreBonus = 300;
     public float EnemySuspicionPercentage {  get; private set; }
+    public float TimeSpentInLevel { get; private set; } = 0;
 
     private Light2D GlobalLight { get; set; }
     private AudioPlayerController AudioController { get; set; }
+
+    private IDataAccessManager dataAccessManager;
+    private GameData previousScore;
+
+    [Inject]
+    public void Constructor(IDataAccessManager dataAccessManager)
+    {
+        this.dataAccessManager = dataAccessManager;
+        previousScore = dataAccessManager.LoadData();
+    }
 
     private void Start()
     {
         GlobalLight = GetComponentInChildren<Light2D>();
         AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
+        Score = initialPoints;
+        StartCoroutine(StartTimer());
     }
-
-
 
     private IEnumerator TurnLightsOn()
     {
@@ -44,6 +68,15 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         yield break;
+    }
+
+    private IEnumerator StartTimer()
+    {
+        while(true)
+        {
+            TimeSpentInLevel += Time.deltaTime;
+            yield return null;
+        }
     }
     public void PublishEnemyStateChange(EnemyStates state)
     {
@@ -67,6 +100,44 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         PlayerWasPerceived(audioDetectionRate);
     }
 
+    public void PickedUpCoin()
+    {
+        Score += pointsPerCoin;
+    }
+
+    public void PlayerEndedLevel(string goToScreen)
+    {
+        StopAllCoroutines();
+        SaveData();
+        
+        SceneManager.LoadScene(goToScreen);
+    }
+
+    private void SaveData()
+    {
+        var score = CalculateScore();
+        var data = new GameData
+        {
+            GameSceneIndex = SceneManager.GetActiveScene().buildIndex,
+            TimeSpentInLevel = this.TimeSpentInLevel,
+            Score = score,
+            HighScore = (previousScore.HighScore != null && score.Total < previousScore.HighScore) ? previousScore.HighScore : score.Total,
+        };
+        
+        dataAccessManager.SaveData(data);
+    }
+
+    private Score CalculateScore()
+    {
+        var score = new Score()
+        {
+            RawPoints = Score,
+            TimeBonus = TimeSpentInLevel <= minTimeToGetTimeBonus ? fastTimeScoreBonus : 0,
+        };
+        score.Total = score.RawPoints + score.TimeBonus; 
+        return score;
+    }
+
     private void PlayerWasPerceived(float detectionRate, float multiplier = 1)
     {
         if (Detected) return;
@@ -82,9 +153,15 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private void EnterDetectedPhase()
     {
         Detected = true;
+        Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
         StartCoroutine(TurnLightsOn());
         PublishEnemyStateChange(EnemyStates.Detected);
+        PublishPlayerDetection();
+    }
+
+    private void PublishPlayerDetection()
+    {
         PlayerWasDetected?.Invoke();
     }
 
@@ -95,4 +172,5 @@ public interface ILevelManager
     void PlayerIsBeingSeen(float distance);
     void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
+    void PlayerWasInstaDetected();
 }

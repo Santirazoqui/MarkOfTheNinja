@@ -10,6 +10,13 @@ public class CoinPickup : MonoBehaviour
 
     bool wasCollected = false;
 
+    private LevelManagerController levelManagerController;
+
+    private void Start()
+    {
+        levelManagerController = FindAnyObjectByType<LevelManagerController>();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Coin collided with " + other.tag);
@@ -18,6 +25,7 @@ public class CoinPickup : MonoBehaviour
             wasCollected = true;
             //FindObjectOfType<GameSession>().AddToScore(this.pointsForCoinPickup);
             AudioSource.PlayClipAtPoint(coinPickupSound, Camera.main.transform.position);
+            levelManagerController.PickedUpCoin();
             gameObject.SetActive(false);
             Destroy(gameObject);
         }

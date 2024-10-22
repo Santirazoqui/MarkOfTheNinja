@@ -41,13 +41,14 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private Light2D GlobalLight { get; set; }
     private AudioPlayerController AudioController { get; set; }
 
-    
     private IDataAccessManager dataAccessManager;
+    private GameData previousScore;
 
     [Inject]
     public void Constructor(IDataAccessManager dataAccessManager)
     {
         this.dataAccessManager = dataAccessManager;
+        previousScore = dataAccessManager.LoadData();
     }
 
     private void Start()
@@ -107,9 +108,25 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public void PlayerEndedLevel(string goToScreen)
     {
         StopAllCoroutines();
-        var score = CalculateScore();
-        dataAccessManager.SaveData(new GameData() { Score = score, GameSceneIndex = SceneManager.GetActiveScene().buildIndex, TimeSpentInLevel = this.TimeSpentInLevel });
+        SaveData();
+        
         SceneManager.LoadScene(goToScreen);
+    }
+
+    private void SaveData()
+    {
+        var score = CalculateScore();
+        var data = new GameData
+        {
+            GameSceneIndex = SceneManager.GetActiveScene().buildIndex,
+            TimeSpentInLevel = this.TimeSpentInLevel,
+            Score = score,
+            HighScore = (previousScore.HighScore != null && score < previousScore.HighScore) ? previousScore.HighScore : score,
+        };
+        
+        Debug.Log("Data being sent to be saved:");
+        Debug.Log($"GameSceneIndex: {data.GameSceneIndex}, TimeSpentInLevel: {data.TimeSpentInLevel}, Score: {data.Score}, HighScore: {data.HighScore}");
+        dataAccessManager.SaveData(data);
     }
 
     private int CalculateScore()

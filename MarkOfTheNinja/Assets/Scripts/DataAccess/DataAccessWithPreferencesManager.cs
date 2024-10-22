@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.DataAccess
 {
-    public class DataAccessManager : IDataAccessManager
+    public class DataAccessWithPreferencesManager : IDataAccessManager
     {
         private readonly string HighScoreKey = "HighScore";
         private readonly string ScoreKey = "CurrentScore";

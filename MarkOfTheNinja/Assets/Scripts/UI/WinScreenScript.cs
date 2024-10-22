@@ -11,6 +11,7 @@ public class WinScreenScript : MonoBehaviour
     // Start is called before the first frame update
     private IDataAccessManager dataAccess;
     private TextMeshProUGUI text;
+    private GameData gameData;
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
@@ -19,6 +20,7 @@ public class WinScreenScript : MonoBehaviour
     public void Contructor(IDataAccessManager manager)
     {
         dataAccess = manager;
+        gameData = dataAccess.LoadData();
     }
     // Update is called once per frame
     void Update()
@@ -29,7 +31,6 @@ public class WinScreenScript : MonoBehaviour
     private void UpdateText()
     {
         if (dataAccess == null) return;
-        var gameData = dataAccess.LoadData();
         text.text = $"Score: {gameData.Score} \n High score: {gameData.HighScore}";
 
     }

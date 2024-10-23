@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
 namespace TarodevController
 {
@@ -120,7 +121,7 @@ namespace TarodevController
 
             TraceGround();
             Move();
-
+            SFX();
             Animate();
             CalculateCrouch();
 
@@ -142,6 +143,7 @@ namespace TarodevController
             _character = Stats.CharacterSize.GenerateCharacterSize();
             _cachedQueryMode = Physics2D.queriesStartInColliders;
             myAnimator = GetComponent<Animator>();
+            myAudioSource = GetComponent<AudioSource>();
             _wallDetectionBounds = new Bounds(
                 new Vector3(0, _character.Height / 2),
                 new Vector3(_character.StandingColliderSize.x + CharacterSize.COLLIDER_EDGE_RADIUS * 2 + Stats.WallDetectorRange, _character.Height - 0.1f));
@@ -241,6 +243,8 @@ namespace TarodevController
             _dashToConsume = false;
             _forceToApplyThisFrame = Vector2.zero;
             _lastFrameY = Velocity.y;
+            hasjumpedThisFrame = false;
+            hasDashedThisFrame = false;
         }
 
         #endregion
@@ -523,6 +527,27 @@ namespace TarodevController
         }
         #endregion
 
+        #region SFX
+        private AudioSource myAudioSource;
+        private bool hasjumpedThisFrame;
+        private bool hasDashedThisFrame;
+        private void SFX(){
+            if(hasjumpedThisFrame){
+                myAudioSource.clip = soundsDict[sounds.Jump];
+                myAudioSource.Play();
+            }
+            if(hasDashedThisFrame){
+                myAudioSource.clip = soundsDict[sounds.Dash];
+                myAudioSource.Play();
+            }
+        }
+
+        public enum sounds
+        {
+            Jump, Dash
+        }
+        public SerializedDictionary<sounds, AudioClip> soundsDict;
+        #endregion
         #region Jump
 
         private const float JUMP_CLEARANCE_TIME = 0.25f;
@@ -573,11 +598,13 @@ namespace TarodevController
             if (jumpType is JumpType.Jump or JumpType.Coyote)
             {
                 _coyoteUsable = false;
+                hasjumpedThisFrame = true;                
                 AddFrameForce(new Vector2(0, Stats.JumpPower));
             }
             else if (jumpType is JumpType.AirJump)
             {
                 _airJumpsRemaining--;
+                hasjumpedThisFrame = true;
                 AddFrameForce(new Vector2(0, Stats.JumpPower));
             }
             else if (jumpType is JumpType.WallJump)
@@ -626,6 +653,7 @@ namespace TarodevController
                 _dashVel = dir * Stats.DashVelocity;
                 _dashing = true;
                 _canDash = false;
+                hasDashedThisFrame = true;
                 _startedDashing = _time;
                 _nextDashTime = _time + Stats.DashCooldown;
                 DashChanged?.Invoke(true, dir);

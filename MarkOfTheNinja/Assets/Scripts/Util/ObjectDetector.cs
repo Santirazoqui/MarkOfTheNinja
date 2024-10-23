@@ -6,11 +6,22 @@ namespace Assets.Scripts.Util
     {
         private static readonly string _wallsLayer = "Walls";
         private static readonly string _groundLayer = "Ground";
-        public static bool AnyObjectsBetween(GameObject you, GameObject them)
+        public static bool AnyObjectsBetween(GameObject you, Collider2D collider)
         {
             Vector2 origin = you.transform.position;
-            Vector2 goal = them.transform.position;
-            return AnyObjectsBetweenWithLayer(origin, goal, _wallsLayer) || AnyObjectsBetweenWithLayer(origin,goal,_groundLayer);
+
+            // Obtener los puntos importantes de la hitbox (superior, centro, e inferior)
+            Vector2 top = collider.bounds.max; // Parte superior
+            Vector2 bottom = collider.bounds.min; // Parte inferior
+            Vector2 center = collider.bounds.center; // Centro
+
+            // Hacer raycasts a los tres puntos
+            return (AnyObjectsBetweenWithLayer(origin, top, _wallsLayer) &&
+                   AnyObjectsBetweenWithLayer(origin, center, _wallsLayer) &&
+                   AnyObjectsBetweenWithLayer(origin, bottom, _wallsLayer)) ||
+                   (AnyObjectsBetweenWithLayer(origin, top, _groundLayer) &&
+                   AnyObjectsBetweenWithLayer(origin, center, _groundLayer) &&
+                   AnyObjectsBetweenWithLayer(origin, bottom, _groundLayer));
         }
 
         public static bool AnyObjectsBetween(GameObject you, Vector2 goal)

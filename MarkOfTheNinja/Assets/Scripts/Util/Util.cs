@@ -16,7 +16,7 @@ namespace Assets.Scripts.Enemy
         {
             bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
             if (!collidedWithASound) return false;
-            if (ObjectDetector.AnyObjectsBetween(you, collision.gameObject)) return false;
+            if (ObjectDetector.AnyObjectsBetween(you, collision)) return false;
             return true;
         }
 

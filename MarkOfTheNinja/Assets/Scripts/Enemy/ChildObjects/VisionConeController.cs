@@ -46,7 +46,7 @@ public class VisionConeController : MonoBehaviour
         if (!collision.gameObject.CompareTag(playerTag)) return;
         var enemy = GetComponentInParent<EnemyController>();
         this.enemy = enemy;
-        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject)) return;
+        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision)) return;
         var enemyPosition = enemy.transform.position;
         var playerPosition = collision.gameObject.transform.position;
         float distance = Vector2.Distance(enemyPosition, playerPosition);
@@ -60,7 +60,7 @@ public class VisionConeController : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag(playerTag)) return;
         var enemy = GetComponentInParent<EnemyController>();
-        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision.gameObject) && !playerIsBeingSeen) return;
+        if (ObjectDetector.AnyObjectsBetween(enemy.gameObject, collision) && !playerIsBeingSeen) return;
         playerIsBeingSeen = false;
         enemy.PlayerLeftVisionRadius(collision.gameObject.transform.position);
     }

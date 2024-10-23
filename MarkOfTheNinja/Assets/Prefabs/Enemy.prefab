@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9270926a1c5c894da1bee96a45fe8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 3054942120541986084, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
   defaultState: 0
   posibleStates:
     _serializedList:

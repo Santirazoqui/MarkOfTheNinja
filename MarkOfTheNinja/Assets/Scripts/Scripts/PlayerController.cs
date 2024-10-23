@@ -509,6 +509,8 @@ namespace TarodevController
 
         #region Animation
         private Animator myAnimator;
+        private int dashCounter;
+        
         private void Animate()
         {
             // Animation
@@ -523,6 +525,13 @@ namespace TarodevController
             if(Velocity.x!=0)
             {            
             transform.localScale = new Vector2(Mathf.Sign(Velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            }
+            if(_dashing){
+                myAnimator.SetBool("isDashing",true);
+                myAnimator.SetBool("isRunning",false);
+            }
+            else{
+                myAnimator.SetBool("isDashing",false);
             }
         }
         #endregion

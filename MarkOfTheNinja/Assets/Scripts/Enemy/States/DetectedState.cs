@@ -8,13 +8,6 @@ namespace Assets.Scripts.Enemy.States
     {
         public float persectutionSpeed = 300f;
         public float minDistance = 0.1f;
-
-
-        private IPathfinder pathfinder;
-        private EnemyController parent;
-        private GameObject player;
-        private ILevelManager levelManagerController;
-        private EnemyAnimationController animationController;
         private bool killingPlayer = false;
         
         public string playerTag = "Player";
@@ -53,11 +46,7 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void EnterImplementation()
         {
-            pathfinder = _lastRecivedContext.Pathfinder;
-            parent = _lastRecivedContext.Parent;
-            player = _lastRecivedContext.Player;
-            levelManagerController = _lastRecivedContext.LevelManagerController;
-            animationController = _lastRecivedContext.AnimationController;
+            pathfinder.IgnoreEnenmyWallsCollitions = true;
             PlayDetectedAnimation();
         }
 
@@ -78,6 +67,7 @@ namespace Assets.Scripts.Enemy.States
             var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed,minDistance);
         }
+
 
 
 

@@ -13,13 +13,10 @@ namespace Assets.Scripts.Enemy.States
         public float waitTimeWhenReach = 1f;
 
         private Vector2 initialPosition;
-        private IPathfinder pathfinder;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
         private readonly string _soundTag = "Sound";
-        private EnemyController parent;
-        private EnemyAnimationController animationController;
 
         private bool initiated = false;
 

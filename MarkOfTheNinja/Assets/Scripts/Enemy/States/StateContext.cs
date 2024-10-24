@@ -23,7 +23,7 @@ namespace Assets.Scripts.Enemy.States
         public Vector2 SoundPosition {  get; set; } 
         public IPathfinder Pathfinder { get; set; }
         public GameObject Player { get; set; }  
-        public ILevelManager LevelManagerController { get; set; }
+        public LevelManagerController LevelManagerController { get; set; }
         public EnemyAnimationController AnimationController { get; set; }
         public (float, EnemyStates) WaitTime { get; set; } 
     }

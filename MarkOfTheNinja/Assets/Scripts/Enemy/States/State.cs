@@ -1,3 +1,5 @@
+using Assets.Scripts.Enemy.Pathfinding;
+using Assets.Scripts.Enemy;
 using Assets.Scripts.Enemy.States;
 using System;
 using UnityEngine;
@@ -5,9 +7,14 @@ using UnityEngine;
 public abstract class State : MonoBehaviour
 {
     protected StateContext _lastRecivedContext;
+    protected IPathfinder pathfinder;
+    protected EnemyController parent;
+    protected GameObject player;
+    protected LevelManagerController levelManagerController;
+    protected EnemyAnimationController animationController;
     public void Enter(StateContext context)
     {
-        _lastRecivedContext = context;
+        UpdateValues(context);
         EnterImplementation();
     }
     protected virtual void EnterImplementation() { }
@@ -17,7 +24,7 @@ public abstract class State : MonoBehaviour
     /// </summary>    
     public void Do(StateContext context)
     {
-        _lastRecivedContext = context;
+        UpdateValues(context);
         DoImplementation();
     }
 
@@ -27,7 +34,7 @@ public abstract class State : MonoBehaviour
     /// </summary>
     public void FixedDo(StateContext context)
     {
-        _lastRecivedContext = context;
+        UpdateValues(context);
         FixedDoImplementation();
     }
 
@@ -38,7 +45,7 @@ public abstract class State : MonoBehaviour
     /// </summary>
     public void Exit(StateContext context)
     {
-        _lastRecivedContext = context;
+        UpdateValues(context);
         ExitImplementation();
     }
 
@@ -54,5 +61,14 @@ public abstract class State : MonoBehaviour
 
     public void SetActive(bool value) => gameObject.SetActive(value);
 
+    private void UpdateValues(StateContext context)
+    {
+        _lastRecivedContext = context;
+        pathfinder = _lastRecivedContext.Pathfinder;
+        parent = _lastRecivedContext.Parent;
+        player = _lastRecivedContext.Player;
+        levelManagerController = _lastRecivedContext.LevelManagerController;
+        animationController = _lastRecivedContext.AnimationController;
+    }
     
 }

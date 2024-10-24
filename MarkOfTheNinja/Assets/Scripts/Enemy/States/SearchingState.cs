@@ -10,14 +10,10 @@ namespace Assets.Scripts.Enemy.States
         public float minDistance = 0.1f;
 
 
-        private IPathfinder pathfinder;
-        private EnemyController parent;
         private readonly string _soundTag = "Sound";
 
         protected override void EnterImplementation()
         {
-            pathfinder = _lastRecivedContext.Pathfinder;
-            parent = _lastRecivedContext.Parent;
 
             pathfinder.SetDestination(_lastRecivedContext.SoundPosition, StartSearchAtSound);
             PlaySearchingAnimation();

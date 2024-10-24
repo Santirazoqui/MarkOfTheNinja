@@ -17,9 +17,23 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private bool tourchingBorder;
         private readonly string _wallsLayer = "Walls";
         private readonly string _enemyWalls = "EnemyWall";
+        private readonly string _enemyLayer = "Enemies";
         private Vector2 _previusPosition;
         private Vector2 _previusVelocity;
         private float currentSpeed;
+
+        private bool _ignoreEnemyWallsCollitions = false;
+        public bool IgnoreEnenmyWallsCollitions { 
+            get => _ignoreEnemyWallsCollitions; 
+            set {
+                if (value == _ignoreEnemyWallsCollitions) return;
+                int layer1 = LayerMask.NameToLayer(_enemyLayer);
+                int layer2 = LayerMask.NameToLayer(_enemyWalls);
+                Physics2D.IgnoreLayerCollision(layer1, layer2, value);
+                _ignoreEnemyWallsCollitions = value;
+            } 
+        }
+
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
@@ -122,6 +136,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
 
     public interface IPathfinder
     {
+        bool IgnoreEnenmyWallsCollitions { get; set; }
         void SetDestination(Vector2 destination, Action onReached);
         void AdjustPosition(float speed, float minDistance);
     }

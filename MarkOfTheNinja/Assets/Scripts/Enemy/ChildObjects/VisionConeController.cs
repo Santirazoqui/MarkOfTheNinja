@@ -8,7 +8,7 @@ public class VisionConeController : MonoBehaviour
     // Start is called before the first frame update
     private readonly string playerTag = "Player";
     private bool playerIsBeingSeen = false;
-    private ILevelManager levelManager;
+    private LevelManagerController levelManager;
     private float lastDistance;
     private EnemyController enemy;
 

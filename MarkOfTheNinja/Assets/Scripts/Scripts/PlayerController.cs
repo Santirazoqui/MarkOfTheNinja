@@ -677,6 +677,7 @@ namespace TarodevController
 
                     SetVelocity(new Vector2(Velocity.x * Stats.DashEndHorizontalMultiplier, Velocity.y));
                     if (_grounded) _canDash = true;
+
                 }
             }
         }
@@ -791,6 +792,9 @@ namespace TarodevController
             _decayingTransientVelocity += platformVel;
         }
 
+        const int PLAYER_LAYER = 9;
+        const int ENEMIES_LAYER = 7;
+
         private void Move()
         {
             if (_forceToApplyThisFrame != Vector2.zero)
@@ -805,8 +809,12 @@ namespace TarodevController
 
             if (_dashing)
             {
+                // Debug.Log("Collisions ignored: ");
+                Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);                
                 SetVelocity(_dashVel);
                 return;
+            } else {
+                Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);                
             }
 
             if (_isOnWall)

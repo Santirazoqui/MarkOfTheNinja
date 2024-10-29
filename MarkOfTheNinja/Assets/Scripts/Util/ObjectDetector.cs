@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.Scripts.Util
 {
@@ -17,28 +18,17 @@ namespace Assets.Scripts.Util
             Vector2 bottom = collider.bounds.min; // Parte inferior
             Vector2 center = collider.bounds.center; // Centro
 
-            bool res = false;
-            foreach (var layer in layers)
-            {
-                res |= AnyObjectsBetweenWithLayer(origin, top, layer) &&
-                   AnyObjectsBetweenWithLayer(origin, center, layer) &&
-                   AnyObjectsBetweenWithLayer(origin, bottom, layer);
-            }
             // Hacer raycasts a los tres puntos
-            return res;
+            return AnyObjectsBetweenWithLayer(origin, top, layers) &&
+                    AnyObjectsBetweenWithLayer(origin, center, layers) &&
+                    AnyObjectsBetweenWithLayer(origin, bottom, layers); 
         }
 
-        public static bool AnyObjectsBetween(GameObject you, Vector2 goal)
-        {
-            Vector2 origin = you.transform.position;
-            return AnyObjectsBetweenWithLayer(origin, goal, _wallsLayer) || AnyObjectsBetweenWithLayer(origin, goal, _groundLayer);
-        }
-
-        private static bool AnyObjectsBetweenWithLayer(Vector2 origin, Vector2 goal, string layer)
+        private static bool AnyObjectsBetweenWithLayer(Vector2 origin, Vector2 goal, string[] layers)
         {
             Vector2 direction = goal - origin;
             float distance = direction.magnitude;
-            RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance: distance, layerMask: LayerMask.GetMask(layer));
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance: distance, layerMask: LayerMask.GetMask(layers));
             if (hit.collider == null) { return false; }
 
             bool weHitThem = hit.point == goal;

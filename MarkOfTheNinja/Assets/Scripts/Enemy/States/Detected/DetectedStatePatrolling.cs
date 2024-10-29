@@ -21,6 +21,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         private readonly string floorsLayers = "Walls";
         private readonly string platformsLayer = "Ground";
         private readonly string enemyWallLayer = "EnemyWall";
+        private readonly string camaraTag = "MainCamera";
 
         private bool cantMove = false;
         private Vector2 initialPosition;
@@ -184,6 +185,11 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private bool CanSeePlayer()
         {
+            var camara = GameObject.FindGameObjectWithTag(camaraTag).GetComponent<Camera>();
+            Vector2 viewportPosition = camara.WorldToViewportPoint(transform.position);
+            bool isVisible = viewportPosition.x > 0 && viewportPosition.x < 1 && // Dentro del eje X del viewport
+                            viewportPosition.y > 0 && viewportPosition.y < 1;   // Dentro del eje Y del viewport
+            if (!isVisible) return false; // para no hacer raytracing si esta fuera de camara
             var collider = player.GetComponent<Collider2D>();
             bool areInTheSameFloor = !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { floorsLayers });
             return areInTheSameFloor;
@@ -191,12 +197,9 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private bool CantReachPlayer()
         {
-            var heightDifference = player.transform.position.y - parent.transform.position.y;
-            bool tooHigh = Math.Abs(heightDifference) >= minHeightDifferenceToThrowFireballs;
             var collider = player.GetComponent<Collider2D>();
-            bool inAPlatform = !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { platformsLayer });
-            bool outOfPatrollingBounds = ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { enemyWallLayer});
-            return (tooHigh && inAPlatform) || outOfPatrollingBounds;
+            bool inAPlatformOrOutOfBounds = ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { platformsLayer, enemyWallLayer });
+            return inAPlatformOrOutOfBounds;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

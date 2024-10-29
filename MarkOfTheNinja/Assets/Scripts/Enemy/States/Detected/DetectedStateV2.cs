@@ -1,14 +1,17 @@
-﻿using Assets.Scripts.Enemy.Pathfinding;
+﻿using Assets.Scripts.Util;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class DetectedState : State
+    public abstract class DetectedStateV2:State
     {
-        public float persectutionSpeed = 300f;
         private bool killingPlayer = false;
-        
+
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
 
@@ -21,7 +24,7 @@ namespace Assets.Scripts.Enemy.States
         {
             bool collidedWithPlayer = player.CompareTag(playerTag);
             if (!collidedWithPlayer) return;
-            KillPlayer(player.gameObject);
+            KillPlayer(player);
         }
 
         private void KillPlayer(GameObject player)
@@ -45,7 +48,6 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void EnterImplementation()
         {
-
             PlayDetectedAnimation();
         }
 
@@ -61,21 +63,18 @@ namespace Assets.Scripts.Enemy.States
                 pathfinder.AdjustPosition(0, 0);
                 return;
             }
-            pathfinder.SetDestination(player.transform.position, DoNothing);
-            var speed = persectutionSpeed;
-            var minDistance = this.minDistance;
-            pathfinder.AdjustPosition(speed,minDistance);
         }
 
-
-
-        private void DoNothing() { }
+        protected bool CanSeePlayer()
+        {
+            var collider = player.GetComponent<Collider2D>();
+            return !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider);
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             HandlePlayerCollition(collision.gameObject);
         }
-
 
     }
 }

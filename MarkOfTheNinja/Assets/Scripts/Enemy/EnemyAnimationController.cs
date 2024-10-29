@@ -56,8 +56,5 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        private void Update()
-        {
-        }
     }
 }

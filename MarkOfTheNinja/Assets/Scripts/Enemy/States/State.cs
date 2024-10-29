@@ -1,13 +1,22 @@
+using Assets.Scripts.Enemy.Pathfinding;
+using Assets.Scripts.Enemy;
 using Assets.Scripts.Enemy.States;
 using System;
 using UnityEngine;
 
 public abstract class State : MonoBehaviour
 {
+    protected float minDistance = 0.1f;
     protected StateContext _lastRecivedContext;
+    protected IPathfinder pathfinder;
+    protected EnemyController parent;
+    protected GameObject player;
+    protected ILevelManager levelManagerController;
+    protected EnemyAnimationController animationController;
     public void Enter(StateContext context)
     {
         _lastRecivedContext = context;
+        OverideVariabeles();
         EnterImplementation();
     }
     protected virtual void EnterImplementation() { }
@@ -54,5 +63,13 @@ public abstract class State : MonoBehaviour
 
     public void SetActive(bool value) => gameObject.SetActive(value);
 
+    private void OverideVariabeles()
+    {
+        pathfinder = _lastRecivedContext.Pathfinder;
+        parent = _lastRecivedContext.Parent;
+        player = _lastRecivedContext.Player;
+        levelManagerController = _lastRecivedContext.LevelManagerController;
+        animationController = _lastRecivedContext.AnimationController;
+    }
     
 }

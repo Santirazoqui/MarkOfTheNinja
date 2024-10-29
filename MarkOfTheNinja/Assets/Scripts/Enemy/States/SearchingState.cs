@@ -7,11 +7,8 @@ namespace Assets.Scripts.Enemy.States
     public class SearchingState : NonDetectedState
     {
         public float searchingSpeed = 300f;
-        public float minDistance = 0.1f;
 
 
-        private IPathfinder pathfinder;
-        private EnemyController parent;
         private readonly string _soundTag = "Sound";
 
         protected override void EnterImplementation()

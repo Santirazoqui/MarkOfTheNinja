@@ -1,21 +1,24 @@
-﻿using Assets.Scripts.Enemy.Pathfinding;
-using Assets.Scripts.Util;
+﻿using Assets.Scripts.Util;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Enemy.States
+namespace Assets.Scripts.Enemy.States.Detected
 {
-    public class ChillingState : NonDetectedState
+    public class DetectedStatePatrolling:DetectedStateV2
     {
-        public float patrollingSpeed = 200f;
-        public float searchingRadius = 5f;
-        public float waitTimeWhenReach = 1f;
+
+        public float patrollingSpeed = 300f;
+
+        public float searchingRadius = 500f;
 
         private Vector2 initialPosition;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
-        private readonly string _soundTag = "Sound";
 
         private bool initiated = false;
 
@@ -23,10 +26,10 @@ namespace Assets.Scripts.Enemy.States
         private void FakeStart()
         {
             if (initiated) return;
-            
+
             pathfinder = _lastRecivedContext.Pathfinder;
             parent = _lastRecivedContext.Parent;
-            
+
             rb = parent.GetComponent<Rigidbody2D>();
             initialPosition = rb.position;
             initiated = true;
@@ -35,11 +38,10 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void EnterImplementation()
         {
+            base.EnterImplementation();
             FakeStart();
-            PlayChillingAnimation();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
-            //Debug.Log("Entered chilling");
         }
 
         protected override void DoImplementation()
@@ -49,34 +51,45 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void FixedDoImplementation()
         {
+            base.FixedDoImplementation();
+            if(CanSeePlayer())
+            {
+
+                parent.ChangeStates(EnemyStates.DetectedHunt);
+            }
+            else
+            {
+                Patroll();
+            }
+        }
+
+
+
+        private void Patroll()
+        {
             var speed = patrollingSpeed;
             var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }
 
-        public override void TriggerEnter(Collider2D collision)
-        {
-            HandleSoundCollition(collision);
-        }
 
         private void UpdateSearchRadius(StateContext context)
         {
-            //Debug.Log("Searching radius:" + searchingRadius);
             var x = initialPosition.x;
             searchingLimits[0] = x - searchingRadius;
             searchingLimits[1] = x + searchingRadius;
-            
+
         }
 
         private void StartSearch()
         {
             var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
             pathfinder.SetDestination(target, SwitchTargets);
-            //Debug.Log("Destination set");
         }
 
         private void SwitchTargets()
         {
+            Debug.Log($"Switch targets called at: {parent.transform.position.x},{parent.transform.position.y}");
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;
@@ -85,31 +98,12 @@ namespace Assets.Scripts.Enemy.States
             {
                 searchingIndex++;
             }
-            //StartSearch();
-            WaitForNecessaryTime();
+            StartSearch();
         }
 
-        private void WaitForNecessaryTime()
-        {
-            _lastRecivedContext.WaitTime = (waitTimeWhenReach, EnemyStates.Chilling);
-            parent.ChangeStates(EnemyStates.Waiting);    
-        }
 
-        private void HandleSoundCollition(Collider2D collision)
-        {
-            if (!Util.CollidedWithSound(parent.gameObject, collision)) return;
-            var soundOrigin = collision.gameObject.transform.position;
-            _lastRecivedContext.SoundPosition = soundOrigin;
-            _lastRecivedContext.LevelManagerController.SoundWasHeard();
-            parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);
-        }
 
-        private void PlayChillingAnimation()
-        {
-            animationController.Walking();
-        }
+
 
     }
-
-    
 }

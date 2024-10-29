@@ -156,7 +156,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
         StartCoroutine(TurnLightsOn());
-        PublishEnemyStateChange(EnemyStates.Detected);
+        PublishEnemyStateChange(EnemyStates.DetectedHunt);
         PublishPlayerDetection();
     }
 

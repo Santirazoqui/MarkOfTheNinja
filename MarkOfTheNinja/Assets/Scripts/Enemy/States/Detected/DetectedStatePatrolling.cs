@@ -18,9 +18,9 @@ namespace Assets.Scripts.Enemy.States.Detected
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
         public string animationEventForThrowingFireball = "thowingFireballEnded";
-        public string floorsLayers = "Walls";
-        public string platformsLayer = "Ground";
-        public string enemyWallLayer = "EnemyWall";
+        private readonly string floorsLayers = "Walls";
+        private readonly string platformsLayer = "Ground";
+        private readonly string enemyWallLayer = "EnemyWall";
 
         private bool cantMove = false;
         private Vector2 initialPosition;

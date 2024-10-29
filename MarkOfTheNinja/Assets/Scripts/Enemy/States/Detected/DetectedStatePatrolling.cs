@@ -8,14 +8,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States.Detected
 {
-    public class DetectedStatePatrolling:DetectedStateV2
+    public class DetectedStatePatrolling:State
     {
 
         public float patrollingSpeed = 300f;
         public float persectutionSpeed = 400f;
         public float searchingRadius = 500f;
         public float minHeightDifferenceToThrowFireballs = 10f;
+        public string playerTag = "Player";
+        public string animationEventForKillingPlayer = "playerKilled";
+        public string animationEventForThrowingFireball = "thowingFireballEnded";
 
+        private bool cantMove = false;
         private Vector2 initialPosition;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
@@ -39,7 +43,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         protected override void EnterImplementation()
         {
-            base.EnterImplementation();
+            PlayDetectedAnimation();
             FakeStart();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();
@@ -59,7 +63,6 @@ namespace Assets.Scripts.Enemy.States.Detected
             }
             if (CanSeePlayer())
             {
-                if (cantMove) Debug.Log("Hunting after killing");
                 if(!CanReachPlayer())
                 {
                     ThrowFireballs();
@@ -71,7 +74,6 @@ namespace Assets.Scripts.Enemy.States.Detected
             }
             else
             {
-                if (cantMove) Debug.Log("Patrolling after killing");
                 StartSearch();
                 Patroll();
             }
@@ -134,7 +136,61 @@ namespace Assets.Scripts.Enemy.States.Detected
         }
 
 
+        public override void CollitionEnter(Collision2D collision)
+        {
+            HandlePlayerCollition(collision.gameObject);
+        }
 
+        private void HandlePlayerCollition(GameObject player)
+        {
+            bool collidedWithPlayer = player.CompareTag(playerTag);
+            if (!collidedWithPlayer) return;
+            KillPlayer(player);
+        }
+
+        private void KillPlayer(GameObject player)
+        {
+            animationController.Killing();
+            cantMove = true;
+            player.SetActive(false);
+        }
+
+        public override void AnimationEventFired(string eventDescription)
+        {
+            if (eventDescription == animationEventForKillingPlayer)
+            {
+                PostKilling();
+            }
+            else if (eventDescription == animationEventForThrowingFireball)
+            {
+                cantMove = false;
+                PlayDetectedAnimation();
+            }
+
+        }
+
+        private void PostKilling()
+        {
+            levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
+        }
+
+
+        private void PlayDetectedAnimation()
+        {
+            animationController.Walking();
+        }
+
+
+        private bool CanSeePlayer()
+        {
+            var collider = player.GetComponent<Collider2D>();
+            return !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            HandlePlayerCollition(collision.gameObject);
+        }
 
 
     }

@@ -6,8 +6,10 @@ namespace Assets.Scripts.Util
     {
         private static readonly string _wallsLayer = "Walls";
         private static readonly string _groundLayer = "Ground";
-        public static bool AnyObjectsBetween(GameObject you, Collider2D collider)
+        private static readonly string[] _defaultLayers = new string[] { _groundLayer };
+        public static bool AnyObjectsBetween(GameObject you, Collider2D collider, string[] layers = null)
         {
+            if (layers is null) layers = _defaultLayers;
             Vector2 origin = you.transform.position;
 
             // Obtener los puntos importantes de la hitbox (superior, centro, e inferior)
@@ -15,13 +17,15 @@ namespace Assets.Scripts.Util
             Vector2 bottom = collider.bounds.min; // Parte inferior
             Vector2 center = collider.bounds.center; // Centro
 
+            bool res = false;
+            foreach (var layer in layers)
+            {
+                res |= AnyObjectsBetweenWithLayer(origin, top, layer) &&
+                   AnyObjectsBetweenWithLayer(origin, center, layer) &&
+                   AnyObjectsBetweenWithLayer(origin, bottom, layer);
+            }
             // Hacer raycasts a los tres puntos
-            return (AnyObjectsBetweenWithLayer(origin, top, _wallsLayer) &&
-                   AnyObjectsBetweenWithLayer(origin, center, _wallsLayer) &&
-                   AnyObjectsBetweenWithLayer(origin, bottom, _wallsLayer)) ||
-                   (AnyObjectsBetweenWithLayer(origin, top, _groundLayer) &&
-                   AnyObjectsBetweenWithLayer(origin, center, _groundLayer) &&
-                   AnyObjectsBetweenWithLayer(origin, bottom, _groundLayer));
+            return res;
         }
 
         public static bool AnyObjectsBetween(GameObject you, Vector2 goal)

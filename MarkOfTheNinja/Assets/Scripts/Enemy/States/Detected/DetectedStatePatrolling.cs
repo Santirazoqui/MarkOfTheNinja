@@ -18,6 +18,9 @@ namespace Assets.Scripts.Enemy.States.Detected
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
         public string animationEventForThrowingFireball = "thowingFireballEnded";
+        public string floorsLayers = "Walls";
+        public string platformsLayer = "Ground";
+        public string enemyWallLayer = "EnemyWall";
 
         private bool cantMove = false;
         private Vector2 initialPosition;
@@ -63,7 +66,7 @@ namespace Assets.Scripts.Enemy.States.Detected
             }
             if (CanSeePlayer())
             {
-                if(!CanReachPlayer())
+                if(CantReachPlayer())
                 {
                     ThrowFireballs();
                 }
@@ -79,17 +82,32 @@ namespace Assets.Scripts.Enemy.States.Detected
             }
         }
 
+        public override void CollitionEnter(Collision2D collision)
+        {
+            HandlePlayerCollition(collision.gameObject);
+        }
+
+        public override void AnimationEventFired(string eventDescription)
+        {
+            if (eventDescription == animationEventForKillingPlayer)
+            {
+                PostKilling();
+            }
+            else if (eventDescription == animationEventForThrowingFireball)
+            {
+                cantMove = false;
+                PlayDetectedAnimation();
+            }
+
+        }
+
         private void ThrowFireballs()
         {
             animationController.ThrowFireball();
             cantMove = true;
         }
 
-        private bool CanReachPlayer()
-        {
-            var heightDifference = player.transform.position.y - parent.transform.position.y;
-            return  Math.Abs(heightDifference) <= minHeightDifferenceToThrowFireballs;
-        }
+
 
         private void Hunt()
         {
@@ -136,11 +154,6 @@ namespace Assets.Scripts.Enemy.States.Detected
         }
 
 
-        public override void CollitionEnter(Collision2D collision)
-        {
-            HandlePlayerCollition(collision.gameObject);
-        }
-
         private void HandlePlayerCollition(GameObject player)
         {
             bool collidedWithPlayer = player.CompareTag(playerTag);
@@ -155,19 +168,7 @@ namespace Assets.Scripts.Enemy.States.Detected
             player.SetActive(false);
         }
 
-        public override void AnimationEventFired(string eventDescription)
-        {
-            if (eventDescription == animationEventForKillingPlayer)
-            {
-                PostKilling();
-            }
-            else if (eventDescription == animationEventForThrowingFireball)
-            {
-                cantMove = false;
-                PlayDetectedAnimation();
-            }
 
-        }
 
         private void PostKilling()
         {
@@ -184,7 +185,18 @@ namespace Assets.Scripts.Enemy.States.Detected
         private bool CanSeePlayer()
         {
             var collider = player.GetComponent<Collider2D>();
-            return !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider);
+            bool areInTheSameFloor = !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { floorsLayers });
+            return areInTheSameFloor;
+        }
+
+        private bool CantReachPlayer()
+        {
+            var heightDifference = player.transform.position.y - parent.transform.position.y;
+            bool tooHigh = Math.Abs(heightDifference) >= minHeightDifferenceToThrowFireballs;
+            var collider = player.GetComponent<Collider2D>();
+            bool inAPlatform = !ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { platformsLayer });
+            bool outOfPatrollingBounds = ObjectDetector.AnyObjectsBetween(parent.gameObject, collider, new string[] { enemyWallLayer});
+            return (tooHigh && inAPlatform) || outOfPatrollingBounds;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

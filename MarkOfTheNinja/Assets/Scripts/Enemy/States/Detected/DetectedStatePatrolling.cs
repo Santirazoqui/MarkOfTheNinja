@@ -12,7 +12,7 @@ namespace Assets.Scripts.Enemy.States.Detected
     {
 
         public float patrollingSpeed = 300f;
-
+        public float persectutionSpeed = 400f;
         public float searchingRadius = 500f;
 
         private Vector2 initialPosition;
@@ -54,15 +54,22 @@ namespace Assets.Scripts.Enemy.States.Detected
             base.FixedDoImplementation();
             if(CanSeePlayer())
             {
-
-                parent.ChangeStates(EnemyStates.DetectedHunt);
+                Hunt();
             }
             else
             {
+                StartSearch();
                 Patroll();
             }
         }
 
+        private void Hunt()
+        {
+            pathfinder.SetDestination(player.transform.position, () => { });
+            var speed = persectutionSpeed;
+            var minDistance = this.minDistance;
+            pathfinder.AdjustPosition(speed, minDistance);
+        }
 
 
         private void Patroll()
@@ -89,7 +96,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void SwitchTargets()
         {
-            Debug.Log($"Switch targets called at: {parent.transform.position.x},{parent.transform.position.y}");
+            //Debug.Log($"Switch targets called at: {parent.transform.position.x},{parent.transform.position.y}");
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;

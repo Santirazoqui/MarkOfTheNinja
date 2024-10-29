@@ -11,6 +11,7 @@ namespace Assets.Scripts.Enemy.States
     public abstract class DetectedStateV2:State
     {
         private bool killingPlayer = false;
+        private int frameCounter = 0;
 
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
@@ -61,6 +62,8 @@ namespace Assets.Scripts.Enemy.States
             if (killingPlayer)
             {
                 pathfinder.AdjustPosition(0, 0);
+                frameCounter++;
+                Debug.Log($"Killing player {frameCounter}");
                 return;
             }
         }

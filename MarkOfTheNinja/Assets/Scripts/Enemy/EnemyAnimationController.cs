@@ -15,14 +15,16 @@ namespace Assets.Scripts.Enemy
             Chilling,
             Killing,
             Confused,
-            SearchingAtSound
+            SearchingAtSound,
+            ThrowingFireball
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
             { AnimationStates.Chilling, "Chill" },
             { AnimationStates.Killing, "Kill"},
             { AnimationStates.Confused, "Confused"},
-            { AnimationStates.SearchingAtSound, "Searching" }
+            { AnimationStates.SearchingAtSound, "Searching" },
+            {AnimationStates.ThrowingFireball,"ThrowingFireball" }
         };
 
 
@@ -45,6 +47,11 @@ namespace Assets.Scripts.Enemy
         public void SearchAtSound()
         {
             SetAnimationState(AnimationStates.SearchingAtSound);
+        }
+
+        public void ThrowFireball()
+        {
+            SetAnimationState(AnimationStates.ThrowingFireball);
         }
 
         private void SetAnimationState(AnimationStates state)

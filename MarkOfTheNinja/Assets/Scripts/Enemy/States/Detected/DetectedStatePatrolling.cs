@@ -14,6 +14,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         public float patrollingSpeed = 300f;
         public float persectutionSpeed = 400f;
         public float searchingRadius = 500f;
+        public float minHeightDifferenceToThrowFireballs = 10f;
 
         private Vector2 initialPosition;
         private Rigidbody2D rb;
@@ -51,16 +52,41 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         protected override void FixedDoImplementation()
         {
-            base.FixedDoImplementation();
-            if(CanSeePlayer())
+            if (cantMove)
             {
-                Hunt();
+                pathfinder.AdjustPosition(0, 0);
+                return;
+            }
+            if (CanSeePlayer())
+            {
+                if (cantMove) Debug.Log("Hunting after killing");
+                if(!CanReachPlayer())
+                {
+                    ThrowFireballs();
+                }
+                else
+                {
+                    Hunt();
+                }
             }
             else
             {
+                if (cantMove) Debug.Log("Patrolling after killing");
                 StartSearch();
                 Patroll();
             }
+        }
+
+        private void ThrowFireballs()
+        {
+            animationController.ThrowFireball();
+            cantMove = true;
+        }
+
+        private bool CanReachPlayer()
+        {
+            var heightDifference = player.transform.position.y - parent.transform.position.y;
+            return  Math.Abs(heightDifference) <= minHeightDifferenceToThrowFireballs;
         }
 
         private void Hunt()
@@ -96,7 +122,6 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void SwitchTargets()
         {
-            //Debug.Log($"Switch targets called at: {parent.transform.position.x},{parent.transform.position.y}");
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;

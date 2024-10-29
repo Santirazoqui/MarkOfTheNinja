@@ -10,11 +10,11 @@ namespace Assets.Scripts.Enemy.States
 {
     public abstract class DetectedStateV2:State
     {
-        private bool killingPlayer = false;
-        private int frameCounter = 0;
+        protected bool cantMove = false;
 
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
+        public string animationEventForThrowingFireball = "thowingFireballEnded";
 
         public override void CollitionEnter(Collision2D collision)
         {
@@ -31,14 +31,22 @@ namespace Assets.Scripts.Enemy.States
         private void KillPlayer(GameObject player)
         {
             animationController.Killing();
-            killingPlayer = true;
+            cantMove = true;
             player.SetActive(false);
         }
 
         public override void AnimationEventFired(string eventDescription)
         {
-            if (eventDescription != animationEventForKillingPlayer) return;
-            PostKilling();
+            if (eventDescription == animationEventForKillingPlayer)
+            {
+                PostKilling();
+            }
+            else if (eventDescription == animationEventForThrowingFireball)
+            {
+                cantMove = false;
+                PlayDetectedAnimation();
+            }
+            
         }
 
         private void PostKilling()
@@ -57,16 +65,6 @@ namespace Assets.Scripts.Enemy.States
             animationController.Walking();
         }
 
-        protected override void FixedDoImplementation()
-        {
-            if (killingPlayer)
-            {
-                pathfinder.AdjustPosition(0, 0);
-                frameCounter++;
-                Debug.Log($"Killing player {frameCounter}");
-                return;
-            }
-        }
 
         protected bool CanSeePlayer()
         {

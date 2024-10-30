@@ -18,8 +18,8 @@ namespace Assets.Scripts.Enemy.States.Detected
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
         public string animationEventForThrowingFireball = "thowingFireballEnded";
-        private readonly string floorsLayers = "Walls";
-        private readonly string platformsLayer = "Ground";
+        private readonly string floorsLayers = "Ground";
+        private readonly string platformsLayer = "Walls";
         private readonly string enemyWallLayer = "EnemyWall";
         private readonly string camaraTag = "MainCamera";
 

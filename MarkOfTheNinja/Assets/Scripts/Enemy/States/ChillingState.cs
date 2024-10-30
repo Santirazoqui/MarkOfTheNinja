@@ -70,6 +70,14 @@ namespace Assets.Scripts.Enemy.States
 
         private void StartSearch()
         {
+            
+            var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
+            pathfinder.SetDestination(target, SwitchTargets);
+            //Debug.Log("Destination set");
+        }
+
+        private void SwitchTargets()
+        {
             if (searchingLimits.Length - 1 == searchingIndex)
             {
                 searchingIndex = 0;
@@ -78,14 +86,6 @@ namespace Assets.Scripts.Enemy.States
             {
                 searchingIndex++;
             }
-            var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
-            pathfinder.SetDestination(target, SwitchTargets);
-            //Debug.Log("Destination set");
-        }
-
-        private void SwitchTargets()
-        {
-
             //StartSearch();
             WaitForNecessaryTime();
         }

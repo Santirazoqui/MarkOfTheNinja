@@ -145636,17 +145636,9 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 950546130}
-    - target: {fileID: 252920237002941451, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: m_InstanceId
-      value: -279902
-      objectReference: {fileID: 0}
     - target: {fileID: 997745886349629399, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 997745886349629399, guid: e357a4ce63650374eac17c88639407c9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1704384243284207667, guid: e357a4ce63650374eac17c88639407c9, type: 3}
       propertyPath: player

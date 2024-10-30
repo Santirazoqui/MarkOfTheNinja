@@ -8,18 +8,14 @@ namespace Assets.Scripts.Enemy.States
     public class ChillingState : NonDetectedState
     {
         public float patrollingSpeed = 200f;
-        public float minDistance = 0.1f;
         public float searchingRadius = 5f;
         public float waitTimeWhenReach = 1f;
 
         private Vector2 initialPosition;
-        private IPathfinder pathfinder;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
         private readonly string _soundTag = "Sound";
-        private EnemyController parent;
-        private EnemyAnimationController animationController;
 
         private bool initiated = false;
 
@@ -74,6 +70,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void StartSearch()
         {
+            
             var target = new Vector2(searchingLimits[searchingIndex], rb.position.y);
             pathfinder.SetDestination(target, SwitchTargets);
             //Debug.Log("Destination set");

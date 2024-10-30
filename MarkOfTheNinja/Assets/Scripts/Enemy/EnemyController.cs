@@ -6,13 +6,14 @@ using System;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, Detected, Confused, SearchingAtSound, Waiting
+    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting, DetectedHunt
 }
 
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
     public EnemyStates defaultState = EnemyStates.Chilling;
+    
 
     private State currentState;
     private EnemyStates currentStateName;
@@ -64,7 +65,7 @@ public class EnemyController : MonoBehaviour
 
     public void ChangeStates(EnemyStates state)
     {
-        if (currentStateName == EnemyStates.Detected) return; // Ignores enqued pathfinding changes when in detected mode. BugFix
+        if (currentStateName == EnemyStates.DetectedPatrolling) return; // Ignores enqued pathfinding changes when in detected mode. BugFix
         SudoChangeStates(state);
     }
 

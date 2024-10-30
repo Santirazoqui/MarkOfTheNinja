@@ -25,6 +25,11 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
     public float audioDetectionRate = 50f;
+    [Header("Detection Rate Reduction")]
+    public float secondsBeforeDetectionDecreases = 2f;
+    public float minDecreasePerTick = 0.1f;
+    public float maxDecreasePerTick = 0.2f;
+    public float increaseInDecreasePerTick = 0.001f;
     [Header("Global light")]
     public float globalLightMin = 0.1f;
     public float globalLightMax = 0.5f;
@@ -43,6 +48,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private IDataAccessManager dataAccessManager;
     private GameData previousScore;
+    private IEnumerator previousDetectionDecresionRoutine = null;
 
     [Inject]
     public void Constructor(IDataAccessManager dataAccessManager)
@@ -142,6 +148,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         if (Detected) return;
         DetectionRate += detectionRate * multiplier * Time.deltaTime;
+        StartDetectionDecrease();
         if (DetectionRate >= 100)
         {
             DetectionRate = 100;
@@ -156,13 +163,48 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
         StartCoroutine(TurnLightsOn());
-        PublishEnemyStateChange(EnemyStates.Detected);
+        StopDetectionDecreasion();
+        PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
         PublishPlayerDetection();
     }
 
     private void PublishPlayerDetection()
     {
         PlayerWasDetected?.Invoke();
+    }
+
+    private void StartDetectionDecrease()
+    {
+        if (Detected) return;
+        StopDetectionDecreasion();
+        previousDetectionDecresionRoutine = StartSuspicionDecrease();
+        StartCoroutine(previousDetectionDecresionRoutine);
+    }
+    private void StopDetectionDecreasion()
+    {
+        if (previousDetectionDecresionRoutine is not null) StopCoroutine(previousDetectionDecresionRoutine);
+    }
+
+    private IEnumerator StartSuspicionDecrease()
+    {
+        yield return new WaitForSeconds(secondsBeforeDetectionDecreases);
+        float decrease = minDecreasePerTick;
+        while(DetectionRate >0)
+        {
+            DetectionRate -= decrease;
+
+            if (decrease < maxDecreasePerTick)
+            {
+                decrease += increaseInDecreasePerTick;
+            }
+            else
+            {
+                decrease = maxDecreasePerTick;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+        DetectionRate = 0;
+        yield break;
     }
 
 }

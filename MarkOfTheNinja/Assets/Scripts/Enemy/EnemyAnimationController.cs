@@ -13,51 +13,79 @@ namespace Assets.Scripts.Enemy
         public enum AnimationStates
         {
             Chilling,
+            Moving, 
+            Still,
             Killing,
             Confused,
-            SearchingAtSound
+            SearchingAtSound,
+            ThrowingFireball
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
-            { AnimationStates.Chilling, "Chill" },
+            { AnimationStates.Chilling, "Chilling" },
+            { AnimationStates.Moving, "Moving" },
+            { AnimationStates.Still, "Still" },
             { AnimationStates.Killing, "Kill"},
             { AnimationStates.Confused, "Confused"},
-            { AnimationStates.SearchingAtSound, "Searching" }
+            { AnimationStates.SearchingAtSound, "Searching" },
+            {AnimationStates.ThrowingFireball,"ThrowingFireball" }
         };
 
 
 
         public void Walking()
         {
-            SetAnimationState(AnimationStates.Chilling);
+            EnterChilling();
+            SetAnimationState(AnimationStates.Moving);
+        }
+
+        public void StayStill()
+        {
+            EnterChilling();
+            SetAnimationState(AnimationStates.Still);
         }
 
         public void Killing()
         {
+            ExitChilling();
             SetAnimationState(AnimationStates.Killing);
         }
 
         public void Confused()
         {
+            ExitChilling();
             SetAnimationState(AnimationStates.Confused);
         }
 
         public void SearchAtSound()
         {
+            ExitChilling();
             SetAnimationState(AnimationStates.SearchingAtSound);
         }
+
+        public void ThrowFireball()
+        {
+            ExitChilling();
+            SetAnimationState(AnimationStates.ThrowingFireball);
+        }
+
+
 
         private void SetAnimationState(AnimationStates state)
         {
             foreach (var (s, n) in mapper)
             {
-                if (s == state) animator.SetTrigger(n);
-                else animator.ResetTrigger(n);
+                if (s == AnimationStates.Chilling) continue;
+                if (s == state){
+                    animator.SetTrigger(n);
+                }
+                else if (state != AnimationStates.Chilling) animator.ResetTrigger(n);
             }
         }
 
-        private void Update()
-        {
-        }
+        private void EnterChilling() => animator.SetBool(mapper[AnimationStates.Chilling], true);
+        private void ExitChilling() => animator.SetBool(mapper[AnimationStates.Chilling], false);
+
+
     }
 }

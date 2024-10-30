@@ -603,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7085161120528189618, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
       propertyPath: visualDetectionRate
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7085161120528189618, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
       propertyPath: minTimeToGetTimeBonus

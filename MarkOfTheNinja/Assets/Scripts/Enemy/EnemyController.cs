@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
 
     public void ChangeStates(EnemyStates state)
     {
-        if (currentStateName == EnemyStates.DetectedHunt && state != EnemyStates.DetectedPatrolling) return; // Ignores enqued pathfinding changes when in detected mode. BugFix
+        if (currentStateName == EnemyStates.DetectedPatrolling) return; // Ignores enqued pathfinding changes when in detected mode. BugFix
         SudoChangeStates(state);
     }
 

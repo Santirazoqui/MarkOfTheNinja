@@ -11,6 +11,7 @@ namespace Assets.Scripts.Enemy.States
         {
             prevState = _lastRecivedContext.WaitTime.Item2;
             waitTime = _lastRecivedContext.WaitTime.Item1;
+            animationController.StayStill();
             //Debug.Log($"Waiting for {waitTime}");
         }
 

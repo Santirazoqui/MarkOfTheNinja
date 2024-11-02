@@ -134483,6 +134483,8 @@ GameObject:
   - component: {fileID: 1179081882}
   - component: {fileID: 1179081881}
   - component: {fileID: 1179081880}
+  - component: {fileID: 1179081885}
+  - component: {fileID: 1179081884}
   m_Layer: 0
   m_Name: Fireball Shot
   m_TagString: Untagged
@@ -134499,8 +134501,8 @@ Transform:
   m_GameObject: {fileID: 1179081878}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.20344202, y: -1.0085685, z: 0.06764365}
-  m_LocalScale: {x: 7.3141203, y: 7.3141203, z: 7.3141203}
+  m_LocalPosition: {x: -4.01, y: 4.55, z: 0.06764365}
+  m_LocalScale: {x: 0.65534514, y: 0.65534514, z: 0.65534514}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1195995763}
@@ -134535,7 +134537,7 @@ MonoBehaviour:
   radius: 0.07
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 2
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -134558,8 +134560,8 @@ MonoBehaviour:
   pickNextWaypointDist: 2
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
+  slowWhenNotFacingTarget: 0
+  whenCloseToDestination: 1
   constrainInsideGraph: 0
 --- !u!114 &1179081882
 MonoBehaviour:
@@ -134641,6 +134643,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1179081884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179081878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab301ccabc396d48b97b4b835e32403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &1179081885
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179081878}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.38683122, y: 0.03292264}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &1180918412
 PrefabInstance:
   m_ObjectHideFlags: 0

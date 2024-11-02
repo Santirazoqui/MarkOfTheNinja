@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
@@ -510,28 +511,30 @@ namespace TarodevController
         #region Animation
         private Animator myAnimator;
         private int dashCounter;
-        
+
         private void Animate()
         {
             // Animation
             if (_grounded && _rb.velocity.x != 0)
             {
-               myAnimator.SetBool("isRunning",true);
+                myAnimator.SetBool("isRunning", true);
             }
             else
             {
                 myAnimator.SetBool("isRunning", false);
             }
-            if(Velocity.x!=0)
-            {            
-            transform.localScale = new Vector2(Mathf.Sign(Velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            if (Velocity.x != 0)
+            {
+                transform.localScale = new Vector2(Mathf.Sign(Velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
             }
-            if(_dashing){
-                myAnimator.SetBool("isDashing",true);
-                myAnimator.SetBool("isRunning",false);
+            if (_dashing)
+            {
+                myAnimator.SetBool("isDashing", true);
+                myAnimator.SetBool("isRunning", false);
             }
-            else{
-                myAnimator.SetBool("isDashing",false);
+            else
+            {
+                myAnimator.SetBool("isDashing", false);
             }
         }
         #endregion
@@ -540,12 +543,15 @@ namespace TarodevController
         private AudioSource myAudioSource;
         private bool hasjumpedThisFrame;
         private bool hasDashedThisFrame;
-        private void SFX(){
-            if(hasjumpedThisFrame){
+        private void SFX()
+        {
+            if (hasjumpedThisFrame)
+            {
                 myAudioSource.clip = soundsDict[sounds.Jump];
                 myAudioSource.Play();
             }
-            if(hasDashedThisFrame){
+            if (hasDashedThisFrame)
+            {
                 myAudioSource.clip = soundsDict[sounds.Dash];
                 myAudioSource.Play();
             }
@@ -607,7 +613,7 @@ namespace TarodevController
             if (jumpType is JumpType.Jump or JumpType.Coyote)
             {
                 _coyoteUsable = false;
-                hasjumpedThisFrame = true;                
+                hasjumpedThisFrame = true;
                 AddFrameForce(new Vector2(0, Stats.JumpPower));
             }
             else if (jumpType is JumpType.AirJump)
@@ -809,12 +815,9 @@ namespace TarodevController
 
             if (_dashing)
             {
-                // Debug.Log("Collisions ignored: ");
-                Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);                
+                StartCoroutine(DashInvincibilityCoroutine());
                 SetVelocity(_dashVel);
                 return;
-            } else {
-                Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);                
             }
 
             if (_isOnWall)
@@ -1005,6 +1008,13 @@ namespace TarodevController
         }
 
         #endregion
+
+        IEnumerator DashInvincibilityCoroutine()
+        {
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);
+            yield return new WaitForSeconds(0.7f);
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);
+        }
     }
 
     public enum JumpType

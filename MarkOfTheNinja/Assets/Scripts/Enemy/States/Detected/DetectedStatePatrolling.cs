@@ -107,7 +107,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void ThrowFireballs()
         {
-            //animationController.ThrowFireball();
+            animationController.ThrowFireball();
             Instantiate(fireball, rb.position, Quaternion.identity);
             StartCoroutine(WaitForFireball());
         }

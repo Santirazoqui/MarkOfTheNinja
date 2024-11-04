@@ -18,14 +18,10 @@ public class Fireball : MonoBehaviour
     void Update()
     {
         agent.SetDestination(target.position);
-        //transform.LookAt(target, Vector3.forward);
 
         Vector3 dir = target.position - transform.position;
         float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        // Vector3 relativePos = target.position - transform.position;
-        // transform.rotation = Quaternion.LookRotation(relativePos, Vector2.up);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

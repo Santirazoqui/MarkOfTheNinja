@@ -11,6 +11,8 @@ namespace Assets.Scripts.Enemy.States.Detected
     public class DetectedStatePatrolling:State
     {
 
+        [SerializeField] GameObject fireball;
+
         public float patrollingSpeed = 300f;
         public float persectutionSpeed = 400f;
         public float searchingRadius = 500f;
@@ -104,7 +106,8 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void ThrowFireballs()
         {
-            animationController.ThrowFireball();
+            //animationController.ThrowFireball();
+            Instantiate(fireball, rb.position, Quaternion.identity);
             cantMove = true;
         }
 

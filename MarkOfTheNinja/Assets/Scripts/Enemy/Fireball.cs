@@ -5,8 +5,13 @@ using UnityEngine.AI;
 
 public class Fireball : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    Transform target;
     NavMeshAgent agent;
+
+    void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void Start() 
     {

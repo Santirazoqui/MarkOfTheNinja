@@ -516,6 +516,7 @@ namespace TarodevController
         private int dashCounter;
         private bool wasOnAir = false;
         private bool landing = false;
+        private bool jumping = false;
 
         private void Animate()
         {
@@ -537,11 +538,19 @@ namespace TarodevController
                 }
 
             }
+            else
+            {
+                wasOnAir = true;
+                if (!jumping)
+                {
+                    animationController.OnAir();
+                }
+            }
 
             if(hasjumpedThisFrame)
             {
                 animationController.JumpStart();
-                wasOnAir = true;
+                jumping = true;
                 landing= false;
             }
 
@@ -561,7 +570,7 @@ namespace TarodevController
             switch (stateName)
             {
                 case "jumpEnded":
-                    animationController.OnAir();
+                    jumping = false;
                     break;
                 case "landEnded":
                     landing = false;

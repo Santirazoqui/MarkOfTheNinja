@@ -175,9 +175,11 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void KillPlayer(GameObject player)
         {
+            Debug.Log("Player was killed");
             animationController.Killing();
             cantMove = true;
             player.SetActive(false);
+            levelManagerController.PlayerWasCaught();
         }
 
 

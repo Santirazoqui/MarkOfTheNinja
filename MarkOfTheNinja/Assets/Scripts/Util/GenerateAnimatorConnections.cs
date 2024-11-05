@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace Assets.Scripts.Util
 {
+
     public class GenerateAnimatorConnections:MonoBehaviour
     {
         public string path;
@@ -108,3 +111,4 @@ namespace Assets.Scripts.Util
 
     }
 }
+#endif 

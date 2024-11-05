@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using Assets.Scripts.Player;
 
 namespace TarodevController
 {
@@ -144,6 +145,7 @@ namespace TarodevController
             _character = Stats.CharacterSize.GenerateCharacterSize();
             _cachedQueryMode = Physics2D.queriesStartInColliders;
             myAnimator = GetComponent<Animator>();
+            animationController = new PlayerAnimationController(myAnimator);
             myAudioSource = GetComponent<AudioSource>();
             _wallDetectionBounds = new Bounds(
                 new Vector3(0, _character.Height / 2),
@@ -510,33 +512,72 @@ namespace TarodevController
 
         #region Animation
         private Animator myAnimator;
+        private PlayerAnimationController animationController;
         private int dashCounter;
+        private bool wasOnAir = false;
+        private bool landing = false;
+        private bool jumping = false;
 
         private void Animate()
         {
             // Animation
-            if (_grounded && _rb.velocity.x != 0)
+            if (_grounded)
             {
-                myAnimator.SetBool("isRunning", true);
+                if(wasOnAir)
+                {
+                    animationController.Landed();
+                    wasOnAir = false;
+                    landing = true;
+                }
+                if(!landing)
+                {
+                    if (_rb.velocity.x != 0)
+                        animationController.Running();
+                    else
+                        animationController.Idle();
+                }
+
             }
             else
             {
-                myAnimator.SetBool("isRunning", false);
+                wasOnAir = true;
+                if (!jumping)
+                {
+                    animationController.OnAir();
+                }
             }
+
+            if(hasjumpedThisFrame)
+            {
+                animationController.JumpStart();
+                jumping = true;
+                landing= false;
+            }
+
             if (Velocity.x != 0)
             {
                 transform.localScale = new Vector2(Mathf.Sign(Velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
             }
             if (_dashing)
             {
-                myAnimator.SetBool("isDashing", true);
-                myAnimator.SetBool("isRunning", false);
-            }
-            else
-            {
-                myAnimator.SetBool("isDashing", false);
+                animationController.Dash();
+                landing = false;
             }
         }
+
+        public void SetAnimationState(string stateName)
+        {
+            switch (stateName)
+            {
+                case "jumpEnded":
+                    jumping = false;
+                    break;
+                case "landEnded":
+                    landing = false;
+                    break;
+            }
+        }
+
         #endregion
 
         #region SFX

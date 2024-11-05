@@ -552,6 +552,7 @@ namespace TarodevController
                 animationController.JumpStart();
                 jumping = true;
                 landing= false;
+                wasOnAir= false;
             }
 
             if (Velocity.x != 0)
@@ -562,6 +563,8 @@ namespace TarodevController
             {
                 animationController.Dash();
                 landing = false;
+                wasOnAir= false;
+                jumping = false;
             }
         }
 

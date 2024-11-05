@@ -21,12 +21,12 @@ namespace Assets.Scripts.Player
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
-            { AnimationStates.Still, "idle" },
-            { AnimationStates.Running, "running" },
-            { AnimationStates.Jumping, "jumping" },
-            { AnimationStates.OnAir, "onAir"},
-            { AnimationStates.Landing, "landing"},
-            { AnimationStates.Dashing, "dashing" },
+            { AnimationStates.Still, "Idling" },
+            { AnimationStates.Running, "Walk Cycle" },
+            { AnimationStates.Jumping, "Jumping" },
+            { AnimationStates.OnAir, "OnAir"},
+            { AnimationStates.Landing, "Landing"},
+            { AnimationStates.Dashing, "Dash" },
         };
 
         public PlayerAnimationController(Animator animator)

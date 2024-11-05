@@ -98,8 +98,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private void CollisionLogic()
         {
             var collider = GetComponentInParent<BoxCollider2D>();
-            if (collider.IsTouchingLayers(LayerMask.GetMask(_wallsLayer))
-                || collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)))
+            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)))
             {
                 onReached();
             }

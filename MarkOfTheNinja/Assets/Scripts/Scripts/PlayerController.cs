@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using Assets.Scripts.Player;
 
 namespace TarodevController
 {
@@ -143,6 +145,7 @@ namespace TarodevController
             _character = Stats.CharacterSize.GenerateCharacterSize();
             _cachedQueryMode = Physics2D.queriesStartInColliders;
             myAnimator = GetComponent<Animator>();
+            animationController = new PlayerAnimationController(myAnimator);
             myAudioSource = GetComponent<AudioSource>();
             _wallDetectionBounds = new Bounds(
                 new Vector3(0, _character.Height / 2),
@@ -509,43 +512,90 @@ namespace TarodevController
 
         #region Animation
         private Animator myAnimator;
+        private PlayerAnimationController animationController;
         private int dashCounter;
-        
+        private bool wasOnAir = false;
+        private bool landing = false;
+        private bool jumping = false;
+
         private void Animate()
         {
             // Animation
-            if (_grounded && _rb.velocity.x != 0)
+            if (_grounded)
             {
-               myAnimator.SetBool("isRunning",true);
+                if(wasOnAir)
+                {
+                    animationController.Landed();
+                    wasOnAir = false;
+                    landing = true;
+                }
+                if(!landing)
+                {
+                    if (_rb.velocity.x != 0)
+                        animationController.Running();
+                    else
+                        animationController.Idle();
+                }
+
             }
             else
             {
-                myAnimator.SetBool("isRunning", false);
+                wasOnAir = true;
+                if (!jumping)
+                {
+                    animationController.OnAir();
+                }
             }
-            if(Velocity.x!=0)
-            {            
-            transform.localScale = new Vector2(Mathf.Sign(Velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+
+            if(hasjumpedThisFrame)
+            {
+                animationController.JumpStart();
+                jumping = true;
+                landing= false;
+                wasOnAir= false;
             }
-            if(_dashing){
-                myAnimator.SetBool("isDashing",true);
-                myAnimator.SetBool("isRunning",false);
+
+            if (Velocity.x != 0)
+            {
+                transform.localScale = new Vector2(Mathf.Sign(Velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
             }
-            else{
-                myAnimator.SetBool("isDashing",false);
+            if (_dashing)
+            {
+                animationController.Dash();
+                landing = false;
+                wasOnAir= false;
+                jumping = false;
             }
         }
+
+        public void SetAnimationState(string stateName)
+        {
+            switch (stateName)
+            {
+                case "jumpEnded":
+                    jumping = false;
+                    break;
+                case "landEnded":
+                    landing = false;
+                    break;
+            }
+        }
+
         #endregion
 
         #region SFX
         private AudioSource myAudioSource;
         private bool hasjumpedThisFrame;
         private bool hasDashedThisFrame;
-        private void SFX(){
-            if(hasjumpedThisFrame){
+        private void SFX()
+        {
+            if (hasjumpedThisFrame)
+            {
                 myAudioSource.clip = soundsDict[sounds.Jump];
                 myAudioSource.Play();
             }
-            if(hasDashedThisFrame){
+            if (hasDashedThisFrame)
+            {
                 myAudioSource.clip = soundsDict[sounds.Dash];
                 myAudioSource.Play();
             }
@@ -607,7 +657,7 @@ namespace TarodevController
             if (jumpType is JumpType.Jump or JumpType.Coyote)
             {
                 _coyoteUsable = false;
-                hasjumpedThisFrame = true;                
+                hasjumpedThisFrame = true;
                 AddFrameForce(new Vector2(0, Stats.JumpPower));
             }
             else if (jumpType is JumpType.AirJump)
@@ -809,12 +859,9 @@ namespace TarodevController
 
             if (_dashing)
             {
-                // Debug.Log("Collisions ignored: ");
-                Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);                
+                StartCoroutine(DashInvincibilityCoroutine());
                 SetVelocity(_dashVel);
                 return;
-            } else {
-                Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);                
             }
 
             if (_isOnWall)
@@ -1005,6 +1052,13 @@ namespace TarodevController
         }
 
         #endregion
+
+        IEnumerator DashInvincibilityCoroutine()
+        {
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);
+            yield return new WaitForSeconds(0.7f);
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);
+        }
     }
 
     public enum JumpType

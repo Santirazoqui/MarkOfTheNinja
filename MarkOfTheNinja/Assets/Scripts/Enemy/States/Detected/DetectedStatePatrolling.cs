@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Util;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Assets.Scripts.Enemy.States.Detected
 {
     public class DetectedStatePatrolling:State
     {
+
+        [SerializeField] GameObject fireball;
 
         public float patrollingSpeed = 300f;
         public float persectutionSpeed = 400f;
@@ -105,7 +108,15 @@ namespace Assets.Scripts.Enemy.States.Detected
         private void ThrowFireballs()
         {
             animationController.ThrowFireball();
+            Instantiate(fireball, rb.position, Quaternion.identity);
+            StartCoroutine(WaitForFireball());
+        }
+
+        IEnumerator WaitForFireball()
+        {
             cantMove = true;
+            yield return new WaitForSeconds(5); //Encapsule variable
+            cantMove = false;
         }
 
 

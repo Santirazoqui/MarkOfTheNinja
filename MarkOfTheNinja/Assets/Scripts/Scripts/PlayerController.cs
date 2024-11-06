@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using Assets.Scripts.Player;
+using Unity.VisualScripting;
 
 namespace TarodevController
 {
@@ -93,6 +94,8 @@ namespace TarodevController
 
         public void OnValidate() => SetupCharacter();
 
+        
+
         public void TickUpdate(float delta, float time)
         {
             _delta = delta;
@@ -121,7 +124,7 @@ namespace TarodevController
 
             CalculateExternalModifiers();
 
-            TraceGround();
+            //TraceGround();
             Move();
             SFX();
             Animate();
@@ -359,6 +362,7 @@ namespace TarodevController
             Crouching,
             Airborne
         }
+
 
         #endregion
 
@@ -706,7 +710,7 @@ namespace TarodevController
 
             if (_dashToConsume && _canDash && !Crouching && _time > _nextDashTime)
             {
-                var dir = new Vector2(_frameInput.Move.x, Mathf.Max(_frameInput.Move.y, 0f)).normalized;
+                var dir = new Vector2(_frameInput.Move.x, _frameInput.Move.y);
                 if (dir == Vector2.zero) return;
 
                 _dashVel = dir * Stats.DashVelocity;
@@ -720,18 +724,22 @@ namespace TarodevController
 
             if (_dashing)
             {
-                if (_time > _startedDashing + Stats.DashDuration)
+                if (_time > _startedDashing + Stats.DashDuration || Crouching || _frameInput.JumpDown)
                 {
                     _dashing = false;
                     DashChanged?.Invoke(false, Vector2.zero);
 
                     SetVelocity(new Vector2(Velocity.x * Stats.DashEndHorizontalMultiplier, Velocity.y));
                     if (_grounded) _canDash = true;
-
+                    _canDash = true;
                 }
+                
             }
         }
 
+        public void RestDash(){
+            _nextDashTime = 0;
+        }
         #endregion
 
         #region Crouching
@@ -1000,6 +1008,11 @@ namespace TarodevController
         {
             if (other.TryGetComponent(out ISpeedModifier modifier)) _modifiers.Add(modifier);
             else if (other.TryGetComponent(out IPhysicsMover mover) && !mover.RequireGrounding) _activatedMovers.Add(mover);
+            if(other.tag == "Coin")
+            {
+                _nextDashTime = 0;
+            }
+
         }
 
         private void OnTriggerExit2D(Collider2D other)

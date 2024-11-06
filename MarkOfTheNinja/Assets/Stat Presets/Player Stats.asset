@@ -42,7 +42,7 @@ MonoBehaviour:
   AllowDash: 1
   DashVelocity: 25
   DashVerticalMultiplier: 0.7
-  DashDuration: 0.1
+  DashDuration: 0.15
   DashCooldown: 5
   DashEndHorizontalMultiplier: 1
   AllowCrouching: 1
@@ -74,5 +74,5 @@ MonoBehaviour:
   LadderClimbSpeed: 8
   LadderSlideSpeed: 12
   LadderShimmySpeedMultiplier: 0.1
-  NegativeYVelocityNegation: 0.2
-  ExternalVelocityDecayRate: 0.5
+  NegativeYVelocityNegation: 0
+  ExternalVelocityDecayRate: 0

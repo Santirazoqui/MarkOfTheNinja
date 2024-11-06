@@ -609,7 +609,8 @@ namespace TarodevController
 
         public enum sounds
         {
-            Dash
+            Dash,
+            Jump
         }
         public SerializedDictionary<sounds, AudioClip> soundsDict;
         public List<AudioClip> jumpSounds;

@@ -28,7 +28,7 @@ public class AudioPlayerController : SubscribeOnUpdate
 
     public void PlayDetectedMusic()
     {
-        Debug.Log("Play detected music on start");
+        //Debug.Log("Play detected music on start");
         audioSource.clip = detectedMusicStart;
         audioSource.Play();
         audioSource.loop = false;

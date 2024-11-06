@@ -12,6 +12,8 @@ using Zenject;
 
 public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 {
+    [SerializeField] GameObject PlayingCanvas;
+    [SerializeField] GameObject DeathCanvas;
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
 
@@ -119,6 +121,12 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         SceneManager.LoadScene(goToScreen);
     }
 
+    public void PlayerWasCaught()
+    {
+        this.PlayingCanvas.SetActive(false);
+        Instantiate(DeathCanvas);
+    }
+
     private void SaveData()
     {
         var score = CalculateScore();
@@ -215,4 +223,6 @@ public interface ILevelManager
     void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
     void PlayerWasInstaDetected();
+
+    void PlayerWasCaught();
 }

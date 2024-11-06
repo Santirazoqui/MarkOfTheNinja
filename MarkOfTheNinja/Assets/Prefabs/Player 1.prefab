@@ -57,7 +57,7 @@ MonoBehaviour:
     - Key: 0
       Value: {fileID: 8300000, guid: ba4633aa3a9d7584ea5bf2a53530c305, type: 3}
     - Key: 1
-      Value: {fileID: 8300000, guid: a33da42c3691890428f0a4500879925d, type: 3}
+      Value: {fileID: 8300000, guid: e147f2fcfb2b9b849aec03235dd0a7a1, type: 3}
 --- !u!50 &3054942120541986088
 Rigidbody2D:
   serializedVersion: 4

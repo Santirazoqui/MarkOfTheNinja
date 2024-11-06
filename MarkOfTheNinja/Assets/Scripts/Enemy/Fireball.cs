@@ -13,19 +13,25 @@ public class Fireball : MonoBehaviour
 
     void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(!player)
+        {
+            Destroy(gameObject);
+        }
+        target = player.transform;
     }
 
     void Start() 
     {
         agent = GetComponent<NavMeshAgent>();
-        levelManagerController = GetComponent<LevelManagerController>();
+        levelManagerController = FindObjectOfType<LevelManagerController>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
 
     void Update()
     {
+
         agent.SetDestination(target.position);
         StartCoroutine(DestroyFireball(this.fireballLifespan));
         Vector3 dir = target.position - transform.position;
@@ -38,8 +44,9 @@ public class Fireball : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.SetActive(false);
-            Destroy(gameObject);
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
+            levelManagerController.PlayerWasCaught();
+            Destroy(gameObject);
         }
     }
 

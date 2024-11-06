@@ -595,7 +595,9 @@ namespace TarodevController
         {
             if (hasjumpedThisFrame)
             {
-                myAudioSource.clip = soundsDict[sounds.Jump];
+                var random = new System.Random();
+                int i = random.Next(0, jumpSounds.Count);
+                myAudioSource.clip = jumpSounds[i];
                 myAudioSource.Play();
             }
             if (hasDashedThisFrame)
@@ -607,9 +609,10 @@ namespace TarodevController
 
         public enum sounds
         {
-            Jump, Dash
+            Dash
         }
         public SerializedDictionary<sounds, AudioClip> soundsDict;
+        public List<AudioClip> jumpSounds;
         #endregion
         #region Jump
 
@@ -704,6 +707,11 @@ namespace TarodevController
         private float _startedDashing;
         private float _nextDashTime;
 
+        public float DashCooldown { get
+            {
+                var cooldown = _nextDashTime - _time;
+                return cooldown > 0 ? cooldown : 0; 
+            } }
         private void CalculateDash()
         {
             if (!Stats.AllowDash) return;

@@ -12,6 +12,7 @@ public class DashCooldownUIScript : MonoBehaviour
     private bool flashing = false;
     private PlayerController player;
     private TextMeshProUGUI text;
+    private IEnumerator previusCorutine;
     void Start()
     {
         player = FindAnyObjectByType<PlayerController>();
@@ -28,11 +29,7 @@ public class DashCooldownUIScript : MonoBehaviour
     {
         var time = Math.Round(player.DashCooldown, 2);
         text.text = $"Dash cooldown: {ChangeCommaToPoint(time + "")}s";
-        if(time == 0 && !flashing)
-        {
-            StartCoroutine(FlashingColors());
-            flashing = true;
-        }
+        FlashText(time);
     }
 
     private string ChangeCommaToPoint(string time)
@@ -53,23 +50,38 @@ public class DashCooldownUIScript : MonoBehaviour
     }
 
 
+    private void FlashText(double time)
+    {
+        if (time == 0 && !flashing)
+        {
+            
+            previusCorutine = FlashingColors();
+            StartCoroutine(previusCorutine);
+            flashing = true;
+        }
+        else if (time != 0)
+        {
+            text.color = Color.white;
+            flashing = false;
+            if (previusCorutine!=null) StopCoroutine(previusCorutine);
+        }
+    }
+
     private IEnumerator FlashingColors()
     {
-        while (player.DashCooldown == 0)
+        Debug.Log("Started flashing");
+        while (true)
         {
-            for (int i = 0; i < 100 && player.DashCooldown == 0; i += flashingRate)
+            for (int i = 0; i < 100; i += flashingRate)
             {
                 text.color = Color.Lerp(colorWhenReady, Color.white, i / 100f);
                 yield return null;
             }
-            for (int i = 0; i < 100 && player.DashCooldown == 0; i += flashingRate)
+            for (int i = 0; i < 100; i += flashingRate)
             {
                 text.color = Color.Lerp(Color.white, colorWhenReady, i / 100f);
                 yield return null;
             }
         }
-        text.color = Color.white;
-        flashing = false;
-        yield break;
     }
 }

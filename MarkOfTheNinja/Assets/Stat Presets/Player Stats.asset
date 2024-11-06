@@ -21,7 +21,7 @@ MonoBehaviour:
   CharacterSize:
     Height: 1.3
     Width: 0.75
-    StepHeight: 0.05
+    StepHeight: 0.1
     CrouchHeight: 1.3
     RayInset: 0.01
   VerticalDeadZoneThreshold: 0.1
@@ -33,18 +33,19 @@ MonoBehaviour:
   AirFrictionMultiplier: 0.3
   DirectionCorrectionMultiplier: 4
   MaxWalkableSlope: 45
-  ExtraConstantGravity: 30
+  ExtraConstantGravity: 25
   BufferedJumpTime: 0.15
   CoyoteTime: 0.2
-  JumpPower: 16
+  JumpPower: 13.5
   EndJumpEarlyExtraForceMultiplier: 3
   MaxAirJumps: 1
   AllowDash: 1
-  DashVelocity: 20
-  DashDuration: 0.15
+  DashVelocity: 25
+  DashVerticalMultiplier: 0.7
+  DashDuration: 0.1
   DashCooldown: 5
   DashEndHorizontalMultiplier: 1
-  AllowCrouching: 0
+  AllowCrouching: 1
   CrouchSlowDownTime: 0.2
   CrouchSpeedModifier: 0.7
   AllowWalls: 0

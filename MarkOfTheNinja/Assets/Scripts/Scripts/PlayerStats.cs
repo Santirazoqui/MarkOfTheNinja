@@ -40,6 +40,7 @@ namespace TarodevController
         // Dash
         [Header("Dash"), Space] public bool AllowDash = true;
         public float DashVelocity = 50;
+        public float DashVerticalMultiplier = 0.5f;
         public float DashDuration = 0.2f;
         public float DashCooldown = 1.5f;
         public float DashEndHorizontalMultiplier = 0.5f;

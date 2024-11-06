@@ -714,6 +714,7 @@ namespace TarodevController
                 if (dir == Vector2.zero) return;
 
                 _dashVel = dir * Stats.DashVelocity;
+                _dashVel.y = _dashVel.y * Stats.DashVerticalMultiplier;
                 _dashing = true;
                 _canDash = false;
                 hasDashedThisFrame = true;

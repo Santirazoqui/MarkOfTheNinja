@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class DashCooldownUIScript : MonoBehaviour
 {
+    private Color colorWhenReady = Color.yellow;
+    public int flashingRate = 10;
+    private bool flashing = false;
     private PlayerController player;
     private TextMeshProUGUI text;
     void Start()
@@ -25,6 +28,11 @@ public class DashCooldownUIScript : MonoBehaviour
     {
         var time = Math.Round(player.DashCooldown, 2);
         text.text = $"Dash cooldown: {ChangeCommaToPoint(time + "")}s";
+        if(time == 0 && !flashing)
+        {
+            StartCoroutine(FlashingColors());
+            flashing = true;
+        }
     }
 
     private string ChangeCommaToPoint(string time)
@@ -42,5 +50,26 @@ public class DashCooldownUIScript : MonoBehaviour
             }
         }
         return res;
+    }
+
+
+    private IEnumerator FlashingColors()
+    {
+        while (player.DashCooldown == 0)
+        {
+            for (int i = 0; i < 100 && player.DashCooldown == 0; i += flashingRate)
+            {
+                text.color = Color.Lerp(colorWhenReady, Color.white, i / 100f);
+                yield return null;
+            }
+            for (int i = 0; i < 100 && player.DashCooldown == 0; i += flashingRate)
+            {
+                text.color = Color.Lerp(Color.white, colorWhenReady, i / 100f);
+                yield return null;
+            }
+        }
+        text.color = Color.white;
+        flashing = false;
+        yield break;
     }
 }

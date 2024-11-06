@@ -128,10 +128,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d15921ff5d2a3f498fdc0c4d41b7f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayingCanvas: {fileID: 4748276190035839978, guid: 98d60db2c6098b54ba60eb4ceada5b1a, type: 3}
+  DeathCanvas: {fileID: 6400469184655496706, guid: 6e4fdff9a8127dc488fe3c923a93a817, type: 3}
   visualDetectionRate: 100
   audioDetectionRate: 50
+  secondsBeforeDetectionDecreases: 2
+  minDecreasePerTick: 0.1
+  maxDecreasePerTick: 0.2
+  increaseInDecreasePerTick: 0.001
   globalLightMin: 0.1
   globalLightMax: 0.5
+  initialPoints: 1000
+  pointsPerCoin: 100
+  pointsLostWhenDetected: 500
+  minTimeToGetTimeBonus: 20
+  fastTimeScoreBonus: 300
 --- !u!1 &8066437747596582779
 GameObject:
   m_ObjectHideFlags: 0

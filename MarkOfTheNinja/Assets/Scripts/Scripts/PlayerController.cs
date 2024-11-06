@@ -704,6 +704,11 @@ namespace TarodevController
         private float _startedDashing;
         private float _nextDashTime;
 
+        public float DashCooldown { get
+            {
+                var cooldown = _nextDashTime - _time;
+                return cooldown > 0 ? cooldown : 0; 
+            } }
         private void CalculateDash()
         {
             if (!Stats.AllowDash) return;

@@ -56,6 +56,7 @@ public class VisionConeController : MonoBehaviour
         float distance = Vector2.Distance(enemyPosition, playerPosition);
         lastDistance = distance;
         playerIsBeingSeen = true;
+        Debug.Log("Enemy is being seen called from visionConeController");
         enemy.PlayerIsBeingSeen(distance);
         
     }

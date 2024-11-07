@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     private Pathfinder pathfinder;
     private LevelManagerController levelManagerController;
     private EnemyAnimationController enemyAnimationController;
+    private VisionConeController visionCone;
 
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
@@ -96,11 +97,13 @@ public class EnemyController : MonoBehaviour
     {
         pathfinder = gameObject.AddComponent<Pathfinder>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
+        visionCone = GetComponentInChildren<VisionConeController>();
         context = new(this,
                     pathfinder,
                     player,
                     levelManagerController, 
-                    enemyAnimationController);
+                    enemyAnimationController,
+                    visionCone);
         foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 
@@ -124,6 +127,7 @@ public class EnemyController : MonoBehaviour
         currentState.SetActive(false);
         currentState = posibleStates[state];
         currentStateName = state;
+        Debug.Log("Entered state " + state);
         currentState.SetActive(true);
         currentState.Enter(context);
     }

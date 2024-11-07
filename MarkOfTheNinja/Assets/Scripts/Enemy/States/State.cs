@@ -13,6 +13,7 @@ public abstract class State : MonoBehaviour
     protected GameObject player;
     protected ILevelManager levelManagerController;
     protected EnemyAnimationController animationController;
+    protected VisionConeController visionCone;
     public void Enter(StateContext context)
     {
         _lastRecivedContext = context;
@@ -70,6 +71,7 @@ public abstract class State : MonoBehaviour
         player = _lastRecivedContext.Player;
         levelManagerController = _lastRecivedContext.LevelManagerController;
         animationController = _lastRecivedContext.AnimationController;
+        visionCone = _lastRecivedContext.VisionCone;
     }
     
 }

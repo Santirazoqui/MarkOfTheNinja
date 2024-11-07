@@ -27,6 +27,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         private readonly string camaraTag = "MainCamera";
 
         private bool cantMove = false;
+        private bool killing = false;
         private Vector2 initialPosition;
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
@@ -50,6 +51,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         protected override void EnterImplementation()
         {
+            DeactivateVisionCone();
             PlayDetectedAnimation();
             FakeStart();
             UpdateSearchRadius(_lastRecivedContext);
@@ -165,6 +167,15 @@ namespace Assets.Scripts.Enemy.States.Detected
             StartSearch();
         }
 
+        //AVISO:
+        //No es solo por coherencia visual. Si caes de cierta manera de arriba al guardia y te detecta al instante, pasaba un bug que despues de
+        //matado al personaje el guardia se quedaba atascado en el estado confused porque, de alguna manera, el cono de vision detectaba al pibe
+        //pos mortem
+        private void DeactivateVisionCone()
+        {
+            visionCone.gameObject.SetActive(false);
+        }
+
 
         private void HandlePlayerCollition(GameObject player)
         {
@@ -175,6 +186,8 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void KillPlayer(GameObject player)
         {
+            if (killing) return;
+            killing = true;
             Debug.Log("Player was killed");
             animationController.Killing();
             cantMove = true;
@@ -186,6 +199,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void PostKilling()
         {
+            Debug.Log("Post killing fired");
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 

@@ -10,15 +10,18 @@ namespace Assets.Scripts.Enemy.States
                             Pathfinder pathfinder, 
                             GameObject player,
                             LevelManagerController levelManager,
-                            EnemyAnimationController animation)
+                            EnemyAnimationController animation,
+                            VisionConeController visionCone)
         {
             Parent = parent;
             Pathfinder = pathfinder;
             Player = player;
             LevelManagerController = levelManager;
             AnimationController = animation;
+            VisionCone = visionCone;
         }
 
+        public VisionConeController VisionCone { get; set; }
         public EnemyController Parent {  get; set; }    
         public Vector2 SoundPosition {  get; set; } 
         public IPathfinder Pathfinder { get; set; }

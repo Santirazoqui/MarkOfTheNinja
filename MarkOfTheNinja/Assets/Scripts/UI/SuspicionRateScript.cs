@@ -1,3 +1,4 @@
+using Assets.Scripts.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +28,10 @@ public class SuspicionRateScript : MonoBehaviour
 
     private void UpdateText()
     {
-        text.text = $"Suspicion: {Math.Round(levelManagerController.DetectionRate)}%";
+        int digitsAfterComma = 1;
+        var rounder = Math.Pow(10, digitsAfterComma);
+        var number = Math.Floor(levelManagerController.DetectionRate * rounder) / rounder;
+        text.text = $"Suspicion: {Util.ChangeCommaToPoint(number+ "")}%";
 
     }
     private void UpdateTextColor()

@@ -1,3 +1,4 @@
+using Assets.Scripts.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,26 +29,10 @@ public class DashCooldownUIScript : MonoBehaviour
     private void UpdateText()
     {
         var time = Math.Round(player.DashCooldown, 2);
-        text.text = $"Dash cooldown: {ChangeCommaToPoint(time + "")}s";
+        text.text = $"Dash cooldown: {Util.ChangeCommaToPoint(time + "")}s";
         FlashText(time);
     }
 
-    private string ChangeCommaToPoint(string time)
-    {
-        var res = "";
-        for (int i = 0; i < time.Length; i++)
-        {
-            if (time[i] == ',')
-            {
-                res += '.';
-            }
-            else
-            {
-                res += time[i];
-            }
-        }
-        return res;
-    }
 
 
     private void FlashText(double time)

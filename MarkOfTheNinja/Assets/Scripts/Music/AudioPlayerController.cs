@@ -10,7 +10,6 @@ public class AudioPlayerController : SubscribeOnUpdate
     public AudioClip detectedMusicStart;
     public AudioClip detectedMusicLoop;
     private AudioSource audioSource;
-    private bool detected = false;
 
     void Start()
     {

@@ -26,6 +26,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
+    public float expoentialDistanceMultiplier= 2f;
     public float audioDetectionRate = 50f;
     [Header("Detection Rate Reduction")]
     public float secondsBeforeDetectionDecreases = 2f;
@@ -99,7 +100,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public void PlayerIsBeingSeen(float distance)
     {
-        var multiplier = distance != 0 ? 1 / distance : 1;
+        var multiplier = distance != 0 ? 1 / (float)(Math.Pow(distance,expoentialDistanceMultiplier)) : 1;
         PlayerWasPerceived(visualDetectionRate, multiplier);
     }
 

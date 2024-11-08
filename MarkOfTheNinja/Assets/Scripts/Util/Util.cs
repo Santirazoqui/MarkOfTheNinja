@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Enemy
+namespace Assets.Scripts.Util
 {
-    internal static class Util
+    public static class Util
     {
         private static readonly string _soundTag = "Sound";
         private static readonly string _playerTag = "Player";
@@ -23,6 +23,23 @@ namespace Assets.Scripts.Enemy
         public static bool CollidedWithPlayer(Collider2D collision)
         {
             return collision.gameObject.CompareTag(_playerTag);
+        }
+
+        public static string ChangeCommaToPoint(string numberStringified)
+        {
+            var res = "";
+            for (int i = 0; i < numberStringified.Length; i++)
+            {
+                if (numberStringified[i] == ',')
+                {
+                    res += '.';
+                }
+                else
+                {
+                    res += numberStringified[i];
+                }
+            }
+            return res;
         }
     }
 }

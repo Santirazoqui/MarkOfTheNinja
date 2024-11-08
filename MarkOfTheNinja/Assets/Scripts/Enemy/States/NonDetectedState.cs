@@ -24,7 +24,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void HandleSoundCollition(Collider2D collision)
         {
-            if (!Util.CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
+            if (!Util.Util.CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);

@@ -36,7 +36,7 @@ MonoBehaviour:
   ExtraConstantGravity: 25
   BufferedJumpTime: 0.15
   CoyoteTime: 0.2
-  JumpPower: 13.5
+  JumpPower: 14
   EndJumpEarlyExtraForceMultiplier: 3
   MaxAirJumps: 1
   AllowDash: 1

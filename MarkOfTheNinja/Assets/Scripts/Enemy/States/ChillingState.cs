@@ -15,7 +15,6 @@ namespace Assets.Scripts.Enemy.States
         private Rigidbody2D rb;
         private readonly float[] searchingLimits = new float[2];
         private int searchingIndex = 0;
-        private readonly string _soundTag = "Sound";
 
         private bool initiated = false;
 
@@ -98,7 +97,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void HandleSoundCollition(Collider2D collision)
         {
-            if (!Util.CollidedWithSound(parent.gameObject, collision)) return;
+            if (!Util.Util.CollidedWithSound(parent.gameObject, collision)) return;
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
             _lastRecivedContext.LevelManagerController.SoundWasHeard();

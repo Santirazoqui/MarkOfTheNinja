@@ -210,10 +210,6 @@ PrefabInstance:
       propertyPath: PlayingCanvas
       value: 
       objectReference: {fileID: 385698941}
-    - target: {fileID: 7085161120528189618, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
-      propertyPath: flatDistanceFalloutMultiplayer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8742220563398880590, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5912938

@@ -131,6 +131,7 @@ MonoBehaviour:
   PlayingCanvas: {fileID: 0}
   DeathCanvas: {fileID: 6400469184655496706, guid: 6e4fdff9a8127dc488fe3c923a93a817, type: 3}
   visualDetectionRate: 500
+  expoentialDistanceMultiplier: 1
   audioDetectionRate: 50
   secondsBeforeDetectionDecreases: 4
   minDecreasePerTick: 0.01

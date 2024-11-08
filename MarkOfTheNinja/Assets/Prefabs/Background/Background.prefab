@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa2aadb36f1d9240be8d5003b282858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 3054942120541986084, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
   followY: 0
 --- !u!1 &2222130037101862990
 GameObject:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa2aadb36f1d9240be8d5003b282858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 3054942120541986084, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
   followY: 1
 --- !u!1 &3080790146351587924
 GameObject:

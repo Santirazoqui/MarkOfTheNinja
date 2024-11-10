@@ -860,8 +860,7 @@ namespace TarodevController
             _decayingTransientVelocity += platformVel;
         }
 
-        const int PLAYER_LAYER = 9;
-        const int ENEMIES_LAYER = 7;
+
 
         private void Move()
         {
@@ -1076,12 +1075,20 @@ namespace TarodevController
 
         #endregion
 
+        #region Dash I Frames
+        const int PLAYER_LAYER = 9;
+        const int ENEMIES_LAYER = 7;
+        const int FIREBALL_LAYER = 10;
+        public float dash_i_seconds = 0.7f;
         IEnumerator DashInvincibilityCoroutine()
         {
             Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);
-            yield return new WaitForSeconds(0.7f);
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, true);
+            yield return new WaitForSeconds(dash_i_seconds);
             Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, false);
         }
+        #endregion 
     }
 
     public enum JumpType

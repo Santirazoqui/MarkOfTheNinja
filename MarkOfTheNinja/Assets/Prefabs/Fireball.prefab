@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3858862806804069229}
   - component: {fileID: 7523786998355727527}
   - component: {fileID: 2208421852566032690}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fireball shot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8014640835669164263}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}

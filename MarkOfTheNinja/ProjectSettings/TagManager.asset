@@ -52,6 +52,9 @@ TagManager:
   - name: Platforms
     uniqueID: 3768839077
     locked: 0
+  - name: Traps
+    uniqueID: 976321065
+    locked: 0
   - name: Enemies
     uniqueID: 3395727097
     locked: 0

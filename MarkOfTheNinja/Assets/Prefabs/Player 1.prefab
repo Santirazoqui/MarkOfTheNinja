@@ -59,6 +59,7 @@ MonoBehaviour:
     - Key: 1
       Value: {fileID: 8300000, guid: e147f2fcfb2b9b849aec03235dd0a7a1, type: 3}
   jumpSounds: []
+  dash_i_seconds: 0.7
 --- !u!50 &3054942120541986088
 Rigidbody2D:
   serializedVersion: 4
@@ -226,7 +227,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1009960281
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2b690a95e7d8fb7419c48f5f56f0386c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

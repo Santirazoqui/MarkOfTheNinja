@@ -32,7 +32,7 @@ namespace TarodevController
         public event Action<Vector2> Repositioned;
         public event Action<bool> ToggledPlayer;
 
-        public bool Active { get; private set; } = true;
+        public bool Active { get; set; } = true;
         public Vector2 Up { get; private set; }
         public Vector2 Right { get; private set; }
         public bool Crouching { get; private set; }

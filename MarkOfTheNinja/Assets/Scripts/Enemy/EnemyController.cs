@@ -127,7 +127,6 @@ public class EnemyController : MonoBehaviour
         currentState.SetActive(false);
         currentState = posibleStates[state];
         currentStateName = state;
-        Debug.Log("Entered state " + state);
         currentState.SetActive(true);
         currentState.Enter(context);
     }

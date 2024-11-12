@@ -19,6 +19,8 @@ namespace TarodevController
         private Rigidbody2D _rb;
         private PlayerInput _playerInput;
 
+        private LevelManagerController levelManagerController;
+
         #endregion
 
         #region Interface
@@ -88,6 +90,7 @@ namespace TarodevController
             SetupCharacter();
 
             PhysicsSimulator.Instance.AddPlayer(this);
+            levelManagerController = FindObjectOfType<LevelManagerController>();
         }
 
         private void OnDestroy() => PhysicsSimulator.Instance.RemovePlayer(this);
@@ -610,7 +613,8 @@ namespace TarodevController
         public enum sounds
         {
             Dash,
-            Jump
+            Jump,
+            Explosion
         }
         public SerializedDictionary<sounds, AudioClip> soundsDict;
         public List<AudioClip> jumpSounds;
@@ -1089,6 +1093,15 @@ namespace TarodevController
             Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, false);
         }
         #endregion 
+
+        public void Explode()
+        {
+            this.animationController.Dying();
+            myAudioSource.clip = soundsDict[sounds.Explosion];
+            myAudioSource.Play();
+            this.Active = false;
+            levelManagerController.PlayerWasCaught();
+        }
     }
 
     public enum JumpType

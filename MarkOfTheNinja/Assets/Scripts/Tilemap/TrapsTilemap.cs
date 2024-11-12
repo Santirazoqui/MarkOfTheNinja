@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TarodevController;
+using Assets.Scripts.Player;
 
 public class TrapsTilemap : MonoBehaviour
 {
@@ -16,9 +17,10 @@ public class TrapsTilemap : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerController playerController = player.GetComponent<PlayerController>();
         if(collision.gameObject.tag == "Player"){
-            playerController.Active = false;
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            playerController.Explode();
+            
         }
     }
 }

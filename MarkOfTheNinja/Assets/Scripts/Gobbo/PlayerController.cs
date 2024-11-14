@@ -151,6 +151,7 @@ namespace TarodevController
             _character = Stats.CharacterSize.GenerateCharacterSize();
             _cachedQueryMode = Physics2D.queriesStartInColliders;
             myAnimator = GetComponent<Animator>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             animationController = new PlayerAnimationController(myAnimator);
             myAudioSource = GetComponent<AudioSource>();
             _wallDetectionBounds = new Bounds(
@@ -643,7 +644,7 @@ namespace TarodevController
 
         private void CalculateJump()
         {
-            if ((_jumpToConsume || HasBufferedJump) && CanStand)
+            if ((_jumpToConsume || HasBufferedJump) )//&& CanStand)
             {
                 if (CanWallJump) ExecuteJump(JumpType.WallJump);
                 else if (_grounded || ClimbingLadder) ExecuteJump(JumpType.Jump);
@@ -1084,14 +1085,37 @@ namespace TarodevController
         const int ENEMIES_LAYER = 7;
         const int FIREBALL_LAYER = 10;
         public float dash_i_seconds = 0.7f;
+        private SpriteRenderer spriteRenderer;
+        public float transparencyPercentageWhenDashing = 50f;
         IEnumerator DashInvincibilityCoroutine()
         {
-            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, true);
-            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, true);
+            SetIgnoreEnemyRelatedCollisions(true);
+            ActivateTransparency();
             yield return new WaitForSeconds(dash_i_seconds);
-            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, false);
-            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, false);
+            DeactivateTransparency();
+            SetIgnoreEnemyRelatedCollisions(false);
         }
+
+        private void ActivateTransparency()
+        {
+            Color newA = spriteRenderer.color;
+            newA.a = transparencyPercentageWhenDashing/100;
+            spriteRenderer.color = newA;
+        }
+
+        private void DeactivateTransparency()
+        {
+            Color newA = spriteRenderer.color;
+            newA.a = 1;
+            spriteRenderer.color = newA;
+        }
+
+        private void SetIgnoreEnemyRelatedCollisions(bool value)
+        {
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, value);
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, value);
+        }
+
         #endregion 
 
         public void Explode()

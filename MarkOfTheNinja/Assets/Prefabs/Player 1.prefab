@@ -54,12 +54,14 @@ MonoBehaviour:
   _drawGizmos: 1
   soundsDict:
     _serializedList:
-    - Key: 0
-      Value: {fileID: 8300000, guid: ba4633aa3a9d7584ea5bf2a53530c305, type: 3}
     - Key: 1
+      Value: {fileID: 8300000, guid: ba4633aa3a9d7584ea5bf2a53530c305, type: 3}
+    - Key: 0
       Value: {fileID: 8300000, guid: e147f2fcfb2b9b849aec03235dd0a7a1, type: 3}
-  jumpSounds: []
+  jumpSounds:
+  - {fileID: 8300000, guid: ba4633aa3a9d7584ea5bf2a53530c305, type: 3}
   dash_i_seconds: 0.7
+  transparencyPercentageWhenDashing: 20
 --- !u!50 &3054942120541986088
 Rigidbody2D:
   serializedVersion: 4
@@ -208,7 +210,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

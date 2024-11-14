@@ -18,13 +18,14 @@ namespace Assets.Scripts.Util
             Vector2 center = collider.bounds.center; // Centro
 
             // Hacer raycasts a los tres puntos
-            return AnyObjectsBetweenWithLayer(origin, top, layers) &&
-                    AnyObjectsBetweenWithLayer(origin, center, layers) &&
-                    AnyObjectsBetweenWithLayer(origin, bottom, layers); 
+            return AnyObjectsBetween(origin, top, layers) &&
+                    AnyObjectsBetween(origin, center, layers) &&
+                    AnyObjectsBetween(origin, bottom, layers); 
         }
 
-        private static bool AnyObjectsBetweenWithLayer(Vector2 origin, Vector2 goal, string[] layers)
+        public static bool AnyObjectsBetween(Vector2 origin, Vector2 goal, string[] layers=null)
         {
+            layers ??= _defaultLayers;
             Vector2 direction = goal - origin;
             float distance = direction.magnitude;
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance: distance, layerMask: LayerMask.GetMask(layers));

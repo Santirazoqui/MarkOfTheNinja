@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Small level 1.unity
-    guid: 6a3f9ec3a54372f4db7d46056d0fb22d
+    path: Assets/Scenes/SL1-Mateo.unity
+    guid: 0de3862836933674380ad29c940e9082
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 2674d23762c1c0f4cbb16beca7fd0ac3

@@ -12,6 +12,7 @@ public class SoundController : MonoBehaviour
     public GameObject soundType;
     public float soundLifeExpectancy = 1f;
     public float radius = 1f;
+    public int amountOfIncrements = 10;
     private readonly string soundInstanceName = "SoundInstance";
 
     // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class SoundController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log("Mouse position: " + mousePosition);
             CreateSound(mousePosition);
         }
     }
@@ -46,7 +48,8 @@ public class SoundController : MonoBehaviour
     {
         var sound = Instantiate(soundType, position, Quaternion.identity);
         SoundInstanceController controller = sound.GetComponent<SoundInstanceController>();
-        controller.Radius = radius;
-        Destroy(sound, soundLifeExpectancy);
+        controller.lifeExpentancy = soundLifeExpectancy;
+        controller.maxRadius = radius;
+        controller.amountOfIncrements = amountOfIncrements;
     }
 }

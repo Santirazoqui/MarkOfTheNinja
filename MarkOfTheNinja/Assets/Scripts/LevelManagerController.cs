@@ -52,10 +52,12 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private IDataAccessManager dataAccessManager;
     private GameData previousScore;
     private IEnumerator previousDetectionDecresionRoutine = null;
+    private ISceneSwitcher sceneSwitcher;
 
     [Inject]
-    public void Constructor(IDataAccessManager dataAccessManager)
+    public void Constructor(IDataAccessManager dataAccessManager, ISceneSwitcher sceneSwitcher)
     {
+        this.sceneSwitcher = sceneSwitcher;
         this.dataAccessManager = dataAccessManager;
         previousScore = dataAccessManager.LoadData();
     }
@@ -118,8 +120,9 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         StopAllCoroutines();
         SaveData();
-        
-        SceneManager.LoadScene(goToScreen);
+
+        //SceneManager.LoadScene(goToScreen);
+        sceneSwitcher.ChangeScenes(PosibleScenes.WinScreen);
     }
 
     public void PlayerWasCaught()

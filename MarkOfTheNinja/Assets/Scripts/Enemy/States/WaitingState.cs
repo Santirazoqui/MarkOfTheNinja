@@ -7,6 +7,7 @@ namespace Assets.Scripts.Enemy.States
     {
         private EnemyStates prevState;
         private float waitTime;
+        private IEnumerator exitRutine;
         protected override void EnterImplementation()
         {
             prevState = _lastRecivedContext.WaitTime.Item2;
@@ -17,7 +18,8 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void DoImplementation()
         {
-            StartCoroutine(Exit());
+            exitRutine = Exit();
+            StartCoroutine(exitRutine);
         }
 
         private IEnumerator Exit()
@@ -25,6 +27,11 @@ namespace Assets.Scripts.Enemy.States
             yield return new WaitForSeconds( waitTime );
             //Debug.Log("Wait time ended");
             _lastRecivedContext.Parent.ChangeStates(prevState);
+        }
+
+        protected override void ExitImplementation()
+        {
+            StopCoroutine(exitRutine);
         }
     }
 }

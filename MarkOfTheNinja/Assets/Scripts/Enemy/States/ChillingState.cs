@@ -8,6 +8,7 @@ namespace Assets.Scripts.Enemy.States
     public class ChillingState : NonDetectedState
     {
         public float patrollingSpeed = 200f;
+
         public float searchingRadius = 5f;
         public float waitTimeWhenReach = 1f;
 
@@ -53,11 +54,6 @@ namespace Assets.Scripts.Enemy.States
             pathfinder.AdjustPosition(speed, minDistance);
         }
 
-        public override void TriggerEnter(Collider2D collision)
-        {
-            HandleSoundCollition(collision);
-        }
-
         private void UpdateSearchRadius(StateContext context)
         {
             //Debug.Log("Searching radius:" + searchingRadius);
@@ -95,14 +91,6 @@ namespace Assets.Scripts.Enemy.States
             parent.ChangeStates(EnemyStates.Waiting);    
         }
 
-        private void HandleSoundCollition(Collider2D collision)
-        {
-            if (!Util.Util.CollidedWithSound(parent.gameObject, collision)) return;
-            var soundOrigin = collision.gameObject.transform.position;
-            _lastRecivedContext.SoundPosition = soundOrigin;
-            _lastRecivedContext.LevelManagerController.SoundWasHeard();
-            parent.ChangeStates(EnemyStates.GoingAtSound,_lastRecivedContext);
-        }
 
         private void PlayChillingAnimation()
         {

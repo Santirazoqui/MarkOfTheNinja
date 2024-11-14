@@ -6,8 +6,7 @@ namespace Assets.Scripts.Enemy.States
 {
     public class SearchingState : NonDetectedState
     {
-        public float searchingSpeed = 300f;
-
+        //public float searchingSpeed = 300f;
 
         private readonly string _soundTag = "Sound";
 
@@ -27,7 +26,8 @@ namespace Assets.Scripts.Enemy.States
 
         protected override void FixedDoImplementation()
         {
-            var speed = this.searchingSpeed;
+            var speed = _lastRecivedContext.Speed;
+            Debug.Log($"Speed: {speed}");
             var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }

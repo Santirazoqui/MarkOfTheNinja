@@ -7,6 +7,9 @@ public class SoundSpawner : MonoBehaviour
     public GameObject soundType;
     public AudioClip[] waterSound;
     public AudioClip entryWaterSound;
+    public float soundLifeExpectancy = 0.1f;
+    public float soundMaxRadius = 20f;
+    public int amountOfIncrements = 60;
     private Vector2 oldPosition;
     private SoundInstanceController soundInstanceController = null;
     private readonly string _audioChildName = "SoundSource";
@@ -22,22 +25,9 @@ public class SoundSpawner : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!Util.CollidedWithPlayer(collision)) return;
-        var position = collision.transform.position;
-        PlayEntryWaterSound(position);
-        SpawnSound(position);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (!Util.CollidedWithPlayer(collision)) return;
-        var position = (Vector2)collision.transform.position;
-        if(position == oldPosition)
-        {
-            if(soundInstanceController != null) soundInstanceController.Moving = false;
-            return; 
-        }
-        PlayRandomWaterSound(position);
-        SpawnSound(position);
+        Vector2 playerCenter = collision.bounds.center; // Centro
+        PlayEntryWaterSound(playerCenter);
+        SpawnSound(playerCenter);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -63,9 +53,9 @@ public class SoundSpawner : MonoBehaviour
     {
         var sound = Instantiate(soundType, position, Quaternion.identity);
         soundInstanceController = sound.GetComponent<SoundInstanceController>();
-        soundInstanceController.lifeExpentancy = 0.1f;
-        soundInstanceController.maxRadius = 12;
-        soundInstanceController.amountOfIncrements = 60;
+        soundInstanceController.lifeExpentancy = soundLifeExpectancy;
+        soundInstanceController.maxRadius = soundMaxRadius;
+        soundInstanceController.amountOfIncrements = amountOfIncrements;
         soundInstanceController.DestructionCallback = OnSoundDestroy;
     }
 

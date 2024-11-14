@@ -11,10 +11,13 @@ namespace Assets.Scripts.Enemy.States
 {
     public class NonDetectedState:State
     {
+        public float searchingAtSoundSpeed = 400f;
+        public float searchingSpeed = 300f;
         public override void PlayerIsBeingSeen(float distance)
         {
             _lastRecivedContext.LevelManagerController.PlayerIsBeingSeen(distance);
-            _lastRecivedContext.Parent.ChangeStates(EnemyStates.Confused);
+            _lastRecivedContext.Speed = searchingSpeed; 
+            _lastRecivedContext.Parent.ChangeStates(EnemyStates.Confused,_lastRecivedContext);
         }
 
         public override void TriggerEnter(Collider2D collision)
@@ -25,9 +28,12 @@ namespace Assets.Scripts.Enemy.States
         private void HandleSoundCollition(Collider2D collision)
         {
             if (!Util.Util.CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
+            Debug.Log("Collided with sound");
             var soundOrigin = collision.gameObject.transform.position;
             _lastRecivedContext.SoundPosition = soundOrigin;
+            _lastRecivedContext.Speed = searchingAtSoundSpeed;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);
         }
+
     }
 }

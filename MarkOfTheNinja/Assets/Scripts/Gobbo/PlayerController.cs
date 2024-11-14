@@ -645,8 +645,6 @@ namespace TarodevController
         {
             if ((_jumpToConsume || HasBufferedJump) )//&& CanStand)
             {
-                if (CanAirJump) Debug.Log("Can air Jump");
-                else Debug.Log("Cant air jump");
                 if (CanWallJump) ExecuteJump(JumpType.WallJump);
                 else if (_grounded || ClimbingLadder) ExecuteJump(JumpType.Jump);
                 else if (CanUseCoyote) ExecuteJump(JumpType.Coyote);

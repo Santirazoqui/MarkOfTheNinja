@@ -6,19 +6,9 @@ using Zenject;
 
 public class UIScript : MonoBehaviour
 {
-    private ISceneSwitcher _sceneSwitcher;
-
-    [Inject]
-    public void Constructor(ISceneSwitcher sceneSwitcher)
-    {
-        _sceneSwitcher = sceneSwitcher;
-    }
     public void ResetLevel()
     {
-        /*
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
-        */
-        _sceneSwitcher.ChangeScenes(PosibleScenes.Level);
     }
 }

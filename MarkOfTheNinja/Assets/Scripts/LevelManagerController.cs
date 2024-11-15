@@ -121,8 +121,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         StopAllCoroutines();
         SaveData();
 
-        //SceneManager.LoadScene(goToScreen);
-        sceneSwitcher.ChangeScenes(PosibleScenes.WinScreen);
+        sceneSwitcher.ChangeScenes(goToScreen);
     }
 
     public void PlayerWasCaught()

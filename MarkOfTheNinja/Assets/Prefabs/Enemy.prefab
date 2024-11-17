@@ -194,7 +194,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.046627432, y: -0.00503923}
+  m_Offset: {x: -0.036171757, y: -0.00503923}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -205,7 +205,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2190791, y: 0.49498388}
+  m_Size: {x: 0.19816776, y: 0.49498388}
   m_EdgeRadius: 0
 --- !u!50 &7123457603394103045
 Rigidbody2D:
@@ -476,6 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c9267320a9abb4aa087f61b2411c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchingAtSoundSpeed: 400
+  searchingSpeed: 300
   patrollingSpeed: 200
   searchingRadius: 20
   waitTimeWhenReach: 1
@@ -739,6 +741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477fd6edfee336f499cbe22611438e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchingAtSoundSpeed: 400
+  searchingSpeed: 300
   animationEndedEventName: searchAnimationEnded
 --- !u!1 &5698152055054965412
 GameObject:
@@ -1054,6 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7897b4893332e3e45bccb7bd9fe2c637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchingAtSoundSpeed: 400
   searchingSpeed: 300
 --- !u!1 &8274064038062363884
 GameObject:
@@ -1099,6 +1104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236dd7b4bc7f03f4587e6dc731521eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchingAtSoundSpeed: 400
+  searchingSpeed: 300
 --- !u!1001 &8915068095244933336
 PrefabInstance:
   m_ObjectHideFlags: 0

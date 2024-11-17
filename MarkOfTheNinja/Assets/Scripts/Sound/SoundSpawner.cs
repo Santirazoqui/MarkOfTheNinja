@@ -5,7 +5,6 @@ using UnityEngine;
 public class SoundSpawner : MonoBehaviour
 {
     public GameObject soundType;
-    public AudioClip[] waterSound;
     public AudioClip entryWaterSound;
     public float soundLifeExpectancy = 0.1f;
     public float soundMaxRadius = 20f;
@@ -13,6 +12,7 @@ public class SoundSpawner : MonoBehaviour
     private Vector2 oldPosition;
     private SoundInstanceController soundInstanceController = null;
     private readonly string _audioChildName = "SoundSource";
+	private readonly string _playerTag = "Player";
     private AudioSource audioSource;
     private System.Random random;
     // Start is called before the first frame update
@@ -24,29 +24,28 @@ public class SoundSpawner : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!Util.CollidedWithPlayer(collision)) return;
+		SpawnSound(collision);
+    }
+	
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		SpawnSound(collision);
+	}
+
+    private void SpawnSound(Collider2D collision)
+    {
+		if (!Util.CollidedWithPlayer(collision)) return;
         Vector2 playerCenter = collision.bounds.center; // Centro
         PlayEntryWaterSound(playerCenter);
-        SpawnSound(playerCenter);
+        CreateSound(playerCenter);
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+	
+	private void SpawnSound(Collision2D collision)
     {
-        if (soundInstanceController != null) soundInstanceController.Moving = false;
-    }
-
-    private void SpawnSound(Vector2 position)
-    {
-        if (soundInstanceController == null)
-        {
-            CreateSound(position);
-        }
-        else
-        {
-            soundInstanceController.Moving = true;
-            soundInstanceController.gameObject.transform.position = position;
-        }
-        oldPosition = position;
+		if (!collision.gameObject.CompareTag(_playerTag)) return;
+        Vector2 playerCenter = collision.collider.bounds.center; // Centro
+        PlayEntryWaterSound(playerCenter);
+        CreateSound(playerCenter);
     }
 
     private void CreateSound(Vector2 position)
@@ -68,14 +67,6 @@ public class SoundSpawner : MonoBehaviour
     {
         audioSource.gameObject.transform.position = position;
         audioSource.clip = entryWaterSound;
-        audioSource.Play();
-    }
-
-    private void PlayRandomWaterSound(Vector2 position)
-    {
-        if (audioSource.isPlaying) return;
-        int randomPos = random.Next(0,waterSound.Length);
-        audioSource.clip = waterSound[randomPos];
         audioSource.Play();
     }
 }

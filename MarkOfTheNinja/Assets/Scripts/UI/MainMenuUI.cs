@@ -7,6 +7,6 @@ public class MainMenuUI : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadSceneAsync("New Level");
+        SceneManager.LoadSceneAsync("Small Level 1");
     }
 }

@@ -7,6 +7,8 @@ using TMPro;
 
 public class SettingsUIScript : MonoBehaviour
 {
+    [SerializeField] Canvas MainMenuCanvas;
+
     public AudioMixer audioMixer;
 
     public TMP_Dropdown resolutionDropdown;
@@ -53,5 +55,11 @@ public class SettingsUIScript : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void CloseSettings()
+    {
+        this.gameObject.SetActive(false);
+        MainMenuCanvas.gameObject.SetActive(true);
     }
 }

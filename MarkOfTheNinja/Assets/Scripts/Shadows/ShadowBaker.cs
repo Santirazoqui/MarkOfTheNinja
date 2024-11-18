@@ -3,6 +3,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Tilemaps;
 
 
 
@@ -27,6 +28,9 @@ public class ShadowCaster2DCreator : MonoBehaviour
     public void Create()
     {
         DestroyOldShadowCasters();
+        var actualTilemapCollider = GetComponent<TilemapCollider2D>();
+        var ogValue = actualTilemapCollider.usedByComposite;
+        actualTilemapCollider.usedByComposite = true;
         tilemapCollider = GetComponent<CompositeCollider2D>();
 
         for (int i = 0; i < tilemapCollider.pathCount; i++)
@@ -51,6 +55,8 @@ public class ShadowCaster2DCreator : MonoBehaviour
             generateShadowMeshMethod.Invoke(shadowCasterComponent,
             new object[] { meshField.GetValue(shadowCasterComponent), shapePathField.GetValue(shadowCasterComponent) });
         }
+
+        actualTilemapCollider.usedByComposite = ogValue;
     }
     public void DestroyOldShadowCasters()
     {
@@ -58,7 +64,12 @@ public class ShadowCaster2DCreator : MonoBehaviour
         var tempList = transform.Cast<Transform>().ToList();
         foreach (var child in tempList)
         {
-            DestroyImmediate(child.gameObject);
+            bool isShadowCaster = child.gameObject.GetComponent<ShadowCaster2D>() != null;
+            if(isShadowCaster)
+            {
+                DestroyImmediate(child.gameObject);
+            }
+
         }
     }
 }

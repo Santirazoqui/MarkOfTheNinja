@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,32 +12,36 @@ namespace Assets.Scripts.Shadows
     #if UNITY_EDITOR
     public class ShadowBakerFromLevel:MonoBehaviour
     {
-        public string platformTilemapName = "";
-        public string floorTilemapName = "";
-        private ShadowCaster2DCreator platformShadowBaker;
-        private ShadowCaster2DCreator floorShadowBaker;
+        public string[] tilemapWithShadowBakerNames;
+        private List<ShadowCaster2DCreator> shadowBakers;
         public void GenerateShadows()
         {
             SetUp();
-
-            platformShadowBaker.Create();
-            floorShadowBaker.Create();
+            foreach (var shadowCaster in shadowBakers)
+            {
+                shadowCaster.Create();
+            }
         }
 
         public void DeleteOldShadows()
         {
             SetUp();
-            platformShadowBaker.DestroyOldShadowCasters();
-            floorShadowBaker.DestroyOldShadowCasters();
+            foreach (var shadowCaster in shadowBakers)
+            {
+                shadowCaster.DestroyOldShadowCasters();
+            }
         }
 
 
         private void SetUp()
         {
-            var platform = FindChildByName(transform, platformTilemapName) ?? throw new Exception("Incorrect platform tilemap name");
-            var floor = FindChildByName(transform, floorTilemapName) ?? throw new Exception("Incorrect floor tilemap name");
-            platformShadowBaker = platform.GetComponent<ShadowCaster2DCreator>();
-            floorShadowBaker = floor.GetComponent<ShadowCaster2DCreator>();
+            shadowBakers = new();
+            foreach (var tilemapName in tilemapWithShadowBakerNames)
+            {
+                var tilemap = FindChildByName(transform, tilemapName) ?? throw new Exception($"There is no tilempap with name: {tilemapName}");
+                var shadowBaker = tilemap.GetComponent<ShadowCaster2DCreator>() ?? throw new Exception($"Tilemap {tilemapName} has no component ShadowCaster2DCreator");
+                shadowBakers.Add(shadowBaker);
+            }
         }
 
         private GameObject FindChildByName(Transform parent, string name)

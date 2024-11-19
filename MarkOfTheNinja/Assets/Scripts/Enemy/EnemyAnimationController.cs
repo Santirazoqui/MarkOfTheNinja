@@ -16,7 +16,7 @@ namespace Assets.Scripts.Enemy
         public enum AnimationStates
         {
             Chilling,
-            Moving, 
+            Moving,
             Still,
             Killing,
             Confused,
@@ -48,9 +48,11 @@ namespace Assets.Scripts.Enemy
             {EnemyTopAnimations.Killing, "ExclamationMark"}
         };
 
+
         void Start()
         {
-            Instantiate(enemyTopAnimations, new Vector3(0, 0.31f, 0), Quaternion.identity, transform);
+            GameObject temp = Instantiate(enemyTopAnimations, transform.position, Quaternion.identity, transform);
+            temp.transform.localPosition = new Vector3(0f, 0.31f, 0f);
         }
 
         public void Walking()
@@ -97,7 +99,8 @@ namespace Assets.Scripts.Enemy
             foreach (var (s, n) in mapper)
             {
                 if (s == AnimationStates.Chilling) continue;
-                if (s == state){
+                if (s == state)
+                {
                     animator.SetTrigger(n);
                 }
                 else if (state != AnimationStates.Chilling) animator.ResetTrigger(n);
@@ -109,6 +112,7 @@ namespace Assets.Scripts.Enemy
             Animator topAnimator = enemyTopAnimations.GetComponent<Animator>();
             string animationTrigger = topAnimationsMapper[topAnimation];
             //Debug.Log(animationTrigger);
+            topAnimator.enabled = true;
             topAnimator.SetTrigger(animationTrigger);
         }
 

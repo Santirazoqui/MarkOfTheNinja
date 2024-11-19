@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 2931255777851237761}
   - component: {fileID: 3057295123913469935}
   - component: {fileID: 5603531387339949135}
-  - component: {fileID: 4546481442754476478}
   - component: {fileID: 5361173845893012448}
   - component: {fileID: 7016254952975219087}
   - component: {fileID: 2854087392734109560}
@@ -366,36 +365,6 @@ MonoBehaviour:
   soundLifeExpectancy: 0.1
   soundMaxRadius: 20
   amountOfIncrements: 60
---- !u!114 &4546481442754476478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3820425808798355163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 1
-  m_ApplyToSortingLayers: 000000001bd9cd2ea5eba3e0297a313af9ae66ca4b2e1724d5aece8aa73acdc3
-  m_ShapePath:
-  - {x: -5.9999995, y: -3.0000002, z: 0}
-  - {x: -5.9999995, y: -0.00000008940697, z: 0}
-  - {x: 27.000002, y: -0.00000008940697, z: 0}
-  - {x: 27.000002, y: -3.0000002, z: 0}
-  m_ShapePathHash: 0
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -60354
-  m_LocalBounds:
-    m_Center: {x: 10.5, y: -1.5000001, z: 0}
-    m_Extent: {x: 16.5, y: 1.5000001, z: 0}
 --- !u!114 &5361173845893012448
 MonoBehaviour:
   m_ObjectHideFlags: 0

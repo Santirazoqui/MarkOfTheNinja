@@ -1120,7 +1120,7 @@ namespace TarodevController
 
         public void Explode()
         {
-            this.animationController.Dying();
+            this.animationController.Exploding();
             myAudioSource.clip = soundsDict[sounds.Explosion];
             myAudioSource.Play();
             this.Active = false;

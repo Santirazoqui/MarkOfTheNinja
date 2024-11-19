@@ -18,7 +18,7 @@ namespace Assets.Scripts.Player
             OnAir,
             Landing,
             Dashing,
-            Dying,
+            Exploding,
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Player
             { AnimationStates.OnAir, "OnAir"},
             { AnimationStates.Landing, "Landing"},
             { AnimationStates.Dashing, "Dash" },
-            { AnimationStates.Dying, "Dying" },
+            { AnimationStates.Exploding, "Exploding" },
         };
 
         public PlayerAnimationController(Animator animator)
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Player
 
         public void Landed() => SetAnimationState(AnimationStates.Landing);
 
-        public void Dying() => SetAnimationState(AnimationStates.Dying);
+        public void Exploding() => SetAnimationState(AnimationStates.Exploding);
 
         private void SetAnimationState(AnimationStates state)
         {

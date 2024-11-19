@@ -188,7 +188,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         {
             if (killing) return;
             killing = true;
-            Debug.Log("Player was killed");
+            //Debug.Log("Player was killed");
             animationController.Killing();
             cantMove = true;
             player.SetActive(false);
@@ -199,7 +199,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void PostKilling()
         {
-            Debug.Log("Post killing fired");
+            //Debug.Log("Post killing fired");
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
         }
 

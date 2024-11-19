@@ -27,7 +27,7 @@ namespace Assets.Scripts.Enemy.States
         protected override void FixedDoImplementation()
         {
             var speed = _lastRecivedContext.Speed;
-            Debug.Log($"Speed: {speed}");
+            //Debug.Log($"Speed: {speed}");
             var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }

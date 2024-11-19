@@ -10,7 +10,7 @@ namespace Assets.Scripts.Enemy.States
                             Pathfinder pathfinder, 
                             GameObject player,
                             LevelManagerController levelManager,
-                            EnemyAnimationController animation,
+                            IEnemyAnimationController animation,
                             VisionConeController visionCone)
         {
             Parent = parent;
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Enemy.States
         public IPathfinder Pathfinder { get; set; }
         public GameObject Player { get; set; }  
         public ILevelManager LevelManagerController { get; set; }
-        public EnemyAnimationController AnimationController { get; set; }
+        public IEnemyAnimationController AnimationController { get; set; }
         public (float, EnemyStates) WaitTime { get; set; } 
         public float Speed { get; set; }
     }

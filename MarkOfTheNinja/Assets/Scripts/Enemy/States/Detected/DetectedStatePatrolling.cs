@@ -206,7 +206,7 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         private void PlayDetectedAnimation()
         {
-            animationController.Walking();
+            animationController.AlertWalking();
         }
 
 

@@ -21,7 +21,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void PlaySearchingAnimation()
         {
-            _lastRecivedContext.AnimationController.Walking();
+            _lastRecivedContext.AnimationController.AlertWalking();
         }
 
         protected override void FixedDoImplementation()

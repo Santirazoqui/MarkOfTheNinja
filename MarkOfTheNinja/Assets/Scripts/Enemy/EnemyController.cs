@@ -38,7 +38,8 @@ public class EnemyController : MonoBehaviour
 
     private void InitializeAnimator()
     {
-        enemyAnimationController = gameObject.AddComponent<EnemyAnimationControllerV2>();
+        IEnemyAnimationController controller = GetComponent<IEnemyAnimationController>();
+        enemyAnimationController = controller;
     }
 
 

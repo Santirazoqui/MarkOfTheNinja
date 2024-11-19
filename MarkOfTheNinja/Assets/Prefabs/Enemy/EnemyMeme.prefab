@@ -106,8 +106,9 @@ GameObject:
   - component: {fileID: 2586485640286808999}
   - component: {fileID: 252920237002941451}
   - component: {fileID: 2772277537924999957}
+  - component: {fileID: 46999866207185846}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: EnemyMeme
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +246,7 @@ Animator:
   m_GameObject: {fileID: 997745886349629399}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0eccc3474c1f74d4892e5c214b3ff51f, type: 2}
+  m_Controller: {fileID: 9100000, guid: c7d2e2d517350df448fc108a8c51d29b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -351,6 +352,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: Assets/Animations/Enemy/Enemy.controller
+--- !u!114 &46999866207185846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997745886349629399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3155584ba893f984f95e2cdd6c4ec7b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455768502657137939
 GameObject:
   m_ObjectHideFlags: 0

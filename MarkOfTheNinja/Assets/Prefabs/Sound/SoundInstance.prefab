@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353603318c800714ca02f0ce800f0185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRadius: 10
+  lifeExpentancy: 2
+  amountOfIncrements: 200
   segments: 1000
 --- !u!58 &-5391002957590477468
 CircleCollider2D:
@@ -122,8 +125,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1149725845
-  m_SortingLayer: 7
+  m_SortingLayerID: -899240199
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

@@ -10,6 +10,9 @@ namespace Assets.Scripts.Enemy
     public class EnemyAnimationController : MonoBehaviour
     {
         public Animator animator;
+
+        public GameObject enemyTopAnimations;
+
         public enum AnimationStates
         {
             Chilling,
@@ -19,6 +22,12 @@ namespace Assets.Scripts.Enemy
             Confused,
             SearchingAtSound,
             ThrowingFireball
+        }
+
+        public enum EnemyTopAnimations
+        {
+            Confused,
+            Killing
         }
 
         private readonly Dictionary<AnimationStates, string> mapper = new() {
@@ -32,6 +41,17 @@ namespace Assets.Scripts.Enemy
         };
 
 
+
+        private readonly Dictionary<EnemyTopAnimations, string> topAnimationsMapper = new()
+        {
+            {EnemyTopAnimations.Confused, "QuestionMark"},
+            {EnemyTopAnimations.Killing, "ExclamationMark"}
+        };
+
+        void Start()
+        {
+            Instantiate(enemyTopAnimations, new Vector3(0, 0.31f, 0), Quaternion.identity, transform);
+        }
 
         public void Walking()
         {
@@ -54,7 +74,8 @@ namespace Assets.Scripts.Enemy
         public void Confused()
         {
             ExitChilling();
-            SetAnimationState(AnimationStates.Confused);
+            //SetAnimationState(AnimationStates.Confused);
+            PlayTopAnimation(EnemyTopAnimations.Confused);
         }
 
         public void SearchAtSound()
@@ -81,6 +102,14 @@ namespace Assets.Scripts.Enemy
                 }
                 else if (state != AnimationStates.Chilling) animator.ResetTrigger(n);
             }
+        }
+
+        private void PlayTopAnimation(EnemyTopAnimations topAnimation)
+        {
+            Animator topAnimator = enemyTopAnimations.GetComponent<Animator>();
+            string animationTrigger = topAnimationsMapper[topAnimation];
+            //Debug.Log(animationTrigger);
+            topAnimator.SetTrigger(animationTrigger);
         }
 
         private void EnterChilling() => animator.SetBool(mapper[AnimationStates.Chilling], true);

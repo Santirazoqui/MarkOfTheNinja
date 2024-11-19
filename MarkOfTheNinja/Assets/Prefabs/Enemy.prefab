@@ -162,6 +162,7 @@ MonoBehaviour:
       Value: {fileID: 9165474255005956284}
     - Key: 2
       Value: {fileID: 6701577521760368236}
+  enemyTopAnimations: {fileID: 6608619567205137857, guid: 2d4f911c02823b74a96d8e637a94c26c, type: 3}
 --- !u!61 &7270506227756914554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -653,7 +654,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -579368469
-  m_SortingLayer: 7
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: db03b01595f369a4bb2c134fd214652f, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}

@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
 
+    [SerializeField] GameObject enemyTopAnimations;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,7 @@ public class EnemyController : MonoBehaviour
     {
         enemyAnimationController = gameObject.AddComponent<EnemyAnimationController>();
         enemyAnimationController.animator = GetComponent<Animator>();
+        enemyAnimationController.enemyTopAnimations = this.enemyTopAnimations;
     }
 
 

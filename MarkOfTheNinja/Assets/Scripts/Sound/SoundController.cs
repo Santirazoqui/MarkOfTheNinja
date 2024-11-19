@@ -32,7 +32,7 @@ public class SoundController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("Mouse position: " + mousePosition);
+            //Debug.Log("Mouse position: " + mousePosition);
             CreateSound(mousePosition);
         }
     }

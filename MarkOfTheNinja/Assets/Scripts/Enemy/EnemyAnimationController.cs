@@ -113,7 +113,7 @@ namespace Assets.Scripts.Enemy
             string animationTrigger = topAnimationsMapper[topAnimation];
             //Debug.Log(animationTrigger);
             topAnimator.enabled = true;
-            topAnimator.SetTrigger(animationTrigger);
+            topAnimator.SetBool(animationTrigger, true);
         }
 
         private void EnterChilling() => animator.SetBool(mapper[AnimationStates.Chilling], true);

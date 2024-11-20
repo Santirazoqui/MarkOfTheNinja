@@ -12,6 +12,11 @@ public class MainMenuUI : MonoBehaviour
         SceneManager.LoadSceneAsync("Small Level 1");
     }
 
+    public void Tutorial()
+    {
+        SceneManager.LoadSceneAsync("Tutorial");
+    }
+
     public void OpenSettings()
     {
         this.gameObject.SetActive(false);

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: da2337a1d0eb05e4089bf68b63a1418a
+  - enabled: 1
     path: Assets/Scenes/SL1-Mateo.unity
     guid: 0de3862836933674380ad29c940e9082
   - enabled: 1

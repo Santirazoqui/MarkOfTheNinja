@@ -5,6 +5,8 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using Assets.Scripts.Player;
 using Unity.VisualScripting;
+using Zenject;
+using Assets.Scripts.DataAccess;
 
 namespace TarodevController
 {
@@ -178,9 +180,25 @@ namespace TarodevController
             SetColliderMode(ColliderMode.Airborne);
         }
 
+        IDataAccessManager dataAccessManager;
+
+        [Inject]
+        public void Constructor(IDataAccessManager dataAccessManager)
+        {
+            this.dataAccessManager = dataAccessManager;
+            StartCoroutine(LoadPosition());
+        }
+
+        private IEnumerator LoadPosition()
+        {
+            var gameData = this.dataAccessManager.LoadData();
+            if (gameData.SpawnPoint.HasValue) transform.position = gameData.SpawnPoint.Value;
+            yield return null;
+        }
+
         #endregion
 
-        #region Input
+            #region Input
 
         private FrameInput _frameInput;
 

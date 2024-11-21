@@ -139,6 +139,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             TimeSpentInLevel = this.TimeSpentInLevel,
             Score = score,
             HighScore = (previousScore.HighScore != null && score.Total < previousScore.HighScore) ? previousScore.HighScore : score.Total,
+            SpawnPoint = null
         };
         
         dataAccessManager.SaveData(data);

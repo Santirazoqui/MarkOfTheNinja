@@ -12,12 +12,13 @@ namespace Assets.Scripts.Background
         // Referencia a la cámara que se va a seguir
         [SerializeField] public GameObject player;
         public bool followY = true;
+        public bool mantainInitialDistance = true;
         private Vector2 initalPositionRespectFromPlayer;
         private Vector2 initialPosition;
         void Start()
         {
             initialPosition = transform.position;
-            initalPositionRespectFromPlayer = initialPosition - (Vector2)player.transform.position;
+            initalPositionRespectFromPlayer = mantainInitialDistance ? initialPosition - (Vector2)player.transform.position : Vector2.zero;
         }
 
         void LateUpdate()

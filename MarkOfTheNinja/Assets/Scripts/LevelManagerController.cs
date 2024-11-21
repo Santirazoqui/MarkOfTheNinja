@@ -14,15 +14,23 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 {
     [SerializeField] GameObject PlayingCanvas;
     [SerializeField] GameObject DeathCanvas;
+
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
 
     public delegate void OnDetection();
     public event OnDetection PlayerWasDetected;
+
+    public delegate void OnlevelReset();
+    public event OnlevelReset LevelWasReset;
+
+    public delegate void OnCheckpointReached(Vector2 position);
+    public event OnCheckpointReached CheckpointReached;
     public float DetectionRate { get; private set; } = 0;
     public bool Detected { get; private set; }
 
     public int Score { get; private set; }
+    public int ScoreAtLastCheckpoint { get; set; }
 
     [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
@@ -45,13 +53,13 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int fastTimeScoreBonus = 300;
     public float EnemySuspicionPercentage {  get; private set; }
     public float TimeSpentInLevel { get; private set; } = 0;
-
     private Light2D GlobalLight { get; set; }
     private AudioPlayerController AudioController { get; set; }
 
     private IDataAccessManager dataAccessManager;
     private GameData previousScore;
     private IEnumerator previousDetectionDecresionRoutine = null;
+    private IEnumerator turnLightsOnCorutine =null;
     private ISceneSwitcher sceneSwitcher;
 
     [Inject]
@@ -64,11 +72,17 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private void Start()
     {
+        LevelWasReset += OnRestartLevel;
+        CheckpointReached += OnCheckpoint;
         GlobalLight = GetComponentInChildren<Light2D>();
         AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
         Score = initialPoints;
+        ScoreAtLastCheckpoint = Score;
+        DeathCanvas = Instantiate(DeathCanvas);
+        DeathCanvas.SetActive(false);
         StartCoroutine(StartTimer());
+        //StartDebug();
     }
 
     private IEnumerator TurnLightsOn()
@@ -79,6 +93,39 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         yield break;
+    }
+
+    private int prevScore;
+    private float prevDetection;
+    private bool previousDetected;
+    private void StartDebug()
+    {
+        prevScore = Score;
+        prevDetection = DetectionRate;
+        previousDetected = Detected;
+    }
+
+    /*private void Update()
+    {
+        if (prevScore!= Score) Debug.Log("Score changed: " + Score);
+        if(prevDetection !=DetectionRate) Debug.Log("Detection rate changed: "+ DetectionRate);
+        if (previousDetected != Detected) Debug.Log("Detected changed: " + Detected);
+        prevDetection = DetectionRate;
+        prevScore = Score;
+        previousDetected = Detected;
+    }
+    */
+    private void OnRestartLevel()
+    {
+        GlobalLight.intensity = globalLightMin;
+        Score = ScoreAtLastCheckpoint;
+        if (turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
+        StopDetectionDecreasion();
+        DetectionRate = 0;
+        Detected = false;
+        AudioController.PlayNonDetectedMusic();
+        this.DeathCanvas.SetActive(false);
+        this.PlayingCanvas.SetActive(true);
     }
 
     private IEnumerator StartTimer()
@@ -102,12 +149,14 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public void PlayerIsBeingSeen(float distance)
     {
+        Debug.Log("Player was seen");
         var multiplier = distance != 0 ? 1 / (float)(Math.Pow(distance,expoentialDistanceMultiplier)) : 1;
         PlayerWasPerceived(visualDetectionRate, multiplier);
     }
 
     public void SoundWasHeard()
     {
+        Debug.Log("Player was heard");
         PlayerWasPerceived(audioDetectionRate);
     }
 
@@ -127,7 +176,22 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public void PlayerWasCaught()
     {
         this.PlayingCanvas.SetActive(false);
-        Instantiate(DeathCanvas);
+        this.DeathCanvas.SetActive(true);
+        
+    }
+
+    public void CheckpointWasReached(Vector2 position)
+    {
+        CheckpointReached?.Invoke(position);
+    }
+    public void RestartLevel()
+    {
+        LevelWasReset.Invoke();
+    }
+
+    private void OnCheckpoint(Vector2 position)
+    {
+        ScoreAtLastCheckpoint = Score;
     }
 
     private void SaveData()
@@ -170,10 +234,12 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private void EnterDetectedPhase()
     {
+        Debug.Log("Enter detected phase");
         Detected = true;
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
-        StartCoroutine(TurnLightsOn());
+        turnLightsOnCorutine = TurnLightsOn();
+        StartCoroutine(turnLightsOnCorutine);
         StopDetectionDecreasion();
         PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
         PublishPlayerDetection();
@@ -226,6 +292,5 @@ public interface ILevelManager
     void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
     void PlayerWasInstaDetected();
-
     void PlayerWasCaught();
 }

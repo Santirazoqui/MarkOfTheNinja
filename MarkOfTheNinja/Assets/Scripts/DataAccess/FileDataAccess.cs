@@ -7,6 +7,7 @@ using Unity;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Assets.Scripts.DataAccess
 {
@@ -17,19 +18,28 @@ namespace Assets.Scripts.DataAccess
             string path = GetPath();
             if (File.Exists(path))
             {
-                BinaryFormatter formatter = new();
-                using FileStream stream = new(path, FileMode.Open);
-                var data =  (GameData)formatter.Deserialize(stream);
-                return data;
+                try
+                {
+                    BinaryFormatter formatter = new();
+                    using FileStream stream = new(path, FileMode.Open);
+                    var data = (GameDataInternal)formatter.Deserialize(stream);
+                    return data.ToGameData();
+                }
+                catch(SerializationException)
+                {
+                    File.Delete(path);
+                }
+                
             }
             return new GameData(); 
         }
+
 
         public void SaveData(GameData data)
         {
             BinaryFormatter formatter = new();
             using FileStream stream = new(GetPath(), FileMode.Create);
-            formatter.Serialize(stream, data);
+            formatter.Serialize(stream, data.ToSerializableGameData());
         }
 
         private string GetPath()

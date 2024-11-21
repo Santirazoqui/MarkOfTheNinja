@@ -25,6 +25,7 @@ public class Fireball : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         levelManagerController = FindObjectOfType<LevelManagerController>();
+        levelManagerController.LevelWasReset += DestroyItself;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
@@ -46,13 +47,18 @@ public class Fireball : MonoBehaviour
             collision.gameObject.SetActive(false);
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
             levelManagerController.PlayerWasCaught();
-            Destroy(gameObject);
+            DestroyItself();
         }
     }
 
     IEnumerator DestroyFireball(float lifespan)
     {
         yield return new WaitForSeconds(lifespan);
+        DestroyItself();
+    }
+
+    private void DestroyItself()
+    {
         Destroy(gameObject);
     }
 }

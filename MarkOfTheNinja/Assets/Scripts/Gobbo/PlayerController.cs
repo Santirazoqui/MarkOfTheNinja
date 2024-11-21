@@ -83,6 +83,7 @@ namespace TarodevController
         #region Loop
 
         private float _delta, _time;
+        private Vector2 spawnPosition;
 
         private void Awake()
         {
@@ -92,7 +93,24 @@ namespace TarodevController
             SetupCharacter();
 
             PhysicsSimulator.Instance.AddPlayer(this);
+            spawnPosition = transform.position;
             levelManagerController = FindObjectOfType<LevelManagerController>();
+            levelManagerController.CheckpointReached += SavePosition;
+            levelManagerController.LevelWasReset += OnReset;
+        }
+
+        private void SavePosition(Vector2 position)
+        {
+            spawnPosition = position;
+        }
+
+        private void OnReset()
+        {
+            transform.position = spawnPosition;
+            _nextDashTime = _time;
+            Debug.Log("OnReset on player was run");
+            this.Active = true;
+            animationController.Idle();
         }
 
         private void OnDestroy() => PhysicsSimulator.Instance.RemovePlayer(this);
@@ -147,7 +165,6 @@ namespace TarodevController
         private bool _cachedQueryMode, _cachedQueryTriggers;
         private GeneratedCharacterSize _character;
         private const float GRAVITY_SCALE = 1;
-
         private void SetupCharacter()
         {
             _character = Stats.CharacterSize.GenerateCharacterSize();
@@ -178,22 +195,6 @@ namespace TarodevController
             _airborneCollider.sharedMaterial = _rb.sharedMaterial;
 
             SetColliderMode(ColliderMode.Airborne);
-        }
-
-        IDataAccessManager dataAccessManager;
-
-        [Inject]
-        public void Constructor(IDataAccessManager dataAccessManager)
-        {
-            this.dataAccessManager = dataAccessManager;
-            StartCoroutine(LoadPosition());
-        }
-
-        private IEnumerator LoadPosition()
-        {
-            var gameData = this.dataAccessManager.LoadData();
-            if (gameData.SpawnPoint.HasValue) transform.position = gameData.SpawnPoint.Value;
-            yield return null;
         }
 
         #endregion

@@ -119,8 +119,14 @@ public class EnemyController : MonoBehaviour
     {
         var controller = FindAnyObjectByType<LevelManagerController>();
         controller.StateChanged += SudoChangeStates;
+        controller.LevelWasReset += OnReset;
     }
 
+    private void OnReset()
+    {
+        visionCone.gameObject.SetActive(true);
+        ChangeStates(EnemyStates.Chilling);
+    }
     private void SudoChangeStates(EnemyStates state)
     {
         currentState.Exit(context);

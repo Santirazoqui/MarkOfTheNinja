@@ -15,7 +15,6 @@ namespace Assets.Scripts.DataAccess
         public int? GameSceneIndex { get; set; }
 
         public float? TimeSpentInLevel { get; set; }
-        public Vector2? SpawnPoint { get; set; }
 
         internal GameDataInternal ToSerializableGameData()
         {
@@ -26,11 +25,6 @@ namespace Assets.Scripts.DataAccess
                 GameSceneIndex = GameSceneIndex,
                 TimeSpentInLevel = TimeSpentInLevel,
             };
-            if (SpawnPoint.HasValue)
-            {
-                var value = SpawnPoint.Value;
-                res.SpawnPoint = new SerialializableVector() { X = value.x, Y = value.y };
-            }
 
             return res;
         }
@@ -56,10 +50,6 @@ namespace Assets.Scripts.DataAccess
                 GameSceneIndex = GameSceneIndex,
                 TimeSpentInLevel = TimeSpentInLevel,
             };
-            if (SpawnPoint!=null)
-            {
-                res.SpawnPoint = new Vector2(SpawnPoint.X, SpawnPoint.Y);
-            }
 
             return res;
         }

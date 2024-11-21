@@ -14,15 +14,23 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 {
     [SerializeField] GameObject PlayingCanvas;
     [SerializeField] GameObject DeathCanvas;
+
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
 
     public delegate void OnDetection();
     public event OnDetection PlayerWasDetected;
+
+    public delegate void OnlevelReset();
+    public event OnlevelReset LevelWasReset;
+
+    public delegate void OnCheckpointReached(Vector2 position);
+    public event OnCheckpointReached CheckpointReached;
     public float DetectionRate { get; private set; } = 0;
     public bool Detected { get; private set; }
 
     public int Score { get; private set; }
+    public int ScoreAtLastCheckpoint { get; set; } = 0;
 
     [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
@@ -45,7 +53,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int fastTimeScoreBonus = 300;
     public float EnemySuspicionPercentage {  get; private set; }
     public float TimeSpentInLevel { get; private set; } = 0;
-
     private Light2D GlobalLight { get; set; }
     private AudioPlayerController AudioController { get; set; }
 
@@ -64,10 +71,14 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private void Start()
     {
+        LevelWasReset += OnRestartLevel;
+        CheckpointReached += OnCheckpoint;
         GlobalLight = GetComponentInChildren<Light2D>();
         AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
         Score = initialPoints;
+        DeathCanvas = Instantiate(DeathCanvas);
+        DeathCanvas.SetActive(false);
         StartCoroutine(StartTimer());
     }
 
@@ -79,6 +90,15 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         yield break;
+    }
+
+    private void OnRestartLevel()
+    {
+        GlobalLight.intensity = globalLightMin;
+        Score = ScoreAtLastCheckpoint;
+        AudioController.PlayNonDetectedMusic();
+        this.DeathCanvas.SetActive(false);
+        this.PlayingCanvas.SetActive(true);
     }
 
     private IEnumerator StartTimer()
@@ -127,7 +147,22 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public void PlayerWasCaught()
     {
         this.PlayingCanvas.SetActive(false);
-        Instantiate(DeathCanvas);
+        this.DeathCanvas.SetActive(true);
+        
+    }
+
+    public void CheckpointWasReached(Vector2 position)
+    {
+        CheckpointReached?.Invoke(position);
+    }
+    public void RestartLevel()
+    {
+        LevelWasReset?.Invoke();
+    }
+
+    private void OnCheckpoint(Vector2 position)
+    {
+        ScoreAtLastCheckpoint = Score;
     }
 
     private void SaveData()
@@ -139,7 +174,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
             TimeSpentInLevel = this.TimeSpentInLevel,
             Score = score,
             HighScore = (previousScore.HighScore != null && score.Total < previousScore.HighScore) ? previousScore.HighScore : score.Total,
-            SpawnPoint = null
         };
         
         dataAccessManager.SaveData(data);
@@ -227,6 +261,5 @@ public interface ILevelManager
     void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
     void PlayerWasInstaDetected();
-
     void PlayerWasCaught();
 }

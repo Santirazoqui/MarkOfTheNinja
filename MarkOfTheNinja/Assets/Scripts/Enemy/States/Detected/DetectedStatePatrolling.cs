@@ -51,6 +51,8 @@ namespace Assets.Scripts.Enemy.States.Detected
 
         protected override void EnterImplementation()
         {
+            cantMove = false;
+            killing = false;
             DeactivateVisionCone();
             PlayDetectedAnimation();
             FakeStart();

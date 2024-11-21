@@ -125,7 +125,7 @@ public class EnemyController : MonoBehaviour
     private void OnReset()
     {
         visionCone.gameObject.SetActive(true);
-        ChangeStates(EnemyStates.Chilling);
+        SudoChangeStates(EnemyStates.Chilling);
     }
     private void SudoChangeStates(EnemyStates state)
     {

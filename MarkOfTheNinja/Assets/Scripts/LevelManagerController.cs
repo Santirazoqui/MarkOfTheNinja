@@ -96,6 +96,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         GlobalLight.intensity = globalLightMin;
         Score = ScoreAtLastCheckpoint;
+        DetectionRate = 0;
+        Detected = false;
         AudioController.PlayNonDetectedMusic();
         this.DeathCanvas.SetActive(false);
         this.PlayingCanvas.SetActive(true);

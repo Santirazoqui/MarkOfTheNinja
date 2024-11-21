@@ -110,6 +110,7 @@ namespace TarodevController
             _nextDashTime = _time;
             Debug.Log("OnReset on player was run");
             this.Active = true;
+            gameObject.SetActive(true);
             animationController.Idle();
         }
 

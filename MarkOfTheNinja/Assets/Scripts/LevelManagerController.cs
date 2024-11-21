@@ -30,7 +30,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public bool Detected { get; private set; }
 
     public int Score { get; private set; }
-    public int ScoreAtLastCheckpoint { get; set; } = 0;
+    public int ScoreAtLastCheckpoint { get; set; }
 
     [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
@@ -59,6 +59,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private IDataAccessManager dataAccessManager;
     private GameData previousScore;
     private IEnumerator previousDetectionDecresionRoutine = null;
+    private IEnumerator turnLightsOnCorutine =null;
     private ISceneSwitcher sceneSwitcher;
 
     [Inject]
@@ -77,9 +78,11 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         AudioController = GetComponentInChildren<AudioPlayerController>();
         GlobalLight.intensity = globalLightMin;
         Score = initialPoints;
+        ScoreAtLastCheckpoint = Score;
         DeathCanvas = Instantiate(DeathCanvas);
         DeathCanvas.SetActive(false);
         StartCoroutine(StartTimer());
+        //StartDebug();
     }
 
     private IEnumerator TurnLightsOn()
@@ -92,10 +95,32 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         yield break;
     }
 
+    private int prevScore;
+    private float prevDetection;
+    private bool previousDetected;
+    private void StartDebug()
+    {
+        prevScore = Score;
+        prevDetection = DetectionRate;
+        previousDetected = Detected;
+    }
+
+    /*private void Update()
+    {
+        if (prevScore!= Score) Debug.Log("Score changed: " + Score);
+        if(prevDetection !=DetectionRate) Debug.Log("Detection rate changed: "+ DetectionRate);
+        if (previousDetected != Detected) Debug.Log("Detected changed: " + Detected);
+        prevDetection = DetectionRate;
+        prevScore = Score;
+        previousDetected = Detected;
+    }
+    */
     private void OnRestartLevel()
     {
         GlobalLight.intensity = globalLightMin;
         Score = ScoreAtLastCheckpoint;
+        if (turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
+        StopDetectionDecreasion();
         DetectionRate = 0;
         Detected = false;
         AudioController.PlayNonDetectedMusic();
@@ -124,12 +149,14 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public void PlayerIsBeingSeen(float distance)
     {
+        Debug.Log("Player was seen");
         var multiplier = distance != 0 ? 1 / (float)(Math.Pow(distance,expoentialDistanceMultiplier)) : 1;
         PlayerWasPerceived(visualDetectionRate, multiplier);
     }
 
     public void SoundWasHeard()
     {
+        Debug.Log("Player was heard");
         PlayerWasPerceived(audioDetectionRate);
     }
 
@@ -159,7 +186,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     }
     public void RestartLevel()
     {
-        LevelWasReset?.Invoke();
+        LevelWasReset.Invoke();
     }
 
     private void OnCheckpoint(Vector2 position)
@@ -207,10 +234,12 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private void EnterDetectedPhase()
     {
+        Debug.Log("Enter detected phase");
         Detected = true;
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
-        StartCoroutine(TurnLightsOn());
+        turnLightsOnCorutine = TurnLightsOn();
+        StartCoroutine(turnLightsOnCorutine);
         StopDetectionDecreasion();
         PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
         PublishPlayerDetection();

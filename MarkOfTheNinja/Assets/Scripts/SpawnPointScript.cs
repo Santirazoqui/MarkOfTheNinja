@@ -11,10 +11,12 @@ public class SpawnPointScript : MonoBehaviour
     public Transform spawnPosition;
     private IDataAccessManager _dataAccessManager;
     private BoxCollider2D _collider;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         _collider = GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
     [Inject]
     public void Constructor(IDataAccessManager dataAccessManager)
@@ -29,5 +31,6 @@ public class SpawnPointScript : MonoBehaviour
         currentData.SpawnPoint = spawnPosition.position;
         _dataAccessManager.SaveData(currentData);
         _collider.enabled = false;
+        audioSource.Play();
     }
 }

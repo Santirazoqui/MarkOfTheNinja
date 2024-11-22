@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     private StateContext context;
     private Pathfinder pathfinder;
     private LevelManagerController levelManagerController;
-    private EnemyAnimationController enemyAnimationController;
+    private IEnemyAnimationController enemyAnimationController;
     private VisionConeController visionCone;
 
     [SerializedDictionary("Posible enemy states", "State")]
@@ -38,8 +38,8 @@ public class EnemyController : MonoBehaviour
 
     private void InitializeAnimator()
     {
-        enemyAnimationController = gameObject.AddComponent<EnemyAnimationController>();
-        enemyAnimationController.animator = GetComponent<Animator>();
+        IEnemyAnimationController controller = GetComponent<IEnemyAnimationController>();
+        enemyAnimationController = controller;
     }
 
 
@@ -119,8 +119,14 @@ public class EnemyController : MonoBehaviour
     {
         var controller = FindAnyObjectByType<LevelManagerController>();
         controller.StateChanged += SudoChangeStates;
+        controller.LevelWasReset += OnReset;
     }
 
+    private void OnReset()
+    {
+        visionCone.gameObject.SetActive(true);
+        SudoChangeStates(EnemyStates.Chilling);
+    }
     private void SudoChangeStates(EnemyStates state)
     {
         currentState.Exit(context);

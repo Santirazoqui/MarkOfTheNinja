@@ -6,10 +6,17 @@ using UnityEngine.SceneManagement;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] Canvas SettingsCanvas;
+	
+	
 
     public void Play()
     {
         SceneManager.LoadSceneAsync("Small Level 1");
+    }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadSceneAsync("Tutorial");
     }
 
     public void OpenSettings()

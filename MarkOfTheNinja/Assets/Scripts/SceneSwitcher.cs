@@ -11,7 +11,7 @@ public class SceneSwitcher : MonoBehaviour, ISceneSwitcher
     public GameObject level;
     public float CurrentProgress { get; set; }
     private LoadingScreenScript loadingScreen; 
-
+	private IEnumerator loadingCoroutine;
     // Start is called before the first frame update
 
     private void Awake()
@@ -25,17 +25,21 @@ public class SceneSwitcher : MonoBehaviour, ISceneSwitcher
 
     public void ChangeScenes(string sceneName)
     {
-        level.SetActive(false);
-        loadingScreen.gameObject.SetActive(true);
+        ChangeScenesStartUp();
         LoadScene(sceneName);
     }
 
     public void ChangeScenes(int sceneIndex)
     {
-        level.SetActive(false);
-        loadingScreen.gameObject.SetActive(true);
+        ChangeScenesStartUp();
         LoadScene(sceneIndex);
     }
+	
+	private void ChangeScenesStartUp()
+	{
+		level.SetActive(false);
+        loadingScreen.gameObject.SetActive(true);
+	}
 
     private void SetFirstScene()
     {
@@ -45,23 +49,29 @@ public class SceneSwitcher : MonoBehaviour, ISceneSwitcher
 
     private void LoadScene(string sceneName)
     {
-        StartCoroutine(LoadSceneInBackground(sceneName));
+		if(loadingCoroutine!=null) return;
+		loadingCoroutine = LoadSceneInBackground(sceneName);
+        StartCoroutine(loadingCoroutine);
     }
 
     private void LoadScene(int sceneIndex)
     {
-        StartCoroutine(LoadSceneInBackground(sceneIndex));
+		if(loadingCoroutine!=null) return;
+		loadingCoroutine = LoadSceneInBackground(sceneIndex);
+        StartCoroutine(loadingCoroutine);
     }
 
 
     private IEnumerator LoadSceneInBackground(string sceneName)
     {
+		Debug.Log($"Loading scene: {sceneName}");
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         return LoadSceneOperation(operation);
     }
 
     private IEnumerator LoadSceneInBackground(int sceneIndex)
     {
+		Debug.Log($"Loading scene: {sceneIndex}");
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         return LoadSceneOperation(operation);
     }
@@ -73,6 +83,7 @@ public class SceneSwitcher : MonoBehaviour, ISceneSwitcher
         // Mientras la escena se carga, actualiza el progreso
         while (!operation.isDone)
         {
+			Debug.Log($"Current progress: {CurrentProgress}");
             // La carga de Unity alcanza un 90% hasta que la escena está lista para activarse
             CurrentProgress = Mathf.Clamp01(operation.progress / 0.9f);
 
@@ -84,6 +95,8 @@ public class SceneSwitcher : MonoBehaviour, ISceneSwitcher
 
             yield return null;
         }
+		Debug.Log("Operation done");
+		loadingCoroutine = null;
     }
 
 }

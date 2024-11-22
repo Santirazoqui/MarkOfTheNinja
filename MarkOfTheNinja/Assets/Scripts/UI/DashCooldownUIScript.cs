@@ -54,7 +54,6 @@ public class DashCooldownUIScript : MonoBehaviour
 
     private IEnumerator FlashingColors()
     {
-        Debug.Log("Started flashing");
         while (true)
         {
             for (int i = 0; i < 100; i += flashingRate)

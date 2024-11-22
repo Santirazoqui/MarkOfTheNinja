@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using static Assets.Scripts.Enemy.EnemyAnimationController;
 
 namespace Assets.Scripts.Enemy
 {
-    public class EnemyAnimationController : MonoBehaviour
+    public class EnemyAnimationController : MonoBehaviour, IEnemyAnimationController
     {
-        public Animator animator;
+        private Animator animator;
         public enum AnimationStates
         {
             Chilling,
@@ -32,8 +33,19 @@ namespace Assets.Scripts.Enemy
         };
 
 
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
+
 
         public void Walking()
+        {
+            EnterChilling();
+            SetAnimationState(AnimationStates.Moving);
+        }
+
+        public void AlertWalking()
         {
             EnterChilling();
             SetAnimationState(AnimationStates.Moving);
@@ -87,5 +99,23 @@ namespace Assets.Scripts.Enemy
         private void ExitChilling() => animator.SetBool(mapper[AnimationStates.Chilling], false);
 
 
+    }
+
+
+    public interface IEnemyAnimationController
+    {
+        public void Walking();
+
+        public void AlertWalking();
+
+        public void StayStill();
+
+        public void Killing();
+
+        public void Confused();
+
+        public void SearchAtSound();
+
+        public void ThrowFireball();
     }
 }

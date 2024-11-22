@@ -15,6 +15,7 @@ public class VisionConeController : MonoBehaviour
     private float lastDistance;
     private EnemyController enemy;
     private GameObject eyes;
+    private LevelManagerController levelManagerController;
     private void OnTriggerStay2D(Collider2D collision)
     {
         PlayerWasSeen(collision);
@@ -34,6 +35,8 @@ public class VisionConeController : MonoBehaviour
     {
         Transform eyesTransform = transform.Find(visionOriginName);
         eyes = eyesTransform.gameObject;
+        levelManagerController = FindAnyObjectByType<LevelManagerController>();
+        levelManagerController.LevelWasReset += () => { playerIsBeingSeen = false; };
     }
 
     // Update is called once per frame
@@ -56,7 +59,6 @@ public class VisionConeController : MonoBehaviour
         float distance = Vector2.Distance(enemyPosition, playerPosition);
         lastDistance = distance;
         playerIsBeingSeen = true;
-        Debug.Log("Enemy is being seen called from visionConeController");
         enemy.PlayerIsBeingSeen(distance);
         
     }

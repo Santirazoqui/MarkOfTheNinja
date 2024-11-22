@@ -12,7 +12,7 @@ public abstract class State : MonoBehaviour
     protected EnemyController parent;
     protected GameObject player;
     protected ILevelManager levelManagerController;
-    protected EnemyAnimationController animationController;
+    protected IEnemyAnimationController animationController;
     protected VisionConeController visionCone;
     public void Enter(StateContext context)
     {

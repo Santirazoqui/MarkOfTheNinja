@@ -24,11 +24,13 @@ public class SoundSpawner : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("Trigger");
 		SpawnSound(collision);
     }
 	
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
+        //Debug.Log("Collision");
 		SpawnSound(collision);
 	}
 
@@ -44,6 +46,7 @@ public class SoundSpawner : MonoBehaviour
     {
 		if (!collision.gameObject.CompareTag(_playerTag)) return;
         Vector2 playerCenter = collision.collider.bounds.center; // Centro
+        //Debug.Log("before PlayEntryWaterSound");
         PlayEntryWaterSound(playerCenter);
         CreateSound(playerCenter);
     }
@@ -56,6 +59,7 @@ public class SoundSpawner : MonoBehaviour
         soundInstanceController.maxRadius = soundMaxRadius;
         soundInstanceController.amountOfIncrements = amountOfIncrements;
         soundInstanceController.DestructionCallback = OnSoundDestroy;
+        Debug.Log("Sound created");
     }
 
     private void OnSoundDestroy()

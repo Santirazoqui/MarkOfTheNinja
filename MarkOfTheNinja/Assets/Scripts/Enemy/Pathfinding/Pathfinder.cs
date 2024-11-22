@@ -57,7 +57,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
             bool closeEnough = Math.Abs(distance) < minDistance;
             if (closeEnough) {
                 ResetVelocity();
-                onReached();
+                onReached?.Invoke();
                 return;
             }
             

@@ -21,13 +21,13 @@ namespace Assets.Scripts.Enemy.States
 
         private void PlaySearchingAnimation()
         {
-            _lastRecivedContext.AnimationController.Walking();
+            _lastRecivedContext.AnimationController.AlertWalking();
         }
 
         protected override void FixedDoImplementation()
         {
             var speed = _lastRecivedContext.Speed;
-            Debug.Log($"Speed: {speed}");
+            //Debug.Log($"Speed: {speed}");
             var minDistance = this.minDistance;
             pathfinder.AdjustPosition(speed, minDistance);
         }

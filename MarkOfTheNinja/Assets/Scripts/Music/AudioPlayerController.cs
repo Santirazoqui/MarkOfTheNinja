@@ -18,7 +18,7 @@ public class AudioPlayerController : SubscribeOnUpdate
     }
 
 
-    private void PlayNonDetectedMusic()
+    public void PlayNonDetectedMusic()
     {
         audioSource.clip = nonDetectedMusic;
         audioSource.Play();

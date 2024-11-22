@@ -61,12 +61,9 @@ TagManager:
   - name: Decorations
     uniqueID: 605498955
     locked: 0
+  - name: Water
+    uniqueID: 2328800981
+    locked: 0
   - name: Player
     uniqueID: 3285007015
-    locked: 0
-  - name: Middle
-    uniqueID: 3715598827
-    locked: 0
-  - name: Front
-    uniqueID: 1149725845
     locked: 0

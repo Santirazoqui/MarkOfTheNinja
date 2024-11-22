@@ -30,6 +30,7 @@ namespace Assets.Scripts.Enemy.States
             if (!Util.Util.CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
             Debug.Log("Collided with sound");
             var soundOrigin = collision.gameObject.transform.position;
+            levelManagerController.SoundWasHeard();
             _lastRecivedContext.SoundPosition = soundOrigin;
             _lastRecivedContext.Speed = searchingAtSoundSpeed;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);

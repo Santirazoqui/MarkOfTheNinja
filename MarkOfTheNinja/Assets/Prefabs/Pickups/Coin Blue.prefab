@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 0a4773128c910bc4996abe93dc8dc490, type: 3}
+    - target: {fileID: 4747567919913381150, guid: 262ae78e6be7f5147bde2ac72c75858e, type: 3}
+      propertyPath: emptySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eeddd80bc9e79774ba180d4d91a8d812, type: 3}
+    - target: {fileID: 4747567919913381150, guid: 262ae78e6be7f5147bde2ac72c75858e, type: 3}
+      propertyPath: defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0a4773128c910bc4996abe93dc8dc490, type: 3}
     - target: {fileID: 4935524048707322071, guid: 262ae78e6be7f5147bde2ac72c75858e, type: 3}
       propertyPath: m_Name
       value: Coin Blue

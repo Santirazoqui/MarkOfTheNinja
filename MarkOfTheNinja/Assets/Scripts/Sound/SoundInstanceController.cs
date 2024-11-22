@@ -16,6 +16,7 @@ namespace Assets.Scripts.Sound
         public bool Moving { get; set; } = false;
         public Action DestructionCallback { get; set; }
         private float _radius;
+        private bool destroy = false;
         public float Radius 
         { 
             get => this._radius; 
@@ -26,6 +27,7 @@ namespace Assets.Scripts.Sound
         }
 
         private CircleCollider2D circleCollider;
+        private LevelManagerController levelManagerController;
         public int segments = 100;       
         private LineRenderer lineRenderer;
         private void Start()
@@ -34,6 +36,10 @@ namespace Assets.Scripts.Sound
             StartCoroutine(SoundWave());
         }
 
+        private void Update()
+        {
+            if (destroy) Destroy(gameObject);
+        }
         private void UpdateRadius(float value)
         {
             InitiateGlobals();
@@ -47,9 +53,16 @@ namespace Assets.Scripts.Sound
         {
             circleCollider = GetComponent<CircleCollider2D>();
             lineRenderer = GetComponent<LineRenderer>();
+            levelManagerController = FindAnyObjectByType<LevelManagerController>();
+            levelManagerController.LevelWasReset += OnReset;
             lineRenderer.positionCount = segments + 1; // Configurar el número de puntos
             lineRenderer.useWorldSpace = false;
             _radius = circleCollider.radius;
+        }
+
+        private void OnReset()
+        {
+            destroy = true;
         }
 
         private void DrawCircleShape()
@@ -72,13 +85,16 @@ namespace Assets.Scripts.Sound
             {
                 Radius = increments * i;
                 yield return new WaitForSeconds(waitTime);
+				if(destroy) yield break;
             }
             while(Moving)
             {
+				if(destroy) yield break;
                 yield return new WaitForEndOfFrame();
             }
             DestructionCallback?.Invoke();
-            Destroy(gameObject);
+            levelManagerController.LevelWasReset -= OnReset;
+            destroy = true;
             yield break;
         }
     }

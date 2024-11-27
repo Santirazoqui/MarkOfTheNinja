@@ -44,7 +44,8 @@ public class SuspicionRateScript : MonoBehaviour
 
     private void PlayerWasDetected()
     {
-        StartCoroutine(FlashingColors());
+        if(gameObject.activeInHierarchy) 
+            StartCoroutine(FlashingColors());
     }
 
     private IEnumerator FlashingColors()

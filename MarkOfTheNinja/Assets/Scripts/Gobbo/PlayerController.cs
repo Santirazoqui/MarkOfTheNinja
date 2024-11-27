@@ -89,7 +89,7 @@ namespace TarodevController
         {
             if (!TryGetComponent(out _playerInput)) _playerInput = gameObject.AddComponent<PlayerInput>();
             if (!TryGetComponent(out _constantForce)) _constantForce = gameObject.AddComponent<ConstantForce2D>();
-
+            SetUpDeathGobbo();
             SetupCharacter();
 
             PhysicsSimulator.Instance.AddPlayer(this);
@@ -112,6 +112,7 @@ namespace TarodevController
             this.Active = true;
             gameObject.SetActive(true);
             animationController.Idle();
+            HideDeathGobbo();
         }
 
         private void OnDestroy() => PhysicsSimulator.Instance.RemovePlayer(this);
@@ -168,6 +169,7 @@ namespace TarodevController
         private const float GRAVITY_SCALE = 1;
         private void SetupCharacter()
         {
+
             _character = Stats.CharacterSize.GenerateCharacterSize();
             _cachedQueryMode = Physics2D.queriesStartInColliders;
             myAnimator = GetComponent<Animator>();
@@ -1136,16 +1138,49 @@ namespace TarodevController
             Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, value);
         }
 
-        #endregion 
+        #endregion
 
+        #region Death Animations
+        public GameObject DeathAnimationGobbo;
         public void Explode()
         {
-            this.animationController.Dying();
+            this.animationController.Explosion();
             myAudioSource.clip = soundsDict[sounds.Explosion];
             myAudioSource.Play();
+            Die();
+        }
+
+        public GameObject KickDeathAnimation()
+        {
+            ShowDeathGobbo();
+            Die();
+            return DeathAnimationGobbo;
+        }
+
+        private void Die()
+        {
             this.Active = false;
             levelManagerController.PlayerWasCaught();
         }
+
+        private void SetUpDeathGobbo()
+        {
+            DeathAnimationGobbo = Instantiate(DeathAnimationGobbo);
+            DeathAnimationGobbo.SetActive(false);
+        }
+
+        private void HideDeathGobbo()
+        {
+            DeathAnimationGobbo.SetActive(false);
+        }
+
+        private void ShowDeathGobbo()
+        {
+            DeathAnimationGobbo.SetActive(true);
+            DeathAnimationGobbo.transform.position = transform.position;
+        }
+
+        #endregion
     }
 
     public enum JumpType

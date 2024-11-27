@@ -21,4 +21,9 @@ public class ButtonInWinScreenScript : MonoBehaviour
         var gameData = _dataAccessManager.LoadData();
         _sceneSwitcher.ChangeScenes(gameData.GameSceneIndex ?? throw new Exception("Game Scene Index was null"));
     }
+
+    public void GoToMainMenu()
+    {
+        _sceneSwitcher.ChangeScenes("Main Menu");
+    }
 }

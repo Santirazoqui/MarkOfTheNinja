@@ -21,4 +21,9 @@ public class UIScript : MonoBehaviour
     {
         levelManagerController.RestartLevel();
     }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 }

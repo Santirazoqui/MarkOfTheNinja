@@ -32,7 +32,7 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
 		{AnimationStates.AlertWalking, "AlertWalk"},
 		{AnimationStates.Alert, "Alert"},
 		{AnimationStates.ThrowingFireballs, "Throwing_fireballs"},
-		{AnimationStates.Killing, "KillPlayer"}
+		{AnimationStates.Killing, "Killing_Player"}
 	};
 
 

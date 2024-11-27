@@ -25,7 +25,7 @@ namespace Assets.Scripts.DataAccess
                     var data = (GameDataInternal)formatter.Deserialize(stream);
                     return data.ToGameData();
                 }
-                catch(SerializationException)
+                catch(Exception)
                 {
                     File.Delete(path);
                 }

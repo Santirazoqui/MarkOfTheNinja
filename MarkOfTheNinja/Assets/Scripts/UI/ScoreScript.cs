@@ -79,6 +79,7 @@ public class ScoreScript : MonoBehaviour
 
     private void ShowScore(int score)
     {
-        text.text = $"Score: {score}";
+        //text.text = $"Score: {score}";
+        text.text = score.ToString("00000");
     }
 }

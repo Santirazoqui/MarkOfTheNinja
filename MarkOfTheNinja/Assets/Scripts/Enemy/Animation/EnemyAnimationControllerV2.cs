@@ -77,7 +77,7 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
         SetAnimationState(AnimationStates.Killing);
         var deathGobbo = playerController.KickDeathAnimation();
         var enemyDirection = Math.Sign(parent.transform.localScale.x);
-        deathGobbo.transform.localScale = new Vector2(enemyDirection*deathGobbo.transform.localScale.x, deathGobbo.transform.localScale.y);
+        deathGobbo.transform.localScale = new Vector2(enemyDirection*Math.Abs(deathGobbo.transform.localScale.x), deathGobbo.transform.localScale.y);
         var controller = deathGobbo.GetComponent<PlayerDeathAnimationController>();
         controller.KillPlayer();
     }

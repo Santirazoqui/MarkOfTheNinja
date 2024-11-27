@@ -10,15 +10,7 @@ namespace Assets.Scripts.Util
 {
     public static class Util
     {
-        private static readonly string _soundTag = "Sound";
         private static readonly string _playerTag = "Player";
-        public static bool CollidedWithSound(GameObject you, Collider2D collision)
-        {
-            bool collidedWithASound = collision.gameObject.CompareTag(_soundTag);
-            if (!collidedWithASound) return false;
-            if (ObjectDetector.AnyObjectsBetween(you, collision)) return false;
-            return true;
-        }
 
         public static bool CollidedWithPlayer(Collider2D collision)
         {

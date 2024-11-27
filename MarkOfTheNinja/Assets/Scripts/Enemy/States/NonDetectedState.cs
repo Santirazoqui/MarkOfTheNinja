@@ -27,7 +27,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void HandleSoundCollition(Collider2D collision)
         {
-            if (!Util.Util.CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
+            if (!CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
             Debug.Log("Collided with sound");
             var soundOrigin = collision.gameObject.transform.position;
             levelManagerController.SoundWasHeard();
@@ -35,6 +35,27 @@ namespace Assets.Scripts.Enemy.States
             _lastRecivedContext.Speed = searchingAtSoundSpeed;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);
         }
+
+        private bool CollidedWithSound(GameObject you, Collider2D collision)
+        {
+            bool collidedWithASound = collision.gameObject.CompareTag("Sound");
+            if (!collidedWithASound) return false;
+            var objective = collision.bounds.center;
+            //An arbitrary offset to get the center of the sound off the ground
+            objective.y += 0.5f;
+            var enemyPosition = you.transform.position;
+            //DrawPoints(objective, enemyPosition);
+            if (ObjectDetector.AnyObjectsBetween(enemyPosition, objective)) return false;
+            return true;
+        }
+
+        private void DrawPoints(Vector2 sound, Vector2 enemy)
+        {
+            var drawer = FindAnyObjectByType<PointGeneratorScript>();
+            drawer.DrawPoint(enemy, Color.red);
+            drawer.DrawPoint(sound, Color.green);
+        }
+
 
     }
 }

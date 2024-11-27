@@ -5132,19 +5132,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3054942120541986095, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
   m_PrefabInstance: {fileID: 1930661272}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1130551792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1130551776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f2a872ee172e842a80b94998b402c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: 
 --- !u!1001 &1150756869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15902,34 +15889,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: _drawGizmos
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: DeathAnimationGobbo
-      value: 
-      objectReference: {fileID: 5718973886356676012, guid: bb7dda652ba63704b8fecb957896d49c, type: 3}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: jumpSounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: jumpSounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: ba4633aa3a9d7584ea5bf2a53530c305, type: 3}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: transparencyPercentageWhenDashing
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: soundsDict._serializedList.Array.data[0].Key
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3054942120541986090, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: soundsDict._serializedList.Array.data[1].Key
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3054942120541986095, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -49.38
@@ -15970,37 +15929,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4640522168379547812, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4640522168379547812, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4640522168379547812, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-    - target: {fileID: 5731089695359280883, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: m_Size.y
-      value: 1.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 5731089695359280883, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 6687186115612966784, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3054942120541986084, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1130551792}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
 --- !u!1 &1944648991
 GameObject:

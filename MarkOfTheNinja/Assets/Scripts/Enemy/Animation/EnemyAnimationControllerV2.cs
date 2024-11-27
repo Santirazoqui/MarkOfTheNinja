@@ -1,7 +1,10 @@
 using Assets.Scripts.Enemy;
 using Assets.Scripts.Enemy.Animation;
+using Assets.Scripts.Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TarodevController;
 using UnityEngine;
 
 public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationController
@@ -12,6 +15,7 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
 	private ExclamationSignsController exclamationSignsController;
     private EnemyController parent;
     private IEnumerator confusedTimer;
+    private PlayerController playerController;
 	private enum AnimationStates
 	{
 		Still,
@@ -37,6 +41,7 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
         StartCoroutine(InitializeAnimator());
         StartCoroutine(InitializeExlamationSignController());
         StartCoroutine(InitializeParent());
+
     }
 
     private void SetAnimationState(AnimationStates state)
@@ -70,6 +75,11 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
         EndConfusedTimer();
         exclamationSignsController?.NoSign();
         SetAnimationState(AnimationStates.Killing);
+        var deathGobbo = playerController.KickDeathAnimation();
+        var enemyDirection = Math.Sign(parent.transform.localScale.x);
+        deathGobbo.transform.localScale = new Vector2(enemyDirection*deathGobbo.transform.localScale.x, deathGobbo.transform.localScale.y);
+        var controller = deathGobbo.GetComponent<PlayerDeathAnimationController>();
+        controller.KillPlayer();
     }
 
     public void Confused()
@@ -148,6 +158,7 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
         if (parent == null)
         {
             parent = GetComponent<EnemyController>();
+            playerController = parent.player.GetComponent<PlayerController>();
         }
         else
         {

@@ -48,7 +48,7 @@ namespace Assets.Scripts.Player
 
         public void Landed() => SetAnimationState(AnimationStates.Landing);
 
-        public void Dying() => SetAnimationState(AnimationStates.Dying);
+        public void Explosion() => SetAnimationState(AnimationStates.Dying);
 
         private void SetAnimationState(AnimationStates state)
         {

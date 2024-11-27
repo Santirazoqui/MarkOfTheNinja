@@ -1147,6 +1147,7 @@ namespace TarodevController
             this.animationController.Explosion();
             myAudioSource.clip = soundsDict[sounds.Explosion];
             myAudioSource.Play();
+            levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
             Die();
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TarodevController;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,9 +48,8 @@ public class Fireball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.SetActive(false);
-            levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
-            levelManagerController.PlayerWasCaught();
+            var playerController = collision.gameObject.GetComponent<PlayerController>();
+            playerController.Explode();
             DestroyItself();
         }
     }

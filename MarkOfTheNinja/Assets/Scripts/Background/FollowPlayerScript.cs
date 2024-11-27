@@ -21,7 +21,22 @@ namespace Assets.Scripts.Background
             initalPositionRespectFromPlayer = mantainInitialDistance ? initialPosition - (Vector2)player.transform.position : Vector2.zero;
         }
 
+        private void Update()
+        {
+            AjustToPlayerPosition();
+        }
+
         void LateUpdate()
+        {
+            AjustToPlayerPosition();
+        }
+
+        private void FixedUpdate()
+        {
+            AjustToPlayerPosition();
+        }
+
+        private void AjustToPlayerPosition()
         {
             // Asignar la posición del fondo a la de la cámara (1:1)
             float y = followY ? player.transform.position.y : initialPosition.y;

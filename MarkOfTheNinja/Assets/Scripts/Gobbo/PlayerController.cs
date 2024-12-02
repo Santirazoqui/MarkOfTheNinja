@@ -341,7 +341,7 @@ namespace TarodevController
         private void ToggleGrounded(bool grounded)
         {
             _grounded = grounded;
-            if (grounded)
+            if (grounded && Velocity.y <= 0)
             {
                 GroundedChanged?.Invoke(true, _lastFrameY);
                 _rb.gravityScale = 0;

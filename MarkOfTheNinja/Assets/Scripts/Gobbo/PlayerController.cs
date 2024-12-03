@@ -341,13 +341,15 @@ namespace TarodevController
         private void ToggleGrounded(bool grounded)
         {
             _grounded = grounded;
-            if (grounded && Velocity.y <= 0)
+            if (grounded)
             {
                 GroundedChanged?.Invoke(true, _lastFrameY);
-                _rb.gravityScale = 0;
-                SetVelocity(_trimmedFrameVelocity);
-                _constantForce.force = Vector2.zero;
-                _currentStepDownLength = _character.StepHeight;
+                if(Velocity.y <= 0){
+                    _rb.gravityScale = 0;
+                    SetVelocity(_trimmedFrameVelocity);
+                    _constantForce.force = Vector2.zero;
+                    _currentStepDownLength = _character.StepHeight;
+                }
                 _canDash = true;
                 _coyoteUsable = true;
                 _bufferedJumpUsable = true;

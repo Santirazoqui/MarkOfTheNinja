@@ -7,6 +7,9 @@ public class ObjectiveScript : MonoBehaviour
     Animator myAnimator;
     LevelManagerController levelManagerController;
 
+    [SerializeField] GameObject exitBlocker;
+    [SerializeField] bool exitBlocked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,11 @@ public class ObjectiveScript : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             myAnimator.SetBool("Open", true);
-        }
-        this.levelManagerController.canWin = true;
+            if (this.exitBlocked)
+            {
+                this.exitBlocker.SetActive(false);
+            }
+            this.levelManagerController.canWin = true;
+        }   
     }
 }

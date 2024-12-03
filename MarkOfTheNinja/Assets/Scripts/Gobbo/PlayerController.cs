@@ -553,7 +553,7 @@ namespace TarodevController
         private void Animate()
         {
             // Animation
-            if (_grounded)
+            if (_grounded && !jumping)
             {
                 if(wasOnAir)
                 {

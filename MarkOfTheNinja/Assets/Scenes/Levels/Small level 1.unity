@@ -274,6 +274,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 496881730}
     m_Modifications:
+    - target: {fileID: 37667664809456233, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 37667664809456233, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[3]
+      value: 976321065
+      objectReference: {fileID: 0}
+    - target: {fileID: 37667664809456233, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: -899240199
+      objectReference: {fileID: 0}
+    - target: {fileID: 37667664809456233, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: 605498955
+      objectReference: {fileID: 0}
+    - target: {fileID: 37667664809456233, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[6]
+      value: -1966166315
+      objectReference: {fileID: 0}
+    - target: {fileID: 37667664809456233, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[7]
+      value: -1009960281
+      objectReference: {fileID: 0}
     - target: {fileID: 5877711560730892649, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
       propertyPath: m_Name
       value: LevelManager
@@ -759,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Intensity
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_LightType
@@ -8075,6 +8099,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 26672998}
     m_Modifications:
+    - target: {fileID: 1321148023934182397, guid: 262ae78e6be7f5147bde2ac72c75858e, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4935524048707322071, guid: 262ae78e6be7f5147bde2ac72c75858e, type: 3}
       propertyPath: m_Name
       value: Coin (2)
@@ -80399,6 +80427,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882862583864474560, guid: 3cd531a2ff6a6494798a89ca4f04c93d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3832443121319900037, guid: 3cd531a2ff6a6494798a89ca4f04c93d, type: 3}
@@ -80416,6 +80448,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 496881730}
     m_Modifications:
+    - target: {fileID: 6112766968263684157, guid: cba7f2722a9d6714098920135c852a01, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112766968263684157, guid: cba7f2722a9d6714098920135c852a01, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: -899240199
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112766968263684157, guid: cba7f2722a9d6714098920135c852a01, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: 976321065
+      objectReference: {fileID: 0}
     - target: {fileID: 6161397642727735418, guid: cba7f2722a9d6714098920135c852a01, type: 3}
       propertyPath: m_Name
       value: Background

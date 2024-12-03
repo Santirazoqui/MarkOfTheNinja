@@ -921,7 +921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7030878290880988033
 Transform:
   m_ObjectHideFlags: 0
@@ -1337,15 +1337,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Color.b
-      value: 0.49999988
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Color.g
-      value: 0.7554749
+      value: 0.51562506
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Intensity
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_PointLightOuterRadius
@@ -1353,7 +1357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[1]
@@ -1369,11 +1373,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[4]
-      value: -579368469
+      value: -899240199
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[5]
-      value: 1149725845
+      value: 785242395
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[6]

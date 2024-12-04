@@ -810,8 +810,6 @@ namespace TarodevController
                 if (!CanStand) return;
                 Crouching = false;
             }
-
-            SetColliderMode(Crouching ? ColliderMode.Crouching : ColliderMode.Standard);
         }
 
         private bool CheckPos(Vector2 pos, Vector2 size)

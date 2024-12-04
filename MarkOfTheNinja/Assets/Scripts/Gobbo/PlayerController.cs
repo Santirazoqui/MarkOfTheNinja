@@ -1160,8 +1160,24 @@ namespace TarodevController
             return DeathAnimationGobbo;
         }
 
+        public void IdleDeathAnimation()
+        {
+            ShowDeathGobbo();
+            PlayIdleDeathAnimation();
+            Die();
+        }
+
+        private void PlayIdleDeathAnimation()
+        {
+            var direction = Math.Sign(transform.localScale.x);
+            DeathAnimationGobbo.transform.localScale = new Vector2(direction * Math.Abs(DeathAnimationGobbo.transform.localScale.x), DeathAnimationGobbo.transform.localScale.y);
+            var controller = DeathAnimationGobbo.GetComponent<PlayerDeathAnimationController>();
+            controller.KillPlayer();
+        }
+
         private void Die()
         {
+            gameObject.SetActive(false);
             this.Active = false;
             levelManagerController.PlayerWasCaught();
         }

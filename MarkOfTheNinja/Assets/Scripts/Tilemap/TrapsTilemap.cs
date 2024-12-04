@@ -19,7 +19,7 @@ public class TrapsTilemap : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player"){
             PlayerController playerController = player.GetComponent<PlayerController>();
-            playerController.Explode();
+            playerController.IdleDeathAnimation();
             
         }
     }

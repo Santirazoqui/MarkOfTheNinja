@@ -108,6 +108,9 @@ namespace TarodevController
         {
             transform.position = spawnPosition;
             _nextDashTime = _time;
+            wasOnAir = false;
+            landing = false;
+            jumping = false;
             Debug.Log("OnReset on player was run");
             this.Active = true;
             gameObject.SetActive(true);
@@ -552,8 +555,8 @@ namespace TarodevController
 
         private void Animate()
         {
-            // Animation
-            if (_grounded && !jumping)
+            bool notInAir = Math.Abs(Velocity.y) < 0.1f; //No es cero porque el personaje tambalea
+            if (_grounded && notInAir)
             {
                 if(wasOnAir)
                 {
@@ -572,6 +575,7 @@ namespace TarodevController
             }
             else
             {
+                Debug.Log($"Grounded: {_grounded}, Jumping: {jumping}");
                 wasOnAir = true;
                 if (!jumping)
                 {

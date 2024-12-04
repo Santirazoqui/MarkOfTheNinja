@@ -11,6 +11,7 @@ public class CoinPickup : MonoBehaviour
 	public Sprite defaultSprite;
 	public Sprite emptySprite;
     public float timeToRespawn = 2f;
+    public float soundVolume = 0.1f; 
 
     bool wasCollected = false;
 	bool wasCollectedBeforeCheckpoint=false;
@@ -34,7 +35,7 @@ public class CoinPickup : MonoBehaviour
         //Debug.Log("Coin collided with " + other.tag);
         if(other.CompareTag("Player"))
         {
-            AudioSource.PlayClipAtPoint(coinPickupSound, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(coinPickupSound, Camera.main.transform.position,soundVolume);
             if(!wasCollected)
             {
                 levelManagerController.PickedUpCoin();

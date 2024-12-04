@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(AudioSource))]
 public class CoinPickup : MonoBehaviour
@@ -9,17 +10,21 @@ public class CoinPickup : MonoBehaviour
     //[SerializeField] int pointsForCoinPickup = 100;
 	public Sprite defaultSprite;
 	public Sprite emptySprite;
+    public float timeToRespawn = 2f;
 
     bool wasCollected = false;
 	bool wasCollectedBeforeCheckpoint=false;
 
     private LevelManagerController levelManagerController;
     private SpriteRenderer spriteRenderer;
-
+    private CircleCollider2D collider;
+    private Light2D light;
     private void Start()
     {
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        collider = GetComponent<CircleCollider2D>();
+        light = GetComponentInChildren<Light2D>();
         levelManagerController.CheckpointReached += OnCheckpoint;
         levelManagerController.LevelWasReset += OnReset;
     }
@@ -27,12 +32,16 @@ public class CoinPickup : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Coin collided with " + other.tag);
-        if(other.CompareTag("Player") && !wasCollected)
+        if(other.CompareTag("Player"))
         {
             AudioSource.PlayClipAtPoint(coinPickupSound, Camera.main.transform.position);
-            levelManagerController.PickedUpCoin();
-            spriteRenderer.sprite = emptySprite;
-            wasCollected = true;
+            if(!wasCollected)
+            {
+                levelManagerController.PickedUpCoin();
+                spriteRenderer.sprite = emptySprite;
+                wasCollected = true;
+            }
+            StartCoroutine(WaitToRespawn());
         }
     }
 	
@@ -51,6 +60,22 @@ public class CoinPickup : MonoBehaviour
             wasCollected = false;
             spriteRenderer.sprite = defaultSprite;
         }
+    }
+
+    private IEnumerator WaitToRespawn()
+    {
+        var transparent = spriteRenderer.color;
+        transparent.a = 0;
+        spriteRenderer.color = transparent;
+        collider.enabled = false;
+        light.gameObject.SetActive(false);
+        yield return new WaitForSecondsRealtime(timeToRespawn);
+        var normal = spriteRenderer.color;
+        normal.a = 1;
+        spriteRenderer.color = normal;
+        spriteRenderer.enabled = true;
+        collider.enabled = true;
+        light.gameObject.SetActive(true);
     }
 
 }

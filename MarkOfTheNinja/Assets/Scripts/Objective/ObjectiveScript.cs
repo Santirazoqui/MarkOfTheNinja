@@ -21,10 +21,13 @@ public class ObjectiveScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            //Debug.Log("Player entered the objective");
             myAnimator.SetBool("Open", true);
             if (this.exitBlocked)
             {
+                //Debug.Log("Open Exit");
                 this.exitBlocker.SetActive(false);
+                //Debug.Log(exitBlocker);
             }
             this.levelManagerController.canWin = true;
         }   

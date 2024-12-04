@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7915205742514927922}
   - component: {fileID: 8771806131060913065}
   - component: {fileID: 3324178813946090907}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: PlayerForDeathAnimations
   m_TagString: Untagged
   m_Icon: {fileID: 0}

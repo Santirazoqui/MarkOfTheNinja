@@ -555,8 +555,8 @@ namespace TarodevController
 
         private void Animate()
         {
-            bool notInAir = Math.Abs(Velocity.y) < 0.1f; //No es cero porque el personaje tambalea
-            if (_grounded && notInAir)
+            bool notInAir = Math.Abs(Velocity.y) < 0.001f; //No es cero porque el personaje tambalea
+            if (notInAir)
             {
                 if(wasOnAir)
                 {

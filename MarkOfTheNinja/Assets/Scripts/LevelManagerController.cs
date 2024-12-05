@@ -32,6 +32,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int Score { get; private set; }
     public int ScoreAtLastCheckpoint { get; set; }
 
+    public bool canWin { get; set; } = false;
+
     [Header("Detection Rate")]
     public float visualDetectionRate = 100f;
     public float expoentialDistanceMultiplier= 2f;
@@ -149,14 +151,14 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public void PlayerIsBeingSeen(float distance)
     {
-        Debug.Log("Player was seen");
+        //Debug.Log("Player was seen");
         var multiplier = distance != 0 ? 1 / (float)(Math.Pow(distance,expoentialDistanceMultiplier)) : 1;
         PlayerWasPerceived(visualDetectionRate, multiplier);
     }
 
     public void SoundWasHeard()
     {
-        Debug.Log("Player was heard");
+        //Debug.Log("Player was heard");
         PlayerWasPerceived(audioDetectionRate);
     }
 
@@ -234,7 +236,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private void EnterDetectedPhase()
     {
-        Debug.Log("Enter detected phase");
+        //Debug.Log("Enter detected phase");
         Detected = true;
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();

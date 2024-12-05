@@ -439,6 +439,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 496881730}
     m_Modifications:
+    - target: {fileID: 4095544637677177184, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
+      propertyPath: detectedMusicLoop
+      value: 
+      objectReference: {fileID: 8300000, guid: c7fa55fdd4a6e524b9a03c45d517c4d0, type: 3}
     - target: {fileID: 5877711560730892649, guid: cbd47224e9af8ee44b4da34de2c93c90, type: 3}
       propertyPath: m_Name
       value: LevelManager

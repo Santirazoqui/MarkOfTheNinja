@@ -8,6 +8,7 @@ public class ObjectiveScript : MonoBehaviour
     LevelManagerController levelManagerController;
     AudioSource[] audioSources;
     private bool wasOpened = false;
+    [SerializeField] AudioClip gateOpenClip;
 
     [SerializeField] GameObject exitBlocker;
     [SerializeField] bool exitBlocked;
@@ -34,15 +35,21 @@ public class ObjectiveScript : MonoBehaviour
             }
             this.levelManagerController.canWin = true;
 
-            if (!wasOpened)
+            foreach (AudioSource audioSource in audioSources)
             {
-                foreach (AudioSource audioSource in audioSources)
-                {
-                    audioSource.Play();
-                }
+                audioSource.Play();
             }
 
+            StartCoroutine(PlayGateOpenClip());
             wasOpened = true;
         }
+    }
+
+    IEnumerator PlayGateOpenClip()
+    {
+        //yield return new WaitForSeconds(audioSources[0].clip.length);
+        yield return new WaitForSeconds(2);
+        audioSources[0].clip = gateOpenClip;
+        audioSources[0].Play();
     }
 }

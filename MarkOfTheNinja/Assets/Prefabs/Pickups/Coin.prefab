@@ -231,7 +231,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80382d209ed71c548b80bbebec363d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPickupSound: {fileID: 8300000, guid: e0008d9813080f149b400c5c9001c788, type: 3}
+  coinPickupSounds:
+  - {fileID: 8300000, guid: 8ba25469a86043d478e96e46955f1cd8, type: 3}
+  - {fileID: 8300000, guid: bd12d7a627878c141994b6e7eabf53ae, type: 3}
+  - {fileID: 8300000, guid: 17324827a8cd3854499a90a8740a9ee9, type: 3}
+  - {fileID: 8300000, guid: f133ed82b1fb06e40839691ee52ca546, type: 3}
+  - {fileID: 8300000, guid: eb96e2488cf1a0a468f686415295af4a, type: 3}
+  - {fileID: 8300000, guid: 229b10d846072c84fb0c9dd8d7648f41, type: 3}
+  - {fileID: 8300000, guid: af90fabb0d5a9594c9ee9a74f97d7416, type: 3}
   defaultSprite: {fileID: 21300000, guid: 5265e5b7a0c899c49a76477d8de292ab, type: 3}
   emptySprite: {fileID: 21300000, guid: 8f9dcdaa6368d6b46ba1945e2c73e757, type: 3}
   timeToRespawn: 2

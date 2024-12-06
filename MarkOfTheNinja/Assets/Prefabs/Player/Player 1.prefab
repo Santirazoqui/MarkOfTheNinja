@@ -66,6 +66,7 @@ MonoBehaviour:
   jumpSounds:
   - {fileID: 8300000, guid: ba4633aa3a9d7584ea5bf2a53530c305, type: 3}
   dash_i_seconds: 0.7
+  invincible: 0
   transparencyPercentageWhenDashing: 20
   DeathAnimationGobbo: {fileID: 5718973886356676012, guid: bb7dda652ba63704b8fecb957896d49c, type: 3}
 --- !u!50 &3054942120541986088
@@ -172,8 +173,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.65}
-  m_Size: {x: 0.71, y: 1.26}
+  m_Offset: {x: 0, y: 0.575}
+  m_Size: {x: 0.76, y: 1.11}
   m_Direction: 0
 --- !u!95 &6687186115612966784
 Animator:

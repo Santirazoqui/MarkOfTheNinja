@@ -244,7 +244,7 @@ namespace TarodevController
                 {
                     ""name"": """",
                     ""id"": ""087be7d0-bbe5-437a-b100-34ab76f1b45a"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/LeftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

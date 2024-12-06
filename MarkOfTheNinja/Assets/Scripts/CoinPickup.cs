@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(AudioSource))]
 public class CoinPickup : MonoBehaviour
 {
-    public AudioClip coinPickupSound;
+    [SerializeField] AudioClip[] coinPickupSounds;
     //[SerializeField] int pointsForCoinPickup = 100;
 	public Sprite defaultSprite;
 	public Sprite emptySprite;
@@ -35,7 +35,9 @@ public class CoinPickup : MonoBehaviour
         //Debug.Log("Coin collided with " + other.tag);
         if(other.CompareTag("Player"))
         {
-            AudioSource.PlayClipAtPoint(coinPickupSound, Camera.main.transform.position,soundVolume);
+            int randomIndex = Random.Range(0, coinPickupSounds.Length - 1);
+            //Debug.Log("Playing sound " + randomIndex);
+            AudioSource.PlayClipAtPoint(coinPickupSounds[randomIndex], Camera.main.transform.position, soundVolume);
             if(!wasCollected)
             {
                 levelManagerController.PickedUpCoin();

@@ -111,7 +111,7 @@ namespace TarodevController
             wasOnAir = false;
             landing = false;
             jumping = false;
-            Debug.Log("OnReset on player was run");
+            //Debug.Log("OnReset on player was run");
             this.Active = true;
             gameObject.SetActive(true);
             animationController.Idle();
@@ -814,8 +814,6 @@ namespace TarodevController
                 if (!CanStand) return;
                 Crouching = false;
             }
-
-            SetColliderMode(Crouching ? ColliderMode.Crouching : ColliderMode.Standard);
         }
 
         private bool CheckPos(Vector2 pos, Vector2 size)
@@ -1111,16 +1109,22 @@ namespace TarodevController
         #region Dash I Frames
         const int PLAYER_LAYER = 9;
         const int ENEMIES_LAYER = 7;
+        const int TRAP_LAYER = 11;
         const int FIREBALL_LAYER = 10;
         public float dash_i_seconds = 0.7f;
+        public bool invincible = false;
         private SpriteRenderer spriteRenderer;
         public float transparencyPercentageWhenDashing = 50f;
         IEnumerator DashInvincibilityCoroutine()
         {
             SetIgnoreEnemyRelatedCollisions(true);
+            SetIgnoreTrapsRelatedCollisions(true);
             ActivateTransparency();
+            invincible = true;
             yield return new WaitForSeconds(dash_i_seconds);
+            invincible = false;
             DeactivateTransparency();
+            SetIgnoreTrapsRelatedCollisions(false);
             SetIgnoreEnemyRelatedCollisions(false);
         }
 
@@ -1141,7 +1145,12 @@ namespace TarodevController
         private void SetIgnoreEnemyRelatedCollisions(bool value)
         {
             Physics2D.IgnoreLayerCollision(PLAYER_LAYER, ENEMIES_LAYER, value);
-            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, value);
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, FIREBALL_LAYER, value);            
+        }
+
+                private void SetIgnoreTrapsRelatedCollisions(bool value)
+        {
+            Physics2D.IgnoreLayerCollision(PLAYER_LAYER, TRAP_LAYER, value);           
         }
 
         #endregion

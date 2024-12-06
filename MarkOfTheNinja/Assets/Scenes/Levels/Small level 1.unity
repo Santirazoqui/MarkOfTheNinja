@@ -80017,6 +80017,14 @@ PrefabInstance:
       propertyPath: exitBlocker
       value: 
       objectReference: {fileID: 1246919669}
+    - target: {fileID: 7878079879431945253, guid: 15b9f53ad562d9743ae77fd45a1564ed, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878079879431945253, guid: 15b9f53ad562d9743ae77fd45a1564ed, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 605498955
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

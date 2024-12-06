@@ -6,6 +6,8 @@ public class ObjectiveScript : MonoBehaviour
 {
     Animator myAnimator;
     LevelManagerController levelManagerController;
+    AudioSource[] audioSources;
+    private bool wasOpened = false;
 
     [SerializeField] GameObject exitBlocker;
     [SerializeField] bool exitBlocked;
@@ -15,11 +17,12 @@ public class ObjectiveScript : MonoBehaviour
     {
         myAnimator = GetComponent<Animator>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
+        audioSources = GetComponents<AudioSource>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !wasOpened)
         {
             //Debug.Log("Player entered the objective");
             myAnimator.SetBool("Open", true);
@@ -30,6 +33,16 @@ public class ObjectiveScript : MonoBehaviour
                 //Debug.Log(exitBlocker);
             }
             this.levelManagerController.canWin = true;
-        }   
+
+            if (!wasOpened)
+            {
+                foreach (AudioSource audioSource in audioSources)
+                {
+                    audioSource.Play();
+                }
+            }
+
+            wasOpened = true;
+        }
     }
 }

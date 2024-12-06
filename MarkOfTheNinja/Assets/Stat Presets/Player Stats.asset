@@ -19,11 +19,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   CharacterSize:
-    Height: 1.3
+    Height: 1.15
     Width: 0.8
     StepHeight: 0.05
     CrouchHeight: 1.3
-    RayInset: 0.01
+    RayInset: 0.0508
   VerticalDeadZoneThreshold: 0.1
   HorizontalDeadZoneThreshold: 0.1
   PositionCorrectionMode: 0

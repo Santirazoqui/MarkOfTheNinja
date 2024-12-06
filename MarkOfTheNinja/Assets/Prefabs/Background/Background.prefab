@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa2aadb36f1d9240be8d5003b282858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3054942120541986084, guid: 644651012c5569c4998aa7c5186649a1, type: 3}
+  player: {fileID: 0}
   followY: 1
   mantainInitialDistance: 0
 --- !u!1 &6161397642727735418
@@ -350,7 +350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3284712739509807325, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 400
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 3284712739509807325, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_LocalPosition.z
@@ -402,11 +402,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Intensity
-      value: 40
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 440
+      value: 10040
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: -899240199
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: 785242395
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

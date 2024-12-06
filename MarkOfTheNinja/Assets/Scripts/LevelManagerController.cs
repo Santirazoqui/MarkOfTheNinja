@@ -179,6 +179,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         this.PlayingCanvas.SetActive(false);
         this.DeathCanvas.SetActive(true);
+        AudioController.PlayGameOverMusic();
         
     }
 

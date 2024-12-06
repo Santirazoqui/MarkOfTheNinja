@@ -9,6 +9,7 @@ public class AudioPlayerController : SubscribeOnUpdate
     public AudioClip nonDetectedMusic;
     public AudioClip detectedMusicStart;
     public AudioClip detectedMusicLoop;
+    public AudioClip gameOverMusic;
     private AudioSource audioSource;
     private AudioSource audioSource2;
 
@@ -39,6 +40,13 @@ public class AudioPlayerController : SubscribeOnUpdate
         audioSource.loop = true;
 
         //SubscribeToOnUpdate(CheckIfFirstDetectMusicEnded);
+    }
+
+    public void PlayGameOverMusic()
+    {
+        audioSource.clip = gameOverMusic;
+        audioSource.Play();
+        audioSource.loop = true;
     }
 
     private void CheckIfFirstDetectMusicEnded()

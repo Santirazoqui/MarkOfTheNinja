@@ -383,5 +383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nonDetectedMusic: {fileID: 8300000, guid: be9f594d03a9a064382d92f5c3fbeb74, type: 3}
-  detectedMusicStart: {fileID: 8300000, guid: 9e04081ca4de1fd4d97ed06ef3c4d0df, type: 3}
-  detectedMusicLoop: {fileID: 8300000, guid: 823469b0c1fe249449a34e6df7d5d8f1, type: 3}
+  detectedMusicStart: {fileID: 8300000, guid: 73f19b40e7de69647aa9198d418fc07d, type: 3}
+  detectedMusicLoop: {fileID: 8300000, guid: c7fa55fdd4a6e524b9a03c45d517c4d0, type: 3}
+  gameOverMusic: {fileID: 8300000, guid: 504c8237e44509e43869ec488ed1d861, type: 3}

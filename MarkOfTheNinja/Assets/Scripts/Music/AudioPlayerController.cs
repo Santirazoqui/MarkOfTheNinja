@@ -10,10 +10,12 @@ public class AudioPlayerController : SubscribeOnUpdate
     public AudioClip detectedMusicStart;
     public AudioClip detectedMusicLoop;
     private AudioSource audioSource;
+    private AudioSource audioSource2;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource2 = GetComponents<AudioSource>()[1]; //esto no es lo mejor
         PlayNonDetectedMusic();
     }
 
@@ -28,10 +30,15 @@ public class AudioPlayerController : SubscribeOnUpdate
     public void PlayDetectedMusic()
     {
         //Debug.Log("Play detected music on start");
-        audioSource.clip = detectedMusicStart;
+        audioSource2.clip = detectedMusicStart;
+        audioSource2.Play();
+        audioSource2.loop = false;
+
+        audioSource.clip = detectedMusicLoop;
         audioSource.Play();
-        audioSource.loop = false;
-        SubscribeToOnUpdate(CheckIfFirstDetectMusicEnded);
+        audioSource.loop = true;
+
+        //SubscribeToOnUpdate(CheckIfFirstDetectMusicEnded);
     }
 
     private void CheckIfFirstDetectMusicEnded()

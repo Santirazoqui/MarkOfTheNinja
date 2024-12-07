@@ -8,7 +8,8 @@ using TMPro;
 public class SettingsUIScript : MonoBehaviour
 {
     [SerializeField] Canvas MainMenuCanvas;
-
+    [SerializeField] AudioClip ButtonClickSound;
+    [SerializeField] private AudioSource audioSource;
     public AudioMixer audioMixer;
 
     public TMP_Dropdown resolutionDropdown;
@@ -16,6 +17,40 @@ public class SettingsUIScript : MonoBehaviour
     Resolution[] resolutions;
 
     void Start()
+    {
+        InitializeResolutionDropdown();
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("MasterVolume", volume);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        PlayButtonSound();
+        Screen.fullScreen = isFullscreen;
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void CloseSettings()
+    {
+        PlayButtonSound();
+        this.gameObject.SetActive(false);
+        MainMenuCanvas.gameObject.SetActive(true);
+    }
+
+    void PlayButtonSound()
+    {
+        audioSource.PlayOneShot(ButtonClickSound);
+    }
+
+    void InitializeResolutionDropdown()
     {
         this.resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -39,27 +74,5 @@ public class SettingsUIScript : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-    }
-
-    public void SetVolume(float volume)
-    {
-        audioMixer.SetFloat("MasterVolume", volume);
-    }
-
-    public void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
-
-    public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    }
-
-    public void CloseSettings()
-    {
-        this.gameObject.SetActive(false);
-        MainMenuCanvas.gameObject.SetActive(true);
     }
 }

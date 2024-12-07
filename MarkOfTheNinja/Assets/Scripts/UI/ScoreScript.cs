@@ -20,6 +20,7 @@ public class ScoreScript : MonoBehaviour
     {
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         text = GetComponent<TextMeshProUGUI>();
+        text.color = defaultColor;
         previousScore = levelManagerController.Score;
         ShowScore(levelManagerController.Score);
     }

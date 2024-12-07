@@ -9,12 +9,22 @@ namespace Assets.Scripts.Enemy.States
 {
     public class ConfusedState:State
     {
+        [SerializeField] AudioClip confusedClip;
+        AudioSource audioSource;
         public float cooldownAfterPlayerLeavesFOV = 1f;
         private Vector2 lastPlayerPosition;
+
+        void Start()
+        {
+            audioSource = GetComponentInParent<AudioSource>();
+        }
+
         protected override void EnterImplementation()
         {
             _lastRecivedContext.AnimationController.Confused();
             _lastRecivedContext.Pathfinder.AdjustPosition(0, 0);
+            audioSource.PlayOneShot(confusedClip);
+            Debug.Log("played clip");
         }
 
         public override void PlayerIsBeingSeen(float distance)

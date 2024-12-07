@@ -22925,6 +22925,14 @@ PrefabInstance:
       propertyPath: searchingRadius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9165474255005956284, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: notFoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5692901f015d9e84aa984afa4d2d8543, type: 3}
+    - target: {fileID: 9165474255005956284, guid: e357a4ce63650374eac17c88639407c9, type: 3}
+      propertyPath: searchingAnimation
+      value: 
+      objectReference: {fileID: 7400000, guid: 9567fc5e57ad53647bff726aac71698d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -24,7 +24,7 @@ namespace Assets.Scripts.Enemy.States
             _lastRecivedContext.AnimationController.Confused();
             _lastRecivedContext.Pathfinder.AdjustPosition(0, 0);
             audioSource.PlayOneShot(confusedClip);
-            Debug.Log("played clip");
+            //Debug.Log("played clip");
         }
 
         public override void PlayerIsBeingSeen(float distance)

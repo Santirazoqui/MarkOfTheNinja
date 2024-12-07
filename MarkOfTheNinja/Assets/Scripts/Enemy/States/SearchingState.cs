@@ -7,8 +7,16 @@ namespace Assets.Scripts.Enemy.States
     public class SearchingState : NonDetectedState
     {
         //public float searchingSpeed = 300f;
+        [SerializeField] AudioClip notFoundClip;
+        [SerializeField] AnimationClip searchingAnimation;
+        AudioSource audioSource;
 
         private readonly string _soundTag = "Sound";
+
+        void Start()
+        {
+            audioSource = GetComponentInParent<AudioSource>();
+        }
 
         protected override void EnterImplementation()
         {
@@ -17,6 +25,9 @@ namespace Assets.Scripts.Enemy.States
 
             pathfinder.SetDestination(_lastRecivedContext.SoundPosition, StartSearchAtSound);
             PlaySearchingAnimation();
+            audioSource.clip = notFoundClip;
+            audioSource.PlayScheduled(AudioSettings.dspTime + searchingAnimation.length + 1);
+            Debug.Log(searchingAnimation.length);
         }
 
         private void PlaySearchingAnimation()

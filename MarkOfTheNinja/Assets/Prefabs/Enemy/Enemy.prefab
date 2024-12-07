@@ -1319,6 +1319,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchingAtSoundSpeed: 400
   searchingSpeed: 300
+  notFoundClip: {fileID: 8300000, guid: 5692901f015d9e84aa984afa4d2d8543, type: 3}
+  searchingAnimation: {fileID: 7400000, guid: 9567fc5e57ad53647bff726aac71698d, type: 2}
 --- !u!1 &8274064038062363884
 GameObject:
   m_ObjectHideFlags: 0

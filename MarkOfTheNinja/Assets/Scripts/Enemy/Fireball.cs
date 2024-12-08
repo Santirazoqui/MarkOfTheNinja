@@ -12,6 +12,8 @@ public class Fireball : MonoBehaviour
 	private bool destroyItself = false;
     LevelManagerController levelManagerController;
 
+    FireballManager fireballManager;
+
     void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -30,6 +32,8 @@ public class Fireball : MonoBehaviour
         levelManagerController.LevelWasReset += DestroyItself;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        fireballManager = GameObject.FindObjectOfType<FireballManager>();
     }
 
     void Update()
@@ -57,7 +61,9 @@ public class Fireball : MonoBehaviour
     IEnumerator DestroyFireball(float lifespan)
     {
         yield return new WaitForSeconds(lifespan);
+        fireballManager.removeFireball();
         DestroyItself();
+        Destroy(gameObject);
     }
 
     private void DestroyItself()

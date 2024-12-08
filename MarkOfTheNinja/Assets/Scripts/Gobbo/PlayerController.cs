@@ -575,7 +575,7 @@ namespace TarodevController
             }
             else
             {
-                Debug.Log($"Grounded: {_grounded}, Jumping: {jumping}");
+                //Debug.Log($"Grounded: {_grounded}, Jumping: {jumping}");
                 wasOnAir = true;
                 if (!jumping)
                 {

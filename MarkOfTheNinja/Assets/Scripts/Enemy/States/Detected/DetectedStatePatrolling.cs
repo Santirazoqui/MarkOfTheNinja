@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States.Detected
 {
-    public class DetectedStatePatrolling:State
+    public class DetectedStatePatrolling : State
     {
 
         [SerializeField] GameObject fireball;
@@ -34,6 +34,13 @@ namespace Assets.Scripts.Enemy.States.Detected
         private int searchingIndex = 0;
 
         private bool initiated = false;
+
+        private FireballManager fireballManager;
+
+        void Awake()
+        {
+            fireballManager = GameObject.FindObjectOfType<FireballManager>();
+        }
 
         // Si en vez de poner el codigo en esta funcion, se pone en el start, tira null pointer exceptions 
         private void FakeStart()
@@ -74,9 +81,13 @@ namespace Assets.Scripts.Enemy.States.Detected
             }
             if (CanSeePlayer())
             {
-                if(CantReachPlayer())
+                if (CantReachPlayer())
                 {
-                    ThrowFireballs();
+                    if (fireballManager.canShootFireball())
+                    {
+                        fireballManager.addFireball();
+                        ThrowFireballs();
+                    }
                 }
                 else
                 {

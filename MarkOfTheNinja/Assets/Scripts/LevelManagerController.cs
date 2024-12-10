@@ -134,7 +134,9 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private IEnumerator StartTimer()
     {
-        yield return new WaitForSeconds(this.cameraPan.secondsToPan);
+        if (cameraPan != null && cameraPan.shouldPan) 
+            yield return new WaitForSeconds(this.cameraPan.secondsToPan);
+
         while(true)
         {
             TimeSpentInLevel += Time.deltaTime;

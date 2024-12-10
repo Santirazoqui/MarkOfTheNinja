@@ -13,10 +13,17 @@ public class CameraPan : MonoBehaviour
     [SerializeField] public float secondsToPan = 5;
     [SerializeField] FollowPlayerScript followPlayerScript; //pasar el PosReference que es hijo de Background
 
+    [SerializeField] public bool shouldPan = true;
+
     private PlayerController playerController;
 
     void Start()
     {
+        if(!shouldPan)
+        {
+            return;
+        }
+
         playerController = player.GetComponent<PlayerController>();
 
         followCamera.SetActive(false);

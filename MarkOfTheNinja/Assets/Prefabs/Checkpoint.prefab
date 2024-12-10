@@ -178,6 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef9e4c85fca33a49b8784c4d3c577eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteWhenEnabled: {fileID: 640462406, guid: 0bb957f9ffb232f49927a31840163ff4, type: 3}
+  lightColor: {r: 1, g: 0.29285714, b: 0, a: 1}
   spawnPosition: {fileID: 389156611089190023}
 --- !u!82 &3313257635931580373
 AudioSource:
@@ -291,7 +293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3494653404878779710
 Transform:
   m_ObjectHideFlags: 0
@@ -429,7 +431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Intensity
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

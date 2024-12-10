@@ -15,6 +15,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     [SerializeField] GameObject PlayingCanvas;
     [SerializeField] GameObject DeathCanvas;
 
+    [SerializeField] CameraPan cameraPan;
+
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
 
@@ -132,6 +134,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private IEnumerator StartTimer()
     {
+        yield return new WaitForSeconds(this.cameraPan.secondsToPan);
         while(true)
         {
             TimeSpentInLevel += Time.deltaTime;

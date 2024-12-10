@@ -13,7 +13,7 @@ public class MainMenuUI : MonoBehaviour
     public void Play()
     {
         PlayButtonSound();
-        SceneManager.LoadSceneAsync("Small Level 1");
+        SceneManager.LoadSceneAsync("BigLevel");
     }
 
     public void Tutorial()

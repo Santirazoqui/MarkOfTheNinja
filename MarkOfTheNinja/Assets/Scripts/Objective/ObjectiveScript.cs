@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ObjectiveScript : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ObjectiveScript : MonoBehaviour
     LevelManagerController levelManagerController;
     AudioSource[] audioSources;
     private bool wasOpened = false;
+    private Light2D light;
     [SerializeField] AudioClip gateOpenClip;
 
     [SerializeField] GameObject exitBlocker;
@@ -19,6 +21,7 @@ public class ObjectiveScript : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         audioSources = GetComponents<AudioSource>();
+        light = GetComponentInChildren<Light2D>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -26,6 +29,7 @@ public class ObjectiveScript : MonoBehaviour
         if (other.gameObject.tag == "Player" && !wasOpened)
         {
             //Debug.Log("Player entered the objective");
+            light.intensity = 0;
             myAnimator.SetBool("Open", true);
             if (this.exitBlocked)
             {

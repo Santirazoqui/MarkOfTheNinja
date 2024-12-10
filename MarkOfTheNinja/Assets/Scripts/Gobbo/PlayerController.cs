@@ -634,18 +634,29 @@ namespace TarodevController
             }
             if (hasDashedThisFrame)
             {
-                myAudioSource.clip = soundsDict[sounds.Dash];
+                myAudioSource.clip = soundsDict[Sounds.Dash];
                 myAudioSource.Play();
+            }
+            if (FailedDash)
+            {
+                if (!myAudioSource.isPlaying)
+                {
+                    myAudioSource.clip = soundsDict[Sounds.FailedDash];
+                    myAudioSource.Play();
+                    OnDashFailed?.Invoke();
+                }
+                FailedDash = false;
             }
         }
 
-        public enum sounds
+        public enum Sounds
         {
             Dash,
             Jump,
-            Explosion
+            Explosion,
+            FailedDash
         }
-        public SerializedDictionary<sounds, AudioClip> soundsDict;
+        public SerializedDictionary<Sounds, AudioClip> soundsDict;
         public List<AudioClip> jumpSounds;
         #endregion
         #region Jump
@@ -741,6 +752,9 @@ namespace TarodevController
         private float _startedDashing;
         private float _nextDashTime;
 
+        public delegate void FailedDashHandler();
+        public event FailedDashHandler OnDashFailed;
+        public bool FailedDash {  get; private set; }
         public float DashCooldown { get
             {
                 var cooldown = _nextDashTime - _time;
@@ -763,6 +777,9 @@ namespace TarodevController
                 _startedDashing = _time;
                 _nextDashTime = _time + Stats.DashCooldown;
                 DashChanged?.Invoke(true, dir);
+            }else if (_dashToConsume && _canDash && !Crouching)
+            {
+                FailedDash = true;
             }
 
             if (_dashing)
@@ -1160,7 +1177,7 @@ namespace TarodevController
         {
             ShowDeathGobbo();
             PlayExplosionAnimation();
-            myAudioSource.clip = soundsDict[sounds.Explosion];
+            myAudioSource.clip = soundsDict[Sounds.Explosion];
             myAudioSource.Play();
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
             Die();

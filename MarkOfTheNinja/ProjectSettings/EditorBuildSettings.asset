@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial.unity
     guid: da2337a1d0eb05e4089bf68b63a1418a
   - enabled: 1
+    path: Assets/Scenes/Levels/BigLevel.unity
+    guid: 357fd117f2c7a0e489d5f0978c623d93
+  - enabled: 1
     path: Assets/Scenes/TutorialWinScreen.unity
     guid: ff1e7767580b5a343823250a124c0083
   - enabled: 0

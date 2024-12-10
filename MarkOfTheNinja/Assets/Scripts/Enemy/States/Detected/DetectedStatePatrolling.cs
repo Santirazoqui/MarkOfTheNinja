@@ -20,7 +20,8 @@ namespace Assets.Scripts.Enemy.States.Detected
         public float minHeightDifferenceToThrowFireballs = 10f;
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
-        public string animationEventForThrowingFireball = "thowingFireballEnded";
+        public string animationEventForThrowingFireballEnded = "thowingFireballEnded";
+        public string animationEventToBlowFireball = "enemyBlewFireball";
         private readonly string floorsLayers = "Ground";
         private readonly string platformsLayer = "Walls";
         private readonly string enemyWallLayer = "EnemyWall";
@@ -86,7 +87,8 @@ namespace Assets.Scripts.Enemy.States.Detected
                     if (fireballManager.canShootFireball())
                     {
                         fireballManager.addFireball();
-                        ThrowFireballs();
+                        animationController.ThrowFireball();
+                        cantMove= true;
                     }
                 }
                 else
@@ -112,19 +114,23 @@ namespace Assets.Scripts.Enemy.States.Detected
             {
                 PostKilling();
             }
-            else if (eventDescription == animationEventForThrowingFireball)
+            else if (eventDescription == animationEventForThrowingFireballEnded)
             {
                 cantMove = false;
                 PlayDetectedAnimation();
+            }
+            else if(eventDescription == animationEventToBlowFireball)
+            {
+                ThrowFireballs();
             }
 
         }
 
         private void ThrowFireballs()
         {
-            animationController.ThrowFireball();
-            Instantiate(fireball, rb.position, Quaternion.identity);
-            StartCoroutine(WaitForFireball());
+            
+            Instantiate(fireball, fireBallOrigin.transform.position, Quaternion.identity);
+            //StartCoroutine(WaitForFireball());
         }
 
         IEnumerator WaitForFireball()

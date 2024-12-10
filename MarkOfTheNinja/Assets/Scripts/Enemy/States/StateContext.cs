@@ -11,7 +11,8 @@ namespace Assets.Scripts.Enemy.States
                             GameObject player,
                             LevelManagerController levelManager,
                             IEnemyAnimationController animation,
-                            VisionConeController visionCone)
+                            VisionConeController visionCone,
+                            GameObject fireballOrigin)
         {
             Parent = parent;
             Pathfinder = pathfinder;
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Enemy.States
             LevelManagerController = levelManager;
             AnimationController = animation;
             VisionCone = visionCone;
+            this.FireBallOrigin = fireballOrigin;
         }
 
         public VisionConeController VisionCone { get; set; }
@@ -30,5 +32,6 @@ namespace Assets.Scripts.Enemy.States
         public IEnemyAnimationController AnimationController { get; set; }
         public (float, EnemyStates) WaitTime { get; set; } 
         public float Speed { get; set; }
+        public GameObject FireBallOrigin { get; set; }
     }
 }

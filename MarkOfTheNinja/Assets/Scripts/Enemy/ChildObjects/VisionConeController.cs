@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class VisionConeController : MonoBehaviour
 {
+    public Vector2 EyesPosition { get => eyes.transform.position; }
     // Start is called before the first frame update
     private readonly string playerTag = "Player";
     private readonly string groundLayer = "Ground";

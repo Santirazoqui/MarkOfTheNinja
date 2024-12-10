@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
 {
     public GameObject player;
     public EnemyStates defaultState = EnemyStates.Chilling;
-    
+    private readonly string fireBallOriginName = "fireBallOrigin";
 
     private State currentState;
     private EnemyStates currentStateName;
@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     private LevelManagerController levelManagerController;
     private IEnemyAnimationController enemyAnimationController;
     private VisionConeController visionCone;
+    private GameObject fireBallOrigin;
 
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
@@ -98,12 +99,15 @@ public class EnemyController : MonoBehaviour
         pathfinder = gameObject.AddComponent<Pathfinder>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         visionCone = GetComponentInChildren<VisionConeController>();
+        Transform eyesTransform = transform.Find(fireBallOriginName);
+        fireBallOrigin = eyesTransform.gameObject;
         context = new(this,
                     pathfinder,
                     player,
                     levelManagerController, 
                     enemyAnimationController,
-                    visionCone);
+                    visionCone,
+                    fireBallOrigin);
         foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 

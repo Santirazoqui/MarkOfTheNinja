@@ -1158,7 +1158,8 @@ namespace TarodevController
         public GameObject DeathAnimationGobbo;
         public void Explode()
         {
-            this.animationController.Explosion();
+            ShowDeathGobbo();
+            PlayExplosionAnimation();
             myAudioSource.clip = soundsDict[sounds.Explosion];
             myAudioSource.Play();
             levelManagerController.PublishEnemyStateChange(EnemyStates.Chilling);
@@ -1185,6 +1186,14 @@ namespace TarodevController
             DeathAnimationGobbo.transform.localScale = new Vector2(direction * Math.Abs(DeathAnimationGobbo.transform.localScale.x), DeathAnimationGobbo.transform.localScale.y);
             var controller = DeathAnimationGobbo.GetComponent<PlayerDeathAnimationController>();
             controller.KillPlayer();
+        }
+
+        private void PlayExplosionAnimation()
+        {
+            var direction = Math.Sign(transform.localScale.x);
+            DeathAnimationGobbo.transform.localScale = new Vector2(direction * Math.Abs(DeathAnimationGobbo.transform.localScale.x), DeathAnimationGobbo.transform.localScale.y);
+            var controller = DeathAnimationGobbo.GetComponent<PlayerDeathAnimationController>();
+            controller.Explode();
         }
 
         private void Die()

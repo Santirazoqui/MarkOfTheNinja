@@ -30,7 +30,7 @@ namespace TarodevController
             {
                 JumpDown = _jump.WasPressedThisFrame(),
                 JumpHeld = _jump.IsPressed(),
-                DashDown = _dash.WasPressedThisFrame(),
+                DashDown = _dash.IsPressed(),
                 Move = _move.ReadValue<Vector2>()
             };
         }

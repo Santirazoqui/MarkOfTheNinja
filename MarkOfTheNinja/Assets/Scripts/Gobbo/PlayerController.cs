@@ -773,7 +773,6 @@ namespace TarodevController
                     DashChanged?.Invoke(false, Vector2.zero);
 
                     SetVelocity(new Vector2(Velocity.x * Stats.DashEndHorizontalMultiplier, Velocity.y));
-                    if (_grounded) _canDash = true;
                     _canDash = true;
                 }
                 

@@ -44,10 +44,10 @@ MonoBehaviour:
   DashVerticalMultiplier: 0.8
   DashDuration: 0.15
   DashCooldown: 5
-  DashEndHorizontalMultiplier: 1.1
+  DashEndHorizontalMultiplier: 1.05
   AllowCrouching: 1
   CrouchSlowDownTime: 0.2
-  CrouchSpeedModifier: 0.7
+  CrouchSpeedModifier: 0.5
   AllowWalls: 0
   ClimbableLayer:
     serializedVersion: 2

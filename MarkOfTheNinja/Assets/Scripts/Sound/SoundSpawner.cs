@@ -59,7 +59,7 @@ public class SoundSpawner : MonoBehaviour
         soundInstanceController.maxRadius = soundMaxRadius;
         soundInstanceController.amountOfIncrements = amountOfIncrements;
         soundInstanceController.DestructionCallback = OnSoundDestroy;
-        Debug.Log("Sound created");
+        //Debug.Log("Sound created");
     }
 
     private void OnSoundDestroy()

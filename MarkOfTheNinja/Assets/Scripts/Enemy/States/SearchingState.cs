@@ -27,7 +27,7 @@ namespace Assets.Scripts.Enemy.States
             PlaySearchingAnimation();
             audioSource.clip = notFoundClip;
             audioSource.PlayScheduled(AudioSettings.dspTime + searchingAnimation.length + 1);
-            Debug.Log(searchingAnimation.length);
+            //Debug.Log(searchingAnimation.length);
         }
 
         private void PlaySearchingAnimation()

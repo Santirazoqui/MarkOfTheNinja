@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightSource
       objectReference: {fileID: 0}
+    - target: {fileID: 3428050626552554503, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Color.b
       value: 0.99371064
@@ -309,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_Intensity
-      value: 2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_FalloffIntensity
@@ -317,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137035118766137242, guid: 62d82903dc1a2ed44aedc94185e33eae, type: 3}
       propertyPath: m_PointLightOuterRadius
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

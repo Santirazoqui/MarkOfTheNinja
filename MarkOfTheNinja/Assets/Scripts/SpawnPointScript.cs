@@ -14,12 +14,15 @@ public class SpawnPointScript : MonoBehaviour
     private AudioSource audioSource;
     private Light2D light;
     private LevelManagerController levelManagerController;
+    private float initialLightIntensity;
 
     private void Awake()
     {
         _collider = GetComponent<BoxCollider2D>();
         audioSource = GetComponent<AudioSource>();
         light = GetComponentInChildren<Light2D>();
+        initialLightIntensity = light.intensity;
+        light.intensity = 0;
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
     }
 
@@ -30,5 +33,6 @@ public class SpawnPointScript : MonoBehaviour
         _collider.enabled = false;
         audioSource.Play();
         light.color = Color.green;
+        light.intensity = initialLightIntensity;
     }
 }

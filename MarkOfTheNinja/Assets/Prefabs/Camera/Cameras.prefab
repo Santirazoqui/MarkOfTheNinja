@@ -269,7 +269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7180843100789740294}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.08878, y: 0.20982122, z: -0.05469979}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -296,6 +296,7 @@ MonoBehaviour:
   followCamera: {fileID: 5729327864546398020}
   secondsToPan: 5
   followPlayerScript: {fileID: 0}
+  shouldPan: 1
 --- !u!1 &8820236883827429727
 GameObject:
   m_ObjectHideFlags: 0

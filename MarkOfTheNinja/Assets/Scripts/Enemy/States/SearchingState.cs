@@ -13,6 +13,10 @@ namespace Assets.Scripts.Enemy.States
 
         private readonly string _soundTag = "Sound";
 
+        private void Awake()
+        {
+            audioSource = GetComponentInParent<AudioSource>();
+        }
         void Start()
         {
             audioSource = GetComponentInParent<AudioSource>();

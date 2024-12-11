@@ -14,6 +14,10 @@ namespace Assets.Scripts.Enemy.States
         public float cooldownAfterPlayerLeavesFOV = 1f;
         private Vector2 lastPlayerPosition;
 
+        private void Awake()
+        {
+            audioSource = GetComponentInParent<AudioSource>();
+        }
         void Start()
         {
             audioSource = GetComponentInParent<AudioSource>();

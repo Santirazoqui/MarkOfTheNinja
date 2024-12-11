@@ -65,6 +65,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private IEnumerator previousDetectionDecresionRoutine = null;
     private IEnumerator turnLightsOnCorutine =null;
     private ISceneSwitcher sceneSwitcher;
+    private bool playerIsAlive = true;
 
     [Inject]
     public void Constructor(IDataAccessManager dataAccessManager, ISceneSwitcher sceneSwitcher)
@@ -128,6 +129,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         DetectionRate = 0;
         Detected = false;
         AudioController.PlayNonDetectedMusic();
+        playerIsAlive = true;
         this.DeathCanvas.SetActive(false);
         this.PlayingCanvas.SetActive(true);
     }
@@ -139,7 +141,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
         while(true)
         {
-            TimeSpentInLevel += Time.deltaTime;
+            if(playerIsAlive) TimeSpentInLevel += Time.deltaTime;
             yield return null;
         }
     }
@@ -185,6 +187,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         this.PlayingCanvas.SetActive(false);
         this.DeathCanvas.SetActive(true);
         AudioController.PlayGameOverMusic();
+        playerIsAlive = false;
         
     }
 

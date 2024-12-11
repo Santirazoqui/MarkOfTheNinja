@@ -10,12 +10,19 @@ public class DashCooldownUIImageScript : MonoBehaviour
 {
     public int flashingRate = 2;
     private PlayerController playerController;
+    private LevelManagerController levelManagerController;
 
     Image dashImage;
     // Start is called before the first frame update
     void Start()
     {
         playerController = FindAnyObjectByType<PlayerController>();
+        levelManagerController = FindAnyObjectByType<LevelManagerController>();
+        levelManagerController.LevelWasReset += () =>
+        {
+            StopAllCoroutines();
+            dashImage.color = Color.white;
+        };
         dashImage = GetComponent<Image>();
         playerController.OnDashFailed += () =>
         {
@@ -34,7 +41,7 @@ public class DashCooldownUIImageScript : MonoBehaviour
     
     IEnumerator FlashRed()
     {
-        Debug.Log("Flashing routine started");
+
         for (int i = 0; i < 100; i += flashingRate)
         {
             dashImage.color = Color.Lerp(Color.white, Color.red, i / 100f);

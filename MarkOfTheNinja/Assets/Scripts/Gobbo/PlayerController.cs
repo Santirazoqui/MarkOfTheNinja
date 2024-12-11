@@ -908,7 +908,7 @@ namespace TarodevController
         }
 
 
-
+        private IEnumerator dashInvcincibilityCorutine = null;
         private void Move()
         {
             if (_forceToApplyThisFrame != Vector2.zero)
@@ -923,7 +923,9 @@ namespace TarodevController
 
             if (_dashing)
             {
-                StartCoroutine(DashInvincibilityCoroutine());
+                if(dashInvcincibilityCorutine != null) StopCoroutine(dashInvcincibilityCorutine);
+                dashInvcincibilityCorutine = DashInvincibilityCoroutine();
+                StartCoroutine(dashInvcincibilityCorutine);
                 SetVelocity(_dashVel);
                 return;
             }

@@ -135,7 +135,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private IEnumerator StartTimer()
     {
         if (cameraPan != null && cameraPan.shouldPan) 
-            yield return new WaitForSeconds(this.cameraPan.secondsToPan);
+            yield return new WaitForSeconds(this.cameraPan.secondsToPan + this.cameraPan.secondsBeforePan); //+1 porque hay un segundo de espera antes de empezar a panear
 
         while(true)
         {

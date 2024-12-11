@@ -11,7 +11,9 @@ public class CameraPan : MonoBehaviour
     [SerializeField] GameObject camera;
     [SerializeField] GameObject followCamera;
     [SerializeField] public float secondsToPan = 5;
+    [SerializeField] public float secondsBeforePan = 1;
     [SerializeField] FollowPlayerScript followPlayerScript; //pasar el PosReference que es hijo de Background
+    [SerializeField] GameObject background;
 
     [SerializeField] public bool shouldPan = true;
 
@@ -19,7 +21,7 @@ public class CameraPan : MonoBehaviour
 
     void Start()
     {
-        if(!shouldPan)
+        if (!shouldPan)
         {
             return;
         }
@@ -32,8 +34,8 @@ public class CameraPan : MonoBehaviour
 
         StartCoroutine(PanCamera());
         //PanCamera();
-        
-        
+
+
         //Debug.Log("Reactivated player & Camera");
 
     }
@@ -46,17 +48,29 @@ public class CameraPan : MonoBehaviour
 
     IEnumerator PanCamera()
     {
-        //yield return new WaitForSeconds(2); 
-        //Debug.Log("PanCamera");
         Vector3 startPosition = origin.transform.position;
         startPosition.z = -1;
         Vector3 endPosition = player.transform.position;
         endPosition.z = -1;
         float elapsedTime = 0;
 
+        Vector3 backgroundOffset = background.transform.position - camera.transform.position;
+        
+        camera.transform.position = new Vector3(startPosition.x , startPosition.y, -1);
+
+        background.transform.position = new Vector3(
+            camera.transform.position.x + backgroundOffset.x,
+            camera.transform.position.y + backgroundOffset.y,
+            background.transform.position.z);
+
+        yield return new WaitForSeconds(secondsBeforePan);
+
         while (elapsedTime < secondsToPan)
         {
-            camera.transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / secondsToPan);
+            Vector3 currentPosition = Vector3.Lerp(startPosition, endPosition, elapsedTime / secondsToPan);
+            camera.transform.position = currentPosition;
+            background.transform.position = new Vector3(currentPosition.x + backgroundOffset.x, currentPosition.y + backgroundOffset.y, background.transform.position.z);
+
             elapsedTime += Time.deltaTime;
             //Debug.Log("elapsedTime: " + elapsedTime);
             yield return null;
@@ -64,7 +78,8 @@ public class CameraPan : MonoBehaviour
 
         camera.transform.position = endPosition;
 
-        followPlayerScript.player = player;
+        //followPlayerScript.player = player;
+        followPlayerScript.enabled = true;
 
         followCamera.SetActive(true);
         playerController.Active = true;

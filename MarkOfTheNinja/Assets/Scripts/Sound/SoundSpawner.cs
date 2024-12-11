@@ -31,7 +31,11 @@ public class SoundSpawner : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
         //Debug.Log("Collision");
-		SpawnSound(collision);
+        if (collision.enabled)
+        {
+            SpawnSound(collision);
+        }
+		
 	}
 
     private void SpawnSound(Collider2D collision)

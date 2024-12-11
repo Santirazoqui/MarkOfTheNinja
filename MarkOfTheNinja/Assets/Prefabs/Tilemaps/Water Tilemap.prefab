@@ -58,7 +58,7 @@ MonoBehaviour:
   - {x: -8.099971, y: -4.05, z: 0}
   m_ShapePathHash: -1987162502
   m_Mesh: {fileID: 0}
-  m_InstanceId: -69392
+  m_InstanceId: 136128
   m_LocalBounds:
     m_Center: {x: -6.750015, y: -3.375, z: 0}
     m_Extent: {x: 1.3499856, y: 0.6750001, z: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   - {x: 33.75003, y: -4.05, z: 0}
   m_ShapePathHash: -705952557
   m_Mesh: {fileID: 0}
-  m_InstanceId: -69362
+  m_InstanceId: 136122
   m_LocalBounds:
     m_Center: {x: 35.099983, y: -3.375, z: 0}
     m_Extent: {x: 1.3499851, y: 0.6750001, z: 0}
@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 2695963926763162635}
   - component: {fileID: 911897587746078724}
   - component: {fileID: 7754421260213261290}
+  - component: {fileID: 2152301632952695173}
   m_Layer: 3
   m_Name: Water Tilemap
   m_TagString: Untagged
@@ -601,7 +602,7 @@ CompositeCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
@@ -698,6 +699,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfShadows: 1
+--- !u!251 &2152301632952695173
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820425808798355163}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 90
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &7233913930543918910
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +776,7 @@ MonoBehaviour:
   - {x: 1.3500295, y: -4.05, z: 0}
   m_ShapePathHash: 636088580
   m_Mesh: {fileID: 0}
-  m_InstanceId: -69382
+  m_InstanceId: 136096
   m_LocalBounds:
     m_Center: {x: 2.0249853, y: -3.375, z: 0}
     m_Extent: {x: 0.6749853, y: 0.6750001, z: 0}
@@ -818,7 +838,7 @@ MonoBehaviour:
   - {x: 14.850029, y: -4.05, z: 0}
   m_ShapePathHash: 1292890239
   m_Mesh: {fileID: 0}
-  m_InstanceId: -69372
+  m_InstanceId: 136144
   m_LocalBounds:
     m_Center: {x: 16.199986, y: -3.375, z: 0}
     m_Extent: {x: 1.3499851, y: 0.6750001, z: 0}

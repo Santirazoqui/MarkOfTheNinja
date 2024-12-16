@@ -15,7 +15,7 @@ public class SuspicionRateScript : MonoBehaviour
     void Start()
     {
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
-        levelManagerController.PlayerWasDetected += PlayerWasDetected;
+        //levelManagerController.PlayerWasDetected += PlayerWasDetected;
         text = GetComponent<TextMeshProUGUI>();
     }
 

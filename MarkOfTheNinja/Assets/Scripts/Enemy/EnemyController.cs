@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     private IEnemyAnimationController enemyAnimationController;
     private VisionConeController visionCone;
     private GameObject fireBallOrigin;
+    private DetectionRateManager detectionRateManager;
 
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
@@ -80,6 +81,7 @@ public class EnemyController : MonoBehaviour
 
     public void PlayerIsBeingSeen(float distance)
     {
+        detectionRateManager.PlayerIsBeingSeen(distance);
         currentState.PlayerIsBeingSeen(distance);
     }
 
@@ -97,6 +99,7 @@ public class EnemyController : MonoBehaviour
 
     private void InitializeStates()
     {
+        detectionRateManager = GetComponent<DetectionRateManager>();
         pathfinder = gameObject.AddComponent<Pathfinder>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         visionCone = GetComponentInChildren<VisionConeController>();

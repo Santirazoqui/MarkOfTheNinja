@@ -20,9 +20,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
 
-    public delegate void OnDetection();
-    public event OnDetection PlayerWasDetected;
-
     public delegate void OnlevelReset();
     public event OnlevelReset LevelWasReset;
 
@@ -253,13 +250,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         StartCoroutine(turnLightsOnCorutine);
         StopDetectionDecreasion();
         PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
-        PublishPlayerDetection();
     }
 
-    private void PublishPlayerDetection()
-    {
-        PlayerWasDetected?.Invoke();
-    }
 
     private void StartDetectionDecrease()
     {

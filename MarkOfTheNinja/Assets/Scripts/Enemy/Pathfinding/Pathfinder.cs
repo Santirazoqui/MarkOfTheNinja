@@ -8,13 +8,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.Pathfinding
 {
-    public class Pathfinder:MonoBehaviour, IPathfinder
+    public class Pathfinder : MonoBehaviour, IPathfinder
     {
         public Vector2 targetPosition;
         public bool Waiting { get; set; } = false;
         Rigidbody2D myRigidbody;
         private Action onReached;
         private bool tourchingBorder;
+        private GameObject lastEnemyWallCollided = null;
         private readonly string _wallsLayer = "Walls";
         private readonly string _enemyWalls = "EnemyWall";
         private Vector2 _previusPosition;
@@ -64,7 +65,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
             bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
-            if(playerHasHorizontalSpedd)
+            if (playerHasHorizontalSpedd)
             {
                 transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x) * Math.Abs(transform.localScale.x), transform.localScale.y);
             }
@@ -77,19 +78,20 @@ namespace Assets.Scripts.Enemy.Pathfinding
             bool closeEnough = Math.Abs(distance) < minDistance;
             if (closeEnough) {
                 ResetVelocity();
+                lastEnemyWallCollided = null;
                 onReached?.Invoke();
                 return;
             }
-            
+
             float direction = Math.Sign(distance);
             float velocity = speed * Time.deltaTime * direction;
 
             myRigidbody.velocity = new Vector2(velocity, myRigidbody.velocity.y);
         }
-        
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            CollisionLogic();
+            CollisionLogic(collision);
         }
 
         private void FixedUpdate()
@@ -101,6 +103,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             if (Stuck())
             {
+                lastEnemyWallCollided = null;
                 onReached();
             }
             _previusPosition = myRigidbody.position;
@@ -115,11 +118,13 @@ namespace Assets.Scripts.Enemy.Pathfinding
             return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero && !Waiting;
         }
 
-        private void CollisionLogic()
+        private void CollisionLogic(Collision2D collision)
         {
             var collider = GetComponentInParent<BoxCollider2D>();
-            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)))
+            bool collidedWithOtherEnemyWall = lastEnemyWallCollided == null || lastEnemyWallCollided != null && lastEnemyWallCollided != collision.gameObject;
+            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)) && collidedWithOtherEnemyWall)
             {
+                lastEnemyWallCollided = collision.gameObject;
                 onReached();
             }
         }

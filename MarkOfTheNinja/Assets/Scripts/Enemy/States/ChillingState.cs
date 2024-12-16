@@ -84,7 +84,7 @@ namespace Assets.Scripts.Enemy.States
             {
                 searchingIndex++;
             }
-            Debug.Log($"Going at target ${searchingLimits[searchingIndex]}");
+            //Debug.Log($"Going at target {searchingLimits[searchingIndex]}");
             //StartSearch();
             WaitForNecessaryTime();
         }

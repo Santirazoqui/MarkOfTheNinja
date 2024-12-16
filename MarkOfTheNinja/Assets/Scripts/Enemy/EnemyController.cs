@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     private IEnemyAnimationController enemyAnimationController;
     private VisionConeController visionCone;
     private GameObject fireBallOrigin;
+    private (Vector2, Vector3) lastKnownPosition;
 
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
@@ -117,6 +118,7 @@ public class EnemyController : MonoBehaviour
         currentStateName = defaultState;
         currentState.SetActive(true);
         currentState.Enter(context);
+        lastKnownPosition = (transform.position, transform.localScale);
     }
 
     private void SubscribeToLevelController()
@@ -124,12 +126,20 @@ public class EnemyController : MonoBehaviour
         var controller = FindAnyObjectByType<LevelManagerController>();
         controller.StateChanged += SudoChangeStates;
         controller.LevelWasReset += OnReset;
+        controller.CheckpointReached += OnCheckpointReached;
     }
 
     private void OnReset()
     {
         visionCone.gameObject.SetActive(true);
         SudoChangeStates(EnemyStates.Chilling);
+        transform.position = lastKnownPosition.Item1;
+        transform.localScale = lastKnownPosition.Item2;
+    }
+
+    private void OnCheckpointReached(Vector2 playerPosition)
+    {
+        lastKnownPosition = (transform.position, transform.localScale);
     }
     private void SudoChangeStates(EnemyStates state)
     {

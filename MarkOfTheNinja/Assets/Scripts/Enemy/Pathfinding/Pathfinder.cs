@@ -11,7 +11,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
     public class Pathfinder:MonoBehaviour, IPathfinder
     {
         public Vector2 targetPosition;
-
+        public bool Waiting { get; set; } = false;
         Rigidbody2D myRigidbody;
         private Action onReached;
         private bool tourchingBorder;
@@ -20,6 +20,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private Vector2 _previusPosition;
         private Vector2 _previusVelocity;
         private float currentSpeed;
+        private PathfinderMemory memory;
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
@@ -33,6 +34,25 @@ namespace Assets.Scripts.Enemy.Pathfinding
             ReajustPosition(speed, minDistance);
             ChangeCharacterOrientationDependingOnVelocity();
             UnstuckingMechanism();
+        }
+
+        public void TakeSnapshot()
+        {
+            memory = new()
+            {
+                Position = transform.position,
+                LocalScale = transform.localScale,
+                target = targetPosition,
+                onReached = onReached
+            };
+        }
+
+        public void ResetToSnapshot()
+        {
+            transform.position = memory.Position;
+            transform.localScale = memory.LocalScale;
+            targetPosition = memory.target;
+            onReached = memory.onReached;
         }
 
         private void Start()
@@ -92,7 +112,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
             bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == myRigidbody.position.x;
             bool sameVelocity = _previusVelocity == myRigidbody.velocity;
             bool speedIsNotCero = currentSpeed != 0;
-            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero;
+            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero && !Waiting;
         }
 
         private void CollisionLogic()
@@ -115,13 +135,22 @@ namespace Assets.Scripts.Enemy.Pathfinding
             myRigidbody.velocity = new Vector2(0, myRigidbody.velocity.y);
         }
 
-
+        
 
     }
-
+    public class PathfinderMemory
+    {
+        public Vector2 Position;
+        public Vector3 LocalScale;
+        public Vector2 target;
+        public Action onReached;
+    }
     public interface IPathfinder
     {
+        public bool Waiting { get; set; }
         void SetDestination(Vector2 destination, Action onReached);
+        public void TakeSnapshot();
+        public void ResetToSnapshot();
         void AdjustPosition(float speed, float minDistance);
     }
 }

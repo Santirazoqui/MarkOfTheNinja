@@ -13,6 +13,7 @@ namespace Assets.Scripts.Enemy.States
             prevState = _lastRecivedContext.WaitTime.Item2;
             waitTime = _lastRecivedContext.WaitTime.Item1;
             animationController.StayStill();
+            pathfinder.Waiting = true;
             //Debug.Log($"Waiting for {waitTime}");
         }
 
@@ -26,6 +27,7 @@ namespace Assets.Scripts.Enemy.States
         {
             yield return new WaitForSeconds( waitTime );
             //Debug.Log("Wait time ended");
+            pathfinder.Waiting = false;
             _lastRecivedContext.Parent.ChangeStates(prevState);
         }
 

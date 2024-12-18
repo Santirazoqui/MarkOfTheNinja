@@ -25,7 +25,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public delegate void OnCheckpointReached(Vector2 position);
     public event OnCheckpointReached CheckpointReached;
-    public float DetectionRate { get; private set; } = 0;
     public bool Detected { get; private set; }
 
     public int Score { get; private set; }
@@ -33,15 +32,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public bool canWin { get; set; } = false;
 
-    [Header("Detection Rate")]
-    public float visualDetectionRate = 100f;
-    public float expoentialDistanceMultiplier= 2f;
-    public float audioDetectionRate = 50f;
-    [Header("Detection Rate Reduction")]
-    public float secondsBeforeDetectionDecreases = 2f;
-    public float minDecreasePerTick = 0.1f;
-    public float maxDecreasePerTick = 0.2f;
-    public float increaseInDecreasePerTick = 0.001f;
     [Header("Global light")]
     public float globalLightMin = 0.1f;
     public float globalLightMax = 0.5f;
@@ -103,7 +93,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private void StartDebug()
     {
         prevScore = Score;
-        prevDetection = DetectionRate;
         previousDetected = Detected;
     }
 
@@ -122,8 +111,6 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         GlobalLight.intensity = globalLightMin;
         Score = ScoreAtLastCheckpoint;
         if (turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
-        StopDetectionDecreasion();
-        DetectionRate = 0;
         Detected = false;
         AudioController.PlayNonDetectedMusic();
         playerIsAlive = true;
@@ -146,25 +133,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         StateChanged?.Invoke(state);
     }
-    
-    public void PlayerWasInstaDetected()
-    {
-        DetectionRate = 100;
-        EnterDetectedPhase();
-    }
 
-    public void PlayerIsBeingSeen(float distance)
-    {
-        //Debug.Log("Player was seen");
-        var multiplier = distance != 0 ? 1 / (float)(Math.Pow(distance,expoentialDistanceMultiplier)) : 1;
-        PlayerWasPerceived(visualDetectionRate, multiplier);
-    }
-
-    public void SoundWasHeard()
-    {
-        //Debug.Log("Player was heard");
-        PlayerWasPerceived(audioDetectionRate);
-    }
 
     public void PickedUpCoin()
     {
@@ -227,73 +196,23 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         return score;
     }
 
-    private void PlayerWasPerceived(float detectionRate, float multiplier = 1)
-    {
-        if (Detected) return;
-        DetectionRate += detectionRate * multiplier * Time.deltaTime;
-        StartDetectionDecrease();
-        if (DetectionRate >= 100)
-        {
-            DetectionRate = 100;
-
-            EnterDetectedPhase();
-        }
-    }
-
-    private void EnterDetectedPhase()
+    public void EnterDetectedPhase()
     {
         //Debug.Log("Enter detected phase");
-        Detected = true;
+       // Detected = true;
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
         turnLightsOnCorutine = TurnLightsOn();
         StartCoroutine(turnLightsOnCorutine);
-        StopDetectionDecreasion();
-        PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
+        //StopDetectionDecreasion();
+        //PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
     }
 
-
-    private void StartDetectionDecrease()
-    {
-        if (Detected) return;
-        StopDetectionDecreasion();
-        previousDetectionDecresionRoutine = StartSuspicionDecrease();
-        StartCoroutine(previousDetectionDecresionRoutine);
-    }
-    private void StopDetectionDecreasion()
-    {
-        if (previousDetectionDecresionRoutine is not null) StopCoroutine(previousDetectionDecresionRoutine);
-    }
-
-    private IEnumerator StartSuspicionDecrease()
-    {
-        yield return new WaitForSeconds(secondsBeforeDetectionDecreases);
-        float decrease = minDecreasePerTick;
-        while(DetectionRate >0)
-        {
-            DetectionRate -= decrease;
-
-            if (decrease < maxDecreasePerTick)
-            {
-                decrease += increaseInDecreasePerTick;
-            }
-            else
-            {
-                decrease = maxDecreasePerTick;
-            }
-            yield return new WaitForFixedUpdate();
-        }
-        DetectionRate = 0;
-        yield break;
-    }
 
 }
 
 public interface ILevelManager
 {
-    void PlayerIsBeingSeen(float distance);
-    void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
-    void PlayerWasInstaDetected();
     void PlayerWasCaught();
 }

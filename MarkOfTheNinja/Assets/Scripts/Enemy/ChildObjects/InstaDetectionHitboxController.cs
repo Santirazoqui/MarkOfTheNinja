@@ -9,7 +9,7 @@ public class InstaDetectionHitboxController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag(playerTag)) return;
-        var levelManager = FindAnyObjectByType<LevelManagerController>();
-        levelManager.PlayerWasInstaDetected();
+        var detectionManager = GetComponentInParent<DetectionRateManager>();
+        detectionManager.PlayerWasInstaDetected();
     }
 }

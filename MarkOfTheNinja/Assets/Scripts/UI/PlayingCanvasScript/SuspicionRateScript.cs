@@ -30,7 +30,7 @@ public class SuspicionRateScript : MonoBehaviour
     {
         int digitsAfterComma = 1;
         var rounder = Math.Pow(10, digitsAfterComma);
-        var number = Math.Floor(levelManagerController.DetectionRate * rounder) / rounder;
+        var number = 0;// Math.Floor(levelManagerController.DetectionRate * rounder) / rounder;
         text.text = $"Suspicion: {Util.ChangeCommaToPoint(number+ "")}%";
 
     }
@@ -38,7 +38,7 @@ public class SuspicionRateScript : MonoBehaviour
     {
         if (!levelManagerController.Detected)
         {
-            text.color = Color.Lerp(Color.green, Color.red, levelManagerController.DetectionRate / 100);
+            text.color = Color.Lerp(Color.green, Color.red, 0 / 100);
         }
     }
 

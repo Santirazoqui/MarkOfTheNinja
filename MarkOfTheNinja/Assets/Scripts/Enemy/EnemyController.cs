@@ -82,7 +82,6 @@ public class EnemyController : MonoBehaviour
 
     public void PlayerIsBeingSeen(float distance)
     {
-        detectionRateManager.PlayerIsBeingSeen(distance);
         currentState.PlayerIsBeingSeen(distance);
     }
 

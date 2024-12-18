@@ -17,9 +17,9 @@ public class DetectionRateManager : MonoBehaviour
     public float audioDetectionRate = 50f;
     [Header("Detection Rate Reduction")]
     public float secondsBeforeDetectionDecreases = 2f;
-    public float minDecreasePerTick = 0.1f;
-    public float maxDecreasePerTick = 0.2f;
-    public float increaseInDecreasePerTick = 0.001f;
+    public float minDecreasePerMilisecond = 0.1f;
+    public float maxDecreasePerMilisecond = 0.2f;
+    public float increaseInDecreasePerMilisecond = 0.001f;
 
     private LevelManagerController levelManagerController; 
     private EnemyController enemyController;
@@ -62,10 +62,17 @@ public class DetectionRateManager : MonoBehaviour
         if (Detected) return;
         Detected = true;
         DetectionRate = 100;
+        enemyController.ChangeStates(EnemyStates.DetectedPatrolling);
+        StopDetectionDecreasion();
+    }
+
+    public void PlayerWasInstaDetected()
+    {
+        DetectionRate = 100;
         EnterDetectedPhase();
     }
 
-    public void EnteredChilling()
+    public void LeftDetectedMode()
     {
         StopDetectionDecreasion();
         DetectionRate = 0;
@@ -89,6 +96,8 @@ public class DetectionRateManager : MonoBehaviour
     {
         //levelManagerController.PlayerWasInstaDetected();
         enemyController.ChangeStates(EnemyStates.DetectedPatrolling);
+        levelManagerController.EnterDetectedPhase();
+        StopDetectionDecreasion();
         PlayerWasDetected?.Invoke();
     }
 
@@ -103,20 +112,20 @@ public class DetectionRateManager : MonoBehaviour
     private IEnumerator StartSuspicionDecrease()
     {
         yield return new WaitForSeconds(secondsBeforeDetectionDecreases);
-        float decrease = minDecreasePerTick;
+        float decrease = minDecreasePerMilisecond;
         while (DetectionRate > 0)
         {
             DetectionRate -= decrease;
 
-            if (decrease < maxDecreasePerTick)
+            if (decrease < maxDecreasePerMilisecond)
             {
-                decrease += increaseInDecreasePerTick;
+                decrease += increaseInDecreasePerMilisecond;
             }
             else
             {
-                decrease = maxDecreasePerTick;
+                decrease = maxDecreasePerMilisecond;
             }
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.001f);
         }
         DetectionRate = 0;
         yield break;

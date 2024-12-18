@@ -109,6 +109,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         protected override void ExitImplementation()
         {
             detectionInfectionRadius.DetectedMode = false;
+            detectionRateManager.LeftDetectedMode();
         }
 
         public override void CollitionEnter(Collision2D collision)

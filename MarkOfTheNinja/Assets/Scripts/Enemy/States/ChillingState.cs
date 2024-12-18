@@ -41,7 +41,7 @@ namespace Assets.Scripts.Enemy.States
         protected override void EnterImplementation()
         {
             FakeStart();
-            detectionRateManager.EnteredChilling();
+            
             PlayChillingAnimation();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();

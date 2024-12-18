@@ -29,7 +29,7 @@ public class AlertEyeScript : MonoBehaviour
     {
         int digitsAfterComma = 1;
         var rounder = Math.Pow(10, digitsAfterComma);
-        var number = Math.Floor(levelManagerController.DetectionRate * rounder) / rounder;
+        var number = Math.Floor(0 * rounder) / rounder;
         if(number == 0)
         {
             alertEye.sprite = alertEyes[0];

@@ -15,7 +15,7 @@ namespace Assets.Scripts.Enemy.States
         public float searchingSpeed = 300f;
         public override void PlayerIsBeingSeen(float distance)
         {
-            _lastRecivedContext.LevelManagerController.PlayerIsBeingSeen(distance);
+            detectionRateManager.PlayerIsBeingSeen(distance);
             _lastRecivedContext.Speed = searchingSpeed; 
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.Confused,_lastRecivedContext);
         }
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Enemy.States
             if (!CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
             //Debug.Log("Collided with sound");
             var soundOrigin = collision.gameObject.transform.position;
-            levelManagerController.SoundWasHeard();
+            detectionRateManager.SoundWasHeard();
             _lastRecivedContext.SoundPosition = soundOrigin;
             _lastRecivedContext.Speed = searchingAtSoundSpeed;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);

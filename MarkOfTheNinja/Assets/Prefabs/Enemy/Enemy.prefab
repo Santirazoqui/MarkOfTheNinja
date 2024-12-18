@@ -479,12 +479,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualDetectionRate: 300
-  expoentialDistanceMultiplier: 2
+  expoentialDistanceMultiplier: 1
   audioDetectionRate: 50
-  secondsBeforeDetectionDecreases: 2
-  minDecreasePerTick: 0.1
-  maxDecreasePerTick: 0.2
-  increaseInDecreasePerTick: 0.001
+  secondsBeforeDetectionDecreases: 5
+  minDecreasePerMilisecond: 0.01
+  maxDecreasePerMilisecond: 0.2
+  increaseInDecreasePerMilisecond: 0.0005
 --- !u!1 &1455768502657137939
 GameObject:
   m_ObjectHideFlags: 0

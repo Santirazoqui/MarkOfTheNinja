@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting
+    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting, Stunned
 }
 
 public class EnemyController : MonoBehaviour

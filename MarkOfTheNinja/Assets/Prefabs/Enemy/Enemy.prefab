@@ -159,6 +159,8 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value: {fileID: 9089575324707332882}
+    - Key: 6
+      Value: {fileID: 1095673378273340487}
     - Key: 5
       Value: {fileID: 4952724759317007714}
     - Key: 4
@@ -485,6 +487,52 @@ MonoBehaviour:
   minDecreasePerMilisecond: 0.01
   maxDecreasePerMilisecond: 0.2
   increaseInDecreasePerMilisecond: 0.0005
+--- !u!1 &1444026838027147206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3646543506362049965}
+  - component: {fileID: 1095673378273340487}
+  m_Layer: 7
+  m_Name: Stunned
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3646543506362049965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444026838027147206}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8771445255682488135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1095673378273340487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444026838027147206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bf62cc03ae68c4e827f512e754b5e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  searchingAtSoundSpeed: 400
+  searchingSpeed: 300
 --- !u!1 &1455768502657137939
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +568,7 @@ Transform:
   - {fileID: 5744273213632803953}
   - {fileID: 6643374547508646116}
   - {fileID: 1544456535156594802}
+  - {fileID: 3646543506362049965}
   m_Father: {fileID: 3193901619000172416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2352182784217460636
@@ -1320,6 +1369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7625729662813890935}
   - component: {fileID: 8276166861743430842}
+  - component: {fileID: 6239645847631826919}
   m_Layer: 7
   m_Name: HeadHitbox
   m_TagString: Untagged
@@ -1387,6 +1437,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13182425, y: 0.021181658}
   m_EdgeRadius: 0
+--- !u!114 &6239645847631826919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7612524411227850983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e982254a1d67a4282ca4d9ff2af0d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7828753563361596667
 GameObject:
   m_ObjectHideFlags: 0

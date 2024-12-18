@@ -98,7 +98,7 @@ namespace Assets.Scripts.Enemy.States
 
         private void WaitForNecessaryTime()
         {
-            _lastRecivedContext.WaitTime = (waitTimeWhenReach, EnemyStates.Chilling);
+            _lastRecivedContext.WaitTime = waitTimeWhenReach;
             parent.ChangeStates(EnemyStates.Waiting);    
         }
 

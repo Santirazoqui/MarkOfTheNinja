@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Enemy.States
     {
         public float searchingAtSoundSpeed = 400f;
         public float searchingSpeed = 300f;
+        private readonly string stumpAnimationEvent = "stumpEnded";
         public override void PlayerIsBeingSeen(float distance)
         {
             detectionRateManager.PlayerIsBeingSeen(distance);
@@ -34,6 +36,14 @@ namespace Assets.Scripts.Enemy.States
             _lastRecivedContext.SoundPosition = soundOrigin;
             _lastRecivedContext.Speed = searchingAtSoundSpeed;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);
+        }
+
+        public override void AnimationEventFired(string eventDescription)
+        {
+            if (eventDescription == stumpAnimationEvent)
+            {
+                parent.ChangeStates(_lastRecivedContext.PreviousState);
+            }
         }
 
         private bool CollidedWithSound(GameObject you, Collider2D collision)

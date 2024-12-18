@@ -17,6 +17,11 @@ namespace Assets.Scripts.Util
             return collision.gameObject.CompareTag(_playerTag);
         }
 
+        public static bool CollidedWithPlayer(Collision2D collision)
+        {
+            return collision.gameObject.CompareTag(_playerTag);
+        }
+
         public static string ChangeCommaToPoint(string numberStringified)
         {
             var res = "";

@@ -23,7 +23,8 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
 		AlertWalking,
 		Alert,
 		ThrowingFireballs,
-		Killing
+		Killing,
+        Stumped
 	}
 
 	private readonly Dictionary<AnimationStates, string> mapper = new() {
@@ -32,7 +33,8 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
 		{AnimationStates.AlertWalking, "AlertWalk"},
 		{AnimationStates.Alert, "Alert"},
 		{AnimationStates.ThrowingFireballs, "Throwing_fireballs"},
-		{AnimationStates.Killing, "Killing_Player"}
+		{AnimationStates.Killing, "Killing_Player"},
+        {AnimationStates.Stumped, "Stump" }
 	};
 
 
@@ -103,6 +105,12 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
         SetAnimationState(AnimationStates.ThrowingFireballs);
     }
 
+    public void Stunned()
+    {
+        exclamationSignsController?.QuestionSign();
+        SetAnimationState(AnimationStates.Stumped);
+    }
+
     private void StartConfusedTimer()
     {
         confusedTimer = ConfusedTimer();
@@ -166,4 +174,6 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
         }
         yield return null;
     }
+
+
 }

@@ -51,6 +51,7 @@ public abstract class State : MonoBehaviour
     public void Exit(StateContext context)
     {
         _lastRecivedContext = context;
+        _lastRecivedContext.PreviousState = parent.CurrentState;
         ExitImplementation();
     }
 

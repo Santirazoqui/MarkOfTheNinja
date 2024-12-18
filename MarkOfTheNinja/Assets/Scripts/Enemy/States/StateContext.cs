@@ -32,7 +32,8 @@ namespace Assets.Scripts.Enemy.States
         public GameObject Player { get; set; }  
         public ILevelManager LevelManagerController { get; set; }
         public IEnemyAnimationController AnimationController { get; set; }
-        public (float, EnemyStates) WaitTime { get; set; } 
+        public float WaitTime { get; set; } 
+        public EnemyStates PreviousState { get; set; }
         public float Speed { get; set; }
         public GameObject FireBallOrigin { get; set; }
 

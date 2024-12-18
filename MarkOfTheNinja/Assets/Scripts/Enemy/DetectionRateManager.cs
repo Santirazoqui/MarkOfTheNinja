@@ -6,8 +6,6 @@ using UnityEngine;
 public class DetectionRateManager : MonoBehaviour
 {
 
-    public delegate void OnDetection();
-    public event OnDetection PlayerWasDetected;
     public bool Detected { get; private set; }
     public float DetectionRate { get; private set; } = 0;
 
@@ -98,7 +96,6 @@ public class DetectionRateManager : MonoBehaviour
         enemyController.ChangeStates(EnemyStates.DetectedPatrolling);
         levelManagerController.EnterDetectedPhase();
         StopDetectionDecreasion();
-        PlayerWasDetected?.Invoke();
     }
 
     private void StartDetectionDecrease()

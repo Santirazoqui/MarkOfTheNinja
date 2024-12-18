@@ -48,8 +48,16 @@ public class VisionConeController : MonoBehaviour
         SetUpLight();
         SetUpPolygonCollider();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
-        levelManagerController.LevelWasReset += () => { playerIsBeingSeen = false; };
+        levelManagerController.LevelWasReset += OnReset;
+        levelManagerController.DetectedModeStarted += UpdateVisionConeRadius;
+        levelManagerController.DetectedModeEnded += UpdateVisionConeRadius;
         startFinished = true;
+    }
+
+    private void OnReset()
+    {
+        playerIsBeingSeen = false;
+        UpdateVisionConeRadius();
     }
 
     private void SetUpPolygonCollider()
@@ -83,7 +91,6 @@ public class VisionConeController : MonoBehaviour
     {
         if(!startFinished) return;
         UpdatePlayerDetection();
-        UpdateVisionConeRadius();
     }
 
     private void UpdateVisionConeRadius()

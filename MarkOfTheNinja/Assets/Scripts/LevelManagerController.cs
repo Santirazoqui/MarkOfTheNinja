@@ -25,6 +25,12 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public delegate void OnCheckpointReached(Vector2 position);
     public event OnCheckpointReached CheckpointReached;
+
+    public delegate void OnDetection();
+    public event OnDetection DetectedModeStarted;
+
+    public delegate void OnDetectionEnd();
+    public event OnDetectionEnd DetectedModeEnded;
     public bool Detected { get; private set; }
 
     public int Score { get; private set; }
@@ -209,6 +215,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         turnLightsOnCorutine = TurnLightsOn();
         StartCoroutine(turnLightsOnCorutine);
         StartDetectedCountDown();
+        DetectedModeStarted?.Invoke();
         //StopDetectionDecreasion();
         //PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
     }
@@ -235,6 +242,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         Detected = false;
         AudioController.PlayNonDetectedMusic();
         PublishEnemyStateChange(EnemyStates.Chilling);
+        DetectedModeEnded?.Invoke();
     }
 
 

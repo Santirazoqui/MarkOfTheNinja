@@ -107,7 +107,6 @@ public class EnemyAnimationControllerV2: MonoBehaviour, IEnemyAnimationControlle
 
     public void Stunned()
     {
-        exclamationSignsController?.QuestionSign();
         SetAnimationState(AnimationStates.Stumped);
     }
 

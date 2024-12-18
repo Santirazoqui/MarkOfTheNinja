@@ -104,6 +104,7 @@ public class EnemyController : MonoBehaviour
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         visionCone = GetComponentInChildren<VisionConeController>();
         Transform eyesTransform = transform.Find(fireBallOriginName);
+        var instaHitboxes = GetComponentsInChildren<InstaDetectionHitboxController>();
         fireBallOrigin = eyesTransform.gameObject;
         context = new(this,
                     pathfinder,
@@ -112,7 +113,8 @@ public class EnemyController : MonoBehaviour
                     enemyAnimationController,
                     visionCone,
                     fireBallOrigin,
-                    detectionRateManager);
+                    detectionRateManager,
+                    instaHitboxes);
         foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 

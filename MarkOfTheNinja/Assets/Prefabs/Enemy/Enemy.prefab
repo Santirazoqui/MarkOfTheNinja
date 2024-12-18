@@ -534,6 +534,7 @@ MonoBehaviour:
   searchingAtSoundSpeed: 400
   searchingSpeed: 300
   playerHeadStompClip: {fileID: 8300000, guid: 6bbf52ae7c7ce6b42a7fe7d31e017aa2, type: 3}
+  distanceItSeachesBehindAfterStunEnds: 0.5
 --- !u!1 &1455768502657137939
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public abstract class State : MonoBehaviour
     protected VisionConeController visionCone;
     protected GameObject fireBallOrigin;
     protected DetectionRateManager detectionRateManager;
+    protected InstaDetectionHitboxController[] instaDetectionHitboxes;
     public void Enter(StateContext context)
     {
         _lastRecivedContext = context;
@@ -77,6 +78,7 @@ public abstract class State : MonoBehaviour
         visionCone = _lastRecivedContext.VisionCone;
         fireBallOrigin = _lastRecivedContext.FireBallOrigin;
         detectionRateManager = _lastRecivedContext.DetectionRateManager;
+        instaDetectionHitboxes = _lastRecivedContext.InstaDetectedHitboxes;
     }
     
 }

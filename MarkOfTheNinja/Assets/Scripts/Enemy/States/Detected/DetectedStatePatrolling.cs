@@ -109,6 +109,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         protected override void ExitImplementation()
         {
             detectionInfectionRadius.DetectedMode = false;
+            ActivateVisionCone();
             detectionRateManager.LeftDetectedMode();
         }
 
@@ -202,6 +203,11 @@ namespace Assets.Scripts.Enemy.States.Detected
         private void DeactivateVisionCone()
         {
             visionCone.gameObject.SetActive(false);
+        }
+
+        private void ActivateVisionCone()
+        {
+            visionCone.gameObject.SetActive(true);
         }
 
 

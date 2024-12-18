@@ -42,6 +42,9 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int pointsLostWhenDetected = 500;
     public float minTimeToGetTimeBonus = 20;
     public int fastTimeScoreBonus = 300;
+    [Header("Detected mode")]
+    public float detectedModeDurationInSeconds;
+    public bool reDetectionRestartsCounter = true;
     public float EnemySuspicionPercentage {  get; private set; }
     public float TimeSpentInLevel { get; private set; } = 0;
     private Light2D GlobalLight { get; set; }
@@ -49,8 +52,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private IDataAccessManager dataAccessManager;
     private GameData previousScore;
-    private IEnumerator previousDetectionDecresionRoutine = null;
     private IEnumerator turnLightsOnCorutine =null;
+    private IEnumerator detectedCounterCorutine =null;
     private ISceneSwitcher sceneSwitcher;
     private bool playerIsAlive = true;
 
@@ -111,6 +114,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         GlobalLight.intensity = globalLightMin;
         Score = ScoreAtLastCheckpoint;
         if (turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
+        if( detectedCounterCorutine !=null) StopCoroutine(detectedCounterCorutine);
         Detected = false;
         AudioController.PlayNonDetectedMusic();
         playerIsAlive = true;
@@ -204,8 +208,33 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         AudioController.PlayDetectedMusic();
         turnLightsOnCorutine = TurnLightsOn();
         StartCoroutine(turnLightsOnCorutine);
+        StartDetectedCountDown();
         //StopDetectionDecreasion();
         //PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
+    }
+
+    private void StartDetectedCountDown()
+    {
+        if(reDetectionRestartsCounter)
+        {
+            if(detectedCounterCorutine!=null) StopCoroutine(detectedCounterCorutine);
+            detectedCounterCorutine = DetectionCountDownCorutine();
+            StartCoroutine(detectedCounterCorutine);
+        }
+        else if(detectedCounterCorutine==null) 
+        {
+            detectedCounterCorutine = DetectionCountDownCorutine();
+            StartCoroutine(detectedCounterCorutine);
+        }
+    }
+
+    private IEnumerator DetectionCountDownCorutine()
+    {
+        yield return new WaitForSeconds(detectedModeDurationInSeconds);
+        GlobalLight.intensity = globalLightMin;
+        Detected = false;
+        AudioController.PlayNonDetectedMusic();
+        PublishEnemyStateChange(EnemyStates.Chilling);
     }
 
 

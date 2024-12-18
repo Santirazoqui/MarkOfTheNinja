@@ -738,7 +738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1239340650760488699
 Transform:
   m_ObjectHideFlags: 0
@@ -748,7 +748,7 @@ Transform:
   m_GameObject: {fileID: 3903818615369100827}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.036, y: 0.332, z: 0}
+  m_LocalPosition: {x: -0.036, y: 0.535, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1479,7 +1479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireball: {fileID: 7014954737105946202, guid: 1bd396f69658fe641b30d0a38eb2b6ac, type: 3}
   patrollingSpeed: 300
-  persectutionSpeed: 500
+  persectutionSpeed: 400
   searchingRadius: 500
   minHeightDifferenceToThrowFireballs: 5
   playerTag: Player

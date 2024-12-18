@@ -131,13 +131,6 @@ MonoBehaviour:
   PlayingCanvas: {fileID: 0}
   DeathCanvas: {fileID: 6400469184655496706, guid: 6e4fdff9a8127dc488fe3c923a93a817, type: 3}
   cameraPan: {fileID: 0}
-  visualDetectionRate: 500
-  expoentialDistanceMultiplier: 1
-  audioDetectionRate: 50
-  secondsBeforeDetectionDecreases: 4
-  minDecreasePerTick: 0.01
-  maxDecreasePerTick: 0.2
-  increaseInDecreasePerTick: 0.0005
   globalLightMin: 0
   globalLightMax: 0.5
   initialPoints: 1000
@@ -145,6 +138,8 @@ MonoBehaviour:
   pointsLostWhenDetected: 500
   minTimeToGetTimeBonus: 90
   fastTimeScoreBonus: 300
+  detectedModeDurationInSeconds: 10
+  reDetectionRestartsCounter: 1
 --- !u!1 &8066437747596582779
 GameObject:
   m_ObjectHideFlags: 0

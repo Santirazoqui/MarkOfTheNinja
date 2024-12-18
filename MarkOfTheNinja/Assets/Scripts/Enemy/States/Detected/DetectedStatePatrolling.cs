@@ -37,10 +37,12 @@ namespace Assets.Scripts.Enemy.States.Detected
         private bool initiated = false;
 
         private FireballManager fireballManager;
+        private ProximityDetected detectionInfectionRadius;
 
         void Awake()
         {
             fireballManager = GameObject.FindObjectOfType<FireballManager>();
+            detectionInfectionRadius = GetComponentInChildren<ProximityDetected>();
         }
 
         // Si en vez de poner el codigo en esta funcion, se pone en el start, tira null pointer exceptions 
@@ -61,6 +63,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         {
             cantMove = false;
             killing = false;
+            detectionInfectionRadius.DetectedMode = true;
             DeactivateVisionCone();
             PlayDetectedAnimation();
             FakeStart();
@@ -101,6 +104,11 @@ namespace Assets.Scripts.Enemy.States.Detected
                 StartSearch();
                 Patroll();
             }
+        }
+
+        protected override void ExitImplementation()
+        {
+            detectionInfectionRadius.DetectedMode = false;
         }
 
         public override void CollitionEnter(Collision2D collision)

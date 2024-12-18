@@ -34,11 +34,14 @@ namespace Assets.Scripts.Enemy.States
             animationController = _lastRecivedContext.AnimationController;
             levelManager = FindAnyObjectByType<LevelManagerController>();
             levelManager.LevelWasReset += OnReset;
+
         }
+
 
         protected override void EnterImplementation()
         {
             FakeStart();
+            detectionRateManager.EnteredChilling();
             PlayChillingAnimation();
             UpdateSearchRadius(_lastRecivedContext);
             StartSearch();

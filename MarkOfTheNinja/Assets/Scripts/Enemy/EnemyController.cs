@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting, DetectedHunt
+    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting
 }
 
 public class EnemyController : MonoBehaviour
@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
 
     private State currentState;
     private EnemyStates currentStateName;
+    public EnemyStates CurrentState { get => currentStateName; }
     private StateContext context;
     private Pathfinder pathfinder;
     private LevelManagerController levelManagerController;
@@ -111,7 +112,8 @@ public class EnemyController : MonoBehaviour
                     levelManagerController, 
                     enemyAnimationController,
                     visionCone,
-                    fireBallOrigin);
+                    fireBallOrigin,
+                    detectionRateManager);
         foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 

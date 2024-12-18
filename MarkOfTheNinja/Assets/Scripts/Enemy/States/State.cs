@@ -15,6 +15,7 @@ public abstract class State : MonoBehaviour
     protected IEnemyAnimationController animationController;
     protected VisionConeController visionCone;
     protected GameObject fireBallOrigin;
+    protected DetectionRateManager detectionRateManager;
     public void Enter(StateContext context)
     {
         _lastRecivedContext = context;
@@ -74,6 +75,7 @@ public abstract class State : MonoBehaviour
         animationController = _lastRecivedContext.AnimationController;
         visionCone = _lastRecivedContext.VisionCone;
         fireBallOrigin = _lastRecivedContext.FireBallOrigin;
+        detectionRateManager = _lastRecivedContext.DetectionRateManager;
     }
     
 }

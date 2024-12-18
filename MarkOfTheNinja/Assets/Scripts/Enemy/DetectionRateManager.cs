@@ -21,12 +21,15 @@ public class DetectionRateManager : MonoBehaviour
     public float maxDecreasePerTick = 0.2f;
     public float increaseInDecreasePerTick = 0.001f;
 
-    private LevelManagerController levelManagerController;
+    private LevelManagerController levelManagerController; 
+    private EnemyController enemyController;
     private IEnumerator previousDetectionDecresionRoutine = null;
     // Start is called before the first frame update
     void Start()
     {
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
+        levelManagerController.LevelWasReset += OnReset;
+        enemyController = GetComponentInParent<EnemyController>();  
     }
 
     // Update is called once per frame
@@ -47,6 +50,28 @@ public class DetectionRateManager : MonoBehaviour
         PlayerWasPerceived(audioDetectionRate);
     }
 
+
+    private void OnReset()
+    {
+        StopDetectionDecreasion();
+        DetectionRate = 0;
+        Detected = false;
+    }
+    public void EnemyWasInfectedWithDetected()
+    {
+        if (Detected) return;
+        Detected = true;
+        DetectionRate = 100;
+        EnterDetectedPhase();
+    }
+
+    public void EnteredChilling()
+    {
+        StopDetectionDecreasion();
+        DetectionRate = 0;
+        Detected = false;
+    }
+
     private void PlayerWasPerceived(float detectionRate, float multiplier = 1)
     {
         if (Detected) return;
@@ -55,13 +80,15 @@ public class DetectionRateManager : MonoBehaviour
         if (DetectionRate >= 100)
         {
             DetectionRate = 100;
-
+            Detected = true;
             EnterDetectedPhase();
         }
     }
 
     private void EnterDetectedPhase()
     {
+        //levelManagerController.PlayerWasInstaDetected();
+        enemyController.ChangeStates(EnemyStates.DetectedPatrolling);
         PlayerWasDetected?.Invoke();
     }
 

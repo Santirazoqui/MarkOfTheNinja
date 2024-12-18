@@ -49,15 +49,15 @@ public class VisionConeController : MonoBehaviour
         SetUpPolygonCollider();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         levelManagerController.LevelWasReset += OnReset;
-        levelManagerController.DetectedModeStarted += UpdateVisionConeRadius;
-        levelManagerController.DetectedModeEnded += UpdateVisionConeRadius;
+        levelManagerController.DetectedModeStarted += IncreaseVisionCone;
+        levelManagerController.DetectedModeEnded += ResetVisionConeToOG;
         startFinished = true;
     }
 
     private void OnReset()
     {
         playerIsBeingSeen = false;
-        UpdateVisionConeRadius();
+        ResetVisionConeToOG();
     }
 
     private void SetUpPolygonCollider()
@@ -93,20 +93,18 @@ public class VisionConeController : MonoBehaviour
         UpdatePlayerDetection();
     }
 
-    private void UpdateVisionConeRadius()
+    private void IncreaseVisionCone()
     {
-        if (levelManagerController.Detected)
-        {
-            light.pointLightInnerRadius = lightData.InnerRadius * visionConeSizeIncreaseWhenDetected;
-            light.pointLightOuterRadius = lightData.OuterRadius * visionConeSizeIncreaseWhenDetected;
-            UpdateCollider(visionConeSizeIncreaseWhenDetected);
-        }
-        else
-        {
-            light.pointLightInnerRadius = lightData.InnerRadius;
-            light.pointLightOuterRadius = lightData.OuterRadius;
-            UpdateCollider(1);
-        }
+        light.pointLightInnerRadius = lightData.InnerRadius * visionConeSizeIncreaseWhenDetected;
+        light.pointLightOuterRadius = lightData.OuterRadius * visionConeSizeIncreaseWhenDetected;
+        UpdateCollider(visionConeSizeIncreaseWhenDetected);
+    }
+
+    private void ResetVisionConeToOG()
+    {
+        light.pointLightInnerRadius = lightData.InnerRadius;
+        light.pointLightOuterRadius = lightData.OuterRadius;
+        UpdateCollider(1);
     }
 
     private void UpdateCollider(float relativeSizeComparedToOG)

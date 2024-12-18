@@ -203,7 +203,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public void EnterDetectedPhase()
     {
         //Debug.Log("Enter detected phase");
-       // Detected = true;
+        Detected = true;
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
         turnLightsOnCorutine = TurnLightsOn();

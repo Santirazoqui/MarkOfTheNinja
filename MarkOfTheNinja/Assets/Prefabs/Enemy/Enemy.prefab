@@ -718,6 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d96ccac374bbda47bfe9dcb68f58610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visionConeSizeIncreaseWhenDetected: 2
 --- !u!1 &3903818615369100827
 GameObject:
   m_ObjectHideFlags: 0

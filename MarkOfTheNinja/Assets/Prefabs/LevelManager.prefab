@@ -138,7 +138,7 @@ MonoBehaviour:
   pointsLostWhenDetected: 500
   minTimeToGetTimeBonus: 90
   fastTimeScoreBonus: 300
-  detectedModeDurationInSeconds: 10
+  detectedModeDurationInSeconds: 30
   reDetectionRestartsCounter: 1
 --- !u!1 &8066437747596582779
 GameObject:

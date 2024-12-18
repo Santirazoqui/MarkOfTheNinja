@@ -3,14 +3,21 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
 {
-    public class StunedState:NonDetectedState
+    public class StunedState:State
     {
-        private EnemyStates prevState;
+        [SerializeField] AudioClip playerHeadStompClip;
+        AudioSource audioSource;
+
+        private void Awake()
+        {
+            audioSource = GetComponentInParent<AudioSource>();
+        }
         protected override void EnterImplementation()
         {
             animationController.Stunned();
             pathfinder.AdjustPosition(0, 0);
             pathfinder.Waiting = true;
+            audioSource.PlayOneShot(playerHeadStompClip);
             //Debug.Log($"Waiting for {waitTime}");
         }
 

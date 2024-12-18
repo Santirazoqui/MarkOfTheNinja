@@ -60,8 +60,14 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             myRigidbody = GetComponent<Rigidbody2D>();
             targetPosition = myRigidbody.position;
+            var levelManager = FindAnyObjectByType<LevelManagerController>();
+            levelManager.LevelWasReset += OnReset;
         }
 
+        private void OnReset()
+        {
+            Waiting = false;
+        }
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
             bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;

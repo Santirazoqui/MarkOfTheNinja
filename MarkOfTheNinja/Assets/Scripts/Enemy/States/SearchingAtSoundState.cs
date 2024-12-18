@@ -18,5 +18,10 @@ namespace Assets.Scripts.Enemy.States
             base.AnimationEventFired(eventDescription);
             parent.ChangeStates(EnemyStates.Chilling);
         }
+
+        protected override void ExitImplementation()
+        {
+            pathfinder.Waiting = false;
+        }
     }
 }

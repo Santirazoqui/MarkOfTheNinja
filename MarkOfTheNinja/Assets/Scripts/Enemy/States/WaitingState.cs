@@ -35,6 +35,7 @@ namespace Assets.Scripts.Enemy.States
         protected override void ExitImplementation()
         {
             StopCoroutine(exitRutine);
+            pathfinder.Waiting=false;
         }
     }
 }

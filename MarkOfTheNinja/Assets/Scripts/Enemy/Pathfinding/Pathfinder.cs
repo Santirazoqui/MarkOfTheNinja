@@ -121,8 +121,9 @@ namespace Assets.Scripts.Enemy.Pathfinding
         private void CollisionLogic(Collision2D collision)
         {
             var collider = GetComponentInParent<BoxCollider2D>();
-            bool collidedWithOtherEnemyWall = lastEnemyWallCollided == null || lastEnemyWallCollided != null && lastEnemyWallCollided != collision.gameObject;
-            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)) && collidedWithOtherEnemyWall)
+            //bool collidedWithOtherEnemyWall = lastEnemyWallCollided == null || lastEnemyWallCollided != null && lastEnemyWallCollided != collision.gameObject;
+            bool wallIsInFront = Math.Sign(collision.gameObject.transform.position.x - transform.position.x) == Math.Sign(transform.localScale.x) ;
+            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)) && wallIsInFront)
             {
                 lastEnemyWallCollided = collision.gameObject;
                 onReached();

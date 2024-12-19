@@ -37,7 +37,7 @@ public class ObjectiveScript : MonoBehaviour
                 this.exitBlocker.SetActive(false);
                 //Debug.Log(exitBlocker);
             }
-            this.levelManagerController.canWin = true;
+            this.levelManagerController.CanWin = true;
 
             foreach (AudioSource audioSource in audioSources)
             {

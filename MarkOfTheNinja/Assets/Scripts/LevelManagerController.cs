@@ -35,8 +35,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     public int Score { get; private set; }
     public int ScoreAtLastCheckpoint { get; set; }
-
-    public bool canWin { get; set; } = false;
+    public bool PlayerAlive { get => playerIsAlive; }
+    public bool CanWin { get; set; } = false;
 
     [Header("Global light")]
     public float globalLightMin = 0.1f;

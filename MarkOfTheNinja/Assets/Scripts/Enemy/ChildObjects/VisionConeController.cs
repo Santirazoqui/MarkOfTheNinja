@@ -129,7 +129,7 @@ public class VisionConeController : MonoBehaviour
 
     private void PlayerWasSeen(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag(playerTag)) return;
+        if (!collision.gameObject.CompareTag(playerTag) || !levelManagerController.PlayerAlive) return;
         var enemy = GetComponentInParent<EnemyController>();
         this.enemy = enemy;
         if (ObjectDetector.AnyObjectsBetween(eyes, collision, new string[] {groundLayer,wallLayer})) return;

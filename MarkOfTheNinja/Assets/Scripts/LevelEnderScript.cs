@@ -25,7 +25,7 @@ public class LevelEnderScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(levelManagerController.canWin) {
+        if(levelManagerController.CanWin) {
             if (Util.CollidedWithPlayer(collision)) levelManagerController.PlayerEndedLevel(goToScreenName);
         }
     }

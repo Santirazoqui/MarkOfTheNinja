@@ -6,6 +6,7 @@ public class InstaDetectionHitboxController : MonoBehaviour
 {
     private readonly string playerTag = "Player";
     // Start is called before the first frame update
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag(playerTag)) return;

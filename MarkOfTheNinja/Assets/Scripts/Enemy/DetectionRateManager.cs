@@ -57,6 +57,7 @@ public class DetectionRateManager : MonoBehaviour
     }
     public void EnemyWasInfectedWithDetected()
     {
+        if (!levelManagerController.PlayerAlive) return;
         if (Detected) return;
         Detected = true;
         DetectionRate = 100;
@@ -66,6 +67,7 @@ public class DetectionRateManager : MonoBehaviour
 
     public void PlayerWasInstaDetected()
     {
+        if (!levelManagerController.PlayerAlive) return;
         DetectionRate = 100;
         EnterDetectedPhase();
     }
@@ -79,6 +81,7 @@ public class DetectionRateManager : MonoBehaviour
 
     private void PlayerWasPerceived(float detectionRate, float multiplier = 1)
     {
+        if (!levelManagerController.PlayerAlive) return;
         if (Detected) return;
         DetectionRate += detectionRate * multiplier * Time.deltaTime;
         StartDetectionDecrease();

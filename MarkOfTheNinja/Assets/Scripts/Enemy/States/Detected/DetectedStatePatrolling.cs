@@ -18,6 +18,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         public float persectutionSpeed = 400f;
         public float searchingRadius = 500f;
         public float minHeightDifferenceToThrowFireballs = 10f;
+        public float patrollingRadiusAroundPlayer = 5f;
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
         public string animationEventForThrowingFireballEnded = "thowingFireballEnded";
@@ -93,6 +94,11 @@ namespace Assets.Scripts.Enemy.States.Detected
                         animationController.ThrowFireball();
                         cantMove= true;
                     }
+                    else
+                    {
+                        StartSearch();
+                        Patroll();
+                    }
                 }
                 else
                 {
@@ -141,13 +147,6 @@ namespace Assets.Scripts.Enemy.States.Detected
             
             Instantiate(fireball, fireBallOrigin.transform.position, Quaternion.identity);
             //StartCoroutine(WaitForFireball());
-        }
-
-        IEnumerator WaitForFireball()
-        {
-            cantMove = true;
-            yield return new WaitForSeconds(5); //Encapsule variable
-            cantMove = false;
         }
 
 

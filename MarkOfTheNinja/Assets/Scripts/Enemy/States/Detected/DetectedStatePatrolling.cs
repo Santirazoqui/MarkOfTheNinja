@@ -18,6 +18,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         public float persectutionSpeed = 400f;
         public float searchingRadius = 500f;
         public float minHeightDifferenceToThrowFireballs = 10f;
+        public float patrollingRadiusAroundPlayer = 5f;
         public string playerTag = "Player";
         public string animationEventForKillingPlayer = "playerKilled";
         public string animationEventForThrowingFireballEnded = "thowingFireballEnded";
@@ -37,10 +38,12 @@ namespace Assets.Scripts.Enemy.States.Detected
         private bool initiated = false;
 
         private FireballManager fireballManager;
+        private ProximityDetected detectionInfectionRadius;
 
         void Awake()
         {
             fireballManager = GameObject.FindObjectOfType<FireballManager>();
+            detectionInfectionRadius = GetComponentInChildren<ProximityDetected>();
         }
 
         // Si en vez de poner el codigo en esta funcion, se pone en el start, tira null pointer exceptions 
@@ -61,6 +64,7 @@ namespace Assets.Scripts.Enemy.States.Detected
         {
             cantMove = false;
             killing = false;
+            detectionInfectionRadius.DetectedMode = true;
             DeactivateVisionCone();
             PlayDetectedAnimation();
             FakeStart();
@@ -90,6 +94,11 @@ namespace Assets.Scripts.Enemy.States.Detected
                         animationController.ThrowFireball();
                         cantMove= true;
                     }
+                    else
+                    {
+                        StartSearch();
+                        Patroll();
+                    }
                 }
                 else
                 {
@@ -101,6 +110,13 @@ namespace Assets.Scripts.Enemy.States.Detected
                 StartSearch();
                 Patroll();
             }
+        }
+
+        protected override void ExitImplementation()
+        {
+            detectionInfectionRadius.DetectedMode = false;
+            ActivateVisionCone();
+            detectionRateManager.LeftDetectedMode();
         }
 
         public override void CollitionEnter(Collision2D collision)
@@ -131,13 +147,6 @@ namespace Assets.Scripts.Enemy.States.Detected
             
             Instantiate(fireball, fireBallOrigin.transform.position, Quaternion.identity);
             //StartCoroutine(WaitForFireball());
-        }
-
-        IEnumerator WaitForFireball()
-        {
-            cantMove = true;
-            yield return new WaitForSeconds(5); //Encapsule variable
-            cantMove = false;
         }
 
 
@@ -193,6 +202,11 @@ namespace Assets.Scripts.Enemy.States.Detected
         private void DeactivateVisionCone()
         {
             visionCone.gameObject.SetActive(false);
+        }
+
+        private void ActivateVisionCone()
+        {
+            visionCone.gameObject.SetActive(true);
         }
 
 

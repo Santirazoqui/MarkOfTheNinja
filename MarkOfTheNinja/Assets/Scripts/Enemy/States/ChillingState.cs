@@ -18,6 +18,7 @@ namespace Assets.Scripts.Enemy.States
         private int searchingIndex = 0;
 
         private bool initiated = false;
+        private LevelManagerController levelManager;
 
         // Si en vez de poner el codigo en esta funcion, se pone en el start, tira null pointer exceptions 
         private void FakeStart()
@@ -31,7 +32,11 @@ namespace Assets.Scripts.Enemy.States
             initialPosition = rb.position;
             initiated = true;
             animationController = _lastRecivedContext.AnimationController;
+            levelManager = FindAnyObjectByType<LevelManagerController>();
+            levelManager.LevelWasReset += OnReset;
+
         }
+
 
         protected override void EnterImplementation()
         {
@@ -81,13 +86,19 @@ namespace Assets.Scripts.Enemy.States
             {
                 searchingIndex++;
             }
+            //Debug.Log($"Going at target {searchingLimits[searchingIndex]}");
             //StartSearch();
             WaitForNecessaryTime();
         }
 
+        private void OnReset()
+        {
+            StopAllCoroutines();
+        }
+
         private void WaitForNecessaryTime()
         {
-            _lastRecivedContext.WaitTime = (waitTimeWhenReach, EnemyStates.Chilling);
+            _lastRecivedContext.WaitTime = waitTimeWhenReach;
             parent.ChangeStates(EnemyStates.Waiting);    
         }
 

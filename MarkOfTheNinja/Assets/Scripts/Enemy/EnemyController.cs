@@ -3,10 +3,11 @@ using Assets.Scripts.Enemy.Pathfinding;
 using Assets.Scripts.Enemy.States;
 using AYellowpaper.SerializedCollections;
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 public enum EnemyStates
 {
-    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting, DetectedHunt
+    Chilling, GoingAtSound, DetectedPatrolling, Confused, SearchingAtSound, Waiting, Stunned
 }
 
 public class EnemyController : MonoBehaviour
@@ -17,12 +18,14 @@ public class EnemyController : MonoBehaviour
 
     private State currentState;
     private EnemyStates currentStateName;
+    public EnemyStates CurrentState { get => currentStateName; }
     private StateContext context;
     private Pathfinder pathfinder;
     private LevelManagerController levelManagerController;
     private IEnemyAnimationController enemyAnimationController;
     private VisionConeController visionCone;
     private GameObject fireBallOrigin;
+    private DetectionRateManager detectionRateManager;
 
     [SerializedDictionary("Posible enemy states", "State")]
     public SerializedDictionary<EnemyStates, State> posibleStates;
@@ -96,10 +99,12 @@ public class EnemyController : MonoBehaviour
 
     private void InitializeStates()
     {
+        detectionRateManager = GetComponent<DetectionRateManager>();
         pathfinder = gameObject.AddComponent<Pathfinder>();
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         visionCone = GetComponentInChildren<VisionConeController>();
         Transform eyesTransform = transform.Find(fireBallOriginName);
+        var instaHitboxes = GetComponentsInChildren<InstaDetectionHitboxController>();
         fireBallOrigin = eyesTransform.gameObject;
         context = new(this,
                     pathfinder,
@@ -107,7 +112,9 @@ public class EnemyController : MonoBehaviour
                     levelManagerController, 
                     enemyAnimationController,
                     visionCone,
-                    fireBallOrigin);
+                    fireBallOrigin,
+                    detectionRateManager,
+                    instaHitboxes);
         foreach (var (_, state) in posibleStates) state.SetActive(false); 
     }
 
@@ -117,6 +124,7 @@ public class EnemyController : MonoBehaviour
         currentStateName = defaultState;
         currentState.SetActive(true);
         currentState.Enter(context);
+        pathfinder.TakeSnapshot();
     }
 
     private void SubscribeToLevelController()
@@ -130,7 +138,10 @@ public class EnemyController : MonoBehaviour
     {
         visionCone.gameObject.SetActive(true);
         SudoChangeStates(EnemyStates.Chilling);
+        pathfinder.ResetToSnapshot();
     }
+
+    
     private void SudoChangeStates(EnemyStates state)
     {
         currentState.Exit(context);
@@ -142,3 +153,5 @@ public class EnemyController : MonoBehaviour
     }
 
 }
+
+

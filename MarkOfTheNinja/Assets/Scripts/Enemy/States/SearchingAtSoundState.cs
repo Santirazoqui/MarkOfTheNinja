@@ -8,13 +8,20 @@ namespace Assets.Scripts.Enemy.States
         public string animationEndedEventName = "searchAnimationEnded";
         protected override void EnterImplementation()
         {
-            _lastRecivedContext.AnimationController.SearchAtSound();
-            _lastRecivedContext.Pathfinder.AdjustPosition(0, 0);
+            animationController.SearchAtSound();
+            pathfinder.AdjustPosition(0, 0);
+            pathfinder.Waiting = true;
         }
 
         public override void AnimationEventFired(string eventDescription)
         {
-            _lastRecivedContext.Parent.ChangeStates(EnemyStates.Chilling);
+            base.AnimationEventFired(eventDescription);
+            parent.ChangeStates(EnemyStates.Chilling);
+        }
+
+        protected override void ExitImplementation()
+        {
+            pathfinder.Waiting = false;
         }
     }
 }

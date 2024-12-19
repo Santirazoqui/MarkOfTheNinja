@@ -10,9 +10,11 @@ namespace Assets.Scripts.Enemy.States
         private IEnumerator exitRutine;
         protected override void EnterImplementation()
         {
-            prevState = _lastRecivedContext.WaitTime.Item2;
-            waitTime = _lastRecivedContext.WaitTime.Item1;
+            prevState = _lastRecivedContext.PreviousState;
+            waitTime = _lastRecivedContext.WaitTime;
             animationController.StayStill();
+            pathfinder.AdjustPosition(0, 0);
+            pathfinder.Waiting = true;
             //Debug.Log($"Waiting for {waitTime}");
         }
 
@@ -26,12 +28,14 @@ namespace Assets.Scripts.Enemy.States
         {
             yield return new WaitForSeconds( waitTime );
             //Debug.Log("Wait time ended");
+            pathfinder.Waiting = false;
             _lastRecivedContext.Parent.ChangeStates(prevState);
         }
 
         protected override void ExitImplementation()
         {
             StopCoroutine(exitRutine);
+            pathfinder.Waiting=false;
         }
     }
 }

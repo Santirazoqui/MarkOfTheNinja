@@ -12,7 +12,9 @@ namespace Assets.Scripts.Enemy.States
                             LevelManagerController levelManager,
                             IEnemyAnimationController animation,
                             VisionConeController visionCone,
-                            GameObject fireballOrigin)
+                            GameObject fireballOrigin,
+                            DetectionRateManager detectionRateManager,
+                            InstaDetectionHitboxController[] instaDetectedHitboxes)
         {
             Parent = parent;
             Pathfinder = pathfinder;
@@ -21,6 +23,8 @@ namespace Assets.Scripts.Enemy.States
             AnimationController = animation;
             VisionCone = visionCone;
             this.FireBallOrigin = fireballOrigin;
+            DetectionRateManager = detectionRateManager;
+            InstaDetectedHitboxes = instaDetectedHitboxes;
         }
 
         public VisionConeController VisionCone { get; set; }
@@ -30,8 +34,11 @@ namespace Assets.Scripts.Enemy.States
         public GameObject Player { get; set; }  
         public ILevelManager LevelManagerController { get; set; }
         public IEnemyAnimationController AnimationController { get; set; }
-        public (float, EnemyStates) WaitTime { get; set; } 
+        public float WaitTime { get; set; } 
+        public EnemyStates PreviousState { get; set; }
         public float Speed { get; set; }
         public GameObject FireBallOrigin { get; set; }
+        public DetectionRateManager DetectionRateManager { get; set; }
+        public InstaDetectionHitboxController[] InstaDetectedHitboxes { get; set; }
     }
 }

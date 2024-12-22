@@ -98,7 +98,10 @@ namespace Assets.Scripts.Enemy
         private void EnterChilling() => animator.SetBool(mapper[AnimationStates.Chilling], true);
         private void ExitChilling() => animator.SetBool(mapper[AnimationStates.Chilling], false);
 
-
+        public void Stunned()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -109,6 +112,7 @@ namespace Assets.Scripts.Enemy
         public void AlertWalking();
 
         public void StayStill();
+        public void Stunned();
 
         public void Killing();
 

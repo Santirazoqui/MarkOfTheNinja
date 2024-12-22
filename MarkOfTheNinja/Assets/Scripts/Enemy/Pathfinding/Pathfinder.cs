@@ -8,18 +8,20 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy.Pathfinding
 {
-    public class Pathfinder:MonoBehaviour, IPathfinder
+    public class Pathfinder : MonoBehaviour, IPathfinder
     {
         public Vector2 targetPosition;
-
+        public bool Waiting { get; set; } = false;
         Rigidbody2D myRigidbody;
         private Action onReached;
         private bool tourchingBorder;
+        private GameObject lastEnemyWallCollided = null;
         private readonly string _wallsLayer = "Walls";
         private readonly string _enemyWalls = "EnemyWall";
         private Vector2 _previusPosition;
         private Vector2 _previusVelocity;
         private float currentSpeed;
+        private PathfinderMemory memory;
         public void SetDestination(Vector2 target, Action onReached)
         {
             targetPosition = target;
@@ -35,16 +37,41 @@ namespace Assets.Scripts.Enemy.Pathfinding
             UnstuckingMechanism();
         }
 
+        public void TakeSnapshot()
+        {
+            memory = new()
+            {
+                Position = transform.position,
+                LocalScale = transform.localScale,
+                target = targetPosition,
+                onReached = onReached
+            };
+        }
+
+        public void ResetToSnapshot()
+        {
+            transform.position = memory.Position;
+            transform.localScale = memory.LocalScale;
+            targetPosition = memory.target;
+            onReached = memory.onReached;
+        }
+
         private void Start()
         {
             myRigidbody = GetComponent<Rigidbody2D>();
             targetPosition = myRigidbody.position;
+            var levelManager = FindAnyObjectByType<LevelManagerController>();
+            levelManager.LevelWasReset += OnReset;
         }
 
+        private void OnReset()
+        {
+            Waiting = false;
+        }
         private void ChangeCharacterOrientationDependingOnVelocity()
         {
             bool playerHasHorizontalSpedd = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
-            if(playerHasHorizontalSpedd)
+            if (playerHasHorizontalSpedd)
             {
                 transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x) * Math.Abs(transform.localScale.x), transform.localScale.y);
             }
@@ -57,19 +84,20 @@ namespace Assets.Scripts.Enemy.Pathfinding
             bool closeEnough = Math.Abs(distance) < minDistance;
             if (closeEnough) {
                 ResetVelocity();
+                lastEnemyWallCollided = null;
                 onReached?.Invoke();
                 return;
             }
-            
+
             float direction = Math.Sign(distance);
             float velocity = speed * Time.deltaTime * direction;
 
             myRigidbody.velocity = new Vector2(velocity, myRigidbody.velocity.y);
         }
-        
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            CollisionLogic();
+            CollisionLogic(collision);
         }
 
         private void FixedUpdate()
@@ -81,6 +109,7 @@ namespace Assets.Scripts.Enemy.Pathfinding
         {
             if (Stuck())
             {
+                lastEnemyWallCollided = null;
                 onReached();
             }
             _previusPosition = myRigidbody.position;
@@ -92,14 +121,17 @@ namespace Assets.Scripts.Enemy.Pathfinding
             bool atTheSamePlaceThatWeWereAFrameAgo = _previusPosition.x == myRigidbody.position.x;
             bool sameVelocity = _previusVelocity == myRigidbody.velocity;
             bool speedIsNotCero = currentSpeed != 0;
-            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero;
+            return atTheSamePlaceThatWeWereAFrameAgo && sameVelocity && speedIsNotCero && !Waiting;
         }
 
-        private void CollisionLogic()
+        private void CollisionLogic(Collision2D collision)
         {
             var collider = GetComponentInParent<BoxCollider2D>();
-            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)))
+            //bool collidedWithOtherEnemyWall = lastEnemyWallCollided == null || lastEnemyWallCollided != null && lastEnemyWallCollided != collision.gameObject;
+            bool wallIsInFront = Math.Sign(collision.gameObject.transform.position.x - transform.position.x) == Math.Sign(transform.localScale.x) ;
+            if (collider.IsTouchingLayers(LayerMask.GetMask(_enemyWalls)) && wallIsInFront)
             {
+                lastEnemyWallCollided = collision.gameObject;
                 onReached();
             }
         }
@@ -115,13 +147,22 @@ namespace Assets.Scripts.Enemy.Pathfinding
             myRigidbody.velocity = new Vector2(0, myRigidbody.velocity.y);
         }
 
-
+        
 
     }
-
+    public class PathfinderMemory
+    {
+        public Vector2 Position;
+        public Vector3 LocalScale;
+        public Vector2 target;
+        public Action onReached;
+    }
     public interface IPathfinder
     {
+        public bool Waiting { get; set; }
         void SetDestination(Vector2 destination, Action onReached);
+        public void TakeSnapshot();
+        public void ResetToSnapshot();
         void AdjustPosition(float speed, float minDistance);
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy.States
@@ -13,9 +14,10 @@ namespace Assets.Scripts.Enemy.States
     {
         public float searchingAtSoundSpeed = 400f;
         public float searchingSpeed = 300f;
+        private readonly string stumpAnimationEvent = "stumpEnded";
         public override void PlayerIsBeingSeen(float distance)
         {
-            _lastRecivedContext.LevelManagerController.PlayerIsBeingSeen(distance);
+            detectionRateManager.PlayerIsBeingSeen(distance);
             _lastRecivedContext.Speed = searchingSpeed; 
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.Confused,_lastRecivedContext);
         }
@@ -30,10 +32,18 @@ namespace Assets.Scripts.Enemy.States
             if (!CollidedWithSound(_lastRecivedContext.Parent.gameObject, collision)) return;
             //Debug.Log("Collided with sound");
             var soundOrigin = collision.gameObject.transform.position;
-            levelManagerController.SoundWasHeard();
+            detectionRateManager.SoundWasHeard();
             _lastRecivedContext.SoundPosition = soundOrigin;
             _lastRecivedContext.Speed = searchingAtSoundSpeed;
             _lastRecivedContext.Parent.ChangeStates(EnemyStates.GoingAtSound, _lastRecivedContext);
+        }
+
+        public override void AnimationEventFired(string eventDescription)
+        {
+            if (eventDescription == stumpAnimationEvent)
+            {
+                parent.ChangeStates(_lastRecivedContext.PreviousState);
+            }
         }
 
         private bool CollidedWithSound(GameObject you, Collider2D collision)

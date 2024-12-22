@@ -20,31 +20,24 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public delegate void OnGlobalEnemyStateChange(EnemyStates state);
     public event OnGlobalEnemyStateChange StateChanged;
 
-    public delegate void OnDetection();
-    public event OnDetection PlayerWasDetected;
-
     public delegate void OnlevelReset();
     public event OnlevelReset LevelWasReset;
 
     public delegate void OnCheckpointReached(Vector2 position);
     public event OnCheckpointReached CheckpointReached;
-    public float DetectionRate { get; private set; } = 0;
+
+    public delegate void OnDetection();
+    public event OnDetection DetectedModeStarted;
+
+    public delegate void OnDetectionEnd();
+    public event OnDetectionEnd DetectedModeEnded;
     public bool Detected { get; private set; }
 
     public int Score { get; private set; }
     public int ScoreAtLastCheckpoint { get; set; }
+    public bool PlayerAlive { get => playerIsAlive; }
+    public bool CanWin { get; set; } = false;
 
-    public bool canWin { get; set; } = false;
-
-    [Header("Detection Rate")]
-    public float visualDetectionRate = 100f;
-    public float expoentialDistanceMultiplier= 2f;
-    public float audioDetectionRate = 50f;
-    [Header("Detection Rate Reduction")]
-    public float secondsBeforeDetectionDecreases = 2f;
-    public float minDecreasePerTick = 0.1f;
-    public float maxDecreasePerTick = 0.2f;
-    public float increaseInDecreasePerTick = 0.001f;
     [Header("Global light")]
     public float globalLightMin = 0.1f;
     public float globalLightMax = 0.5f;
@@ -55,6 +48,9 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     public int pointsLostWhenDetected = 500;
     public float minTimeToGetTimeBonus = 20;
     public int fastTimeScoreBonus = 300;
+    [Header("Detected mode")]
+    public float detectedModeDurationInSeconds;
+    public bool reDetectionRestartsCounter = true;
     public float EnemySuspicionPercentage {  get; private set; }
     public float TimeSpentInLevel { get; private set; } = 0;
     private Light2D GlobalLight { get; set; }
@@ -62,8 +58,8 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
 
     private IDataAccessManager dataAccessManager;
     private GameData previousScore;
-    private IEnumerator previousDetectionDecresionRoutine = null;
     private IEnumerator turnLightsOnCorutine =null;
+    private IEnumerator detectedCounterCorutine =null;
     private ISceneSwitcher sceneSwitcher;
     private bool playerIsAlive = true;
 
@@ -90,43 +86,48 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         //StartDebug();
     }
 
-    private IEnumerator TurnLightsOn()
+    private void TurnLightsOn()
     {
-        while (globalLightMax > GlobalLight.intensity)
+        if(turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
+        turnLightsOnCorutine = SetGlobalLightState(true);
+        StartCoroutine(turnLightsOnCorutine);
+    }
+
+    private void TurnLightsOff()
+    {
+        if (turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
+        turnLightsOnCorutine = SetGlobalLightState(false);
+        StartCoroutine(turnLightsOnCorutine);
+    }
+
+    private IEnumerator SetGlobalLightState(bool on)
+    {
+        if (on)
         {
-            GlobalLight.intensity += lightIncrementsPerTick;
-            yield return new WaitForSecondsRealtime(Time.deltaTime);
+            while (globalLightMax > GlobalLight.intensity)
+            {
+                GlobalLight.intensity += lightIncrementsPerTick;
+                yield return new WaitForSecondsRealtime(Time.deltaTime);
+            }
         }
+        else
+        {
+            while (globalLightMin < GlobalLight.intensity)
+            {
+                GlobalLight.intensity -= lightIncrementsPerTick;
+                yield return new WaitForSecondsRealtime(Time.deltaTime);
+            }
+        }
+
         yield break;
     }
 
-    private int prevScore;
-    private float prevDetection;
-    private bool previousDetected;
-    private void StartDebug()
-    {
-        prevScore = Score;
-        prevDetection = DetectionRate;
-        previousDetected = Detected;
-    }
-
-    /*private void Update()
-    {
-        if (prevScore!= Score) Debug.Log("Score changed: " + Score);
-        if(prevDetection !=DetectionRate) Debug.Log("Detection rate changed: "+ DetectionRate);
-        if (previousDetected != Detected) Debug.Log("Detected changed: " + Detected);
-        prevDetection = DetectionRate;
-        prevScore = Score;
-        previousDetected = Detected;
-    }
-    */
     private void OnRestartLevel()
     {
         GlobalLight.intensity = globalLightMin;
         Score = ScoreAtLastCheckpoint;
         if (turnLightsOnCorutine != null) StopCoroutine(turnLightsOnCorutine);
-        StopDetectionDecreasion();
-        DetectionRate = 0;
+        if( detectedCounterCorutine !=null) StopCoroutine(detectedCounterCorutine);
         Detected = false;
         AudioController.PlayNonDetectedMusic();
         playerIsAlive = true;
@@ -149,25 +150,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         StateChanged?.Invoke(state);
     }
-    
-    public void PlayerWasInstaDetected()
-    {
-        DetectionRate = 100;
-        EnterDetectedPhase();
-    }
 
-    public void PlayerIsBeingSeen(float distance)
-    {
-        //Debug.Log("Player was seen");
-        var multiplier = distance != 0 ? 1 / (float)(Math.Pow(distance,expoentialDistanceMultiplier)) : 1;
-        PlayerWasPerceived(visualDetectionRate, multiplier);
-    }
-
-    public void SoundWasHeard()
-    {
-        //Debug.Log("Player was heard");
-        PlayerWasPerceived(audioDetectionRate);
-    }
 
     public void PickedUpCoin()
     {
@@ -186,6 +169,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         this.PlayingCanvas.SetActive(false);
         this.DeathCanvas.SetActive(true);
+        DetectedModeEnd();
         AudioController.PlayGameOverMusic();
         playerIsAlive = false;
         
@@ -230,78 +214,55 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         return score;
     }
 
-    private void PlayerWasPerceived(float detectionRate, float multiplier = 1)
-    {
-        if (Detected) return;
-        DetectionRate += detectionRate * multiplier * Time.deltaTime;
-        StartDetectionDecrease();
-        if (DetectionRate >= 100)
-        {
-            DetectionRate = 100;
-
-            EnterDetectedPhase();
-        }
-    }
-
-    private void EnterDetectedPhase()
+    public void EnterDetectedPhase()
     {
         //Debug.Log("Enter detected phase");
         Detected = true;
         Score -= pointsLostWhenDetected;
         AudioController.PlayDetectedMusic();
-        turnLightsOnCorutine = TurnLightsOn();
-        StartCoroutine(turnLightsOnCorutine);
-        StopDetectionDecreasion();
-        PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
-        PublishPlayerDetection();
+        TurnLightsOn();
+        StartDetectedCountDown();
+        DetectedModeStarted?.Invoke();
+        //StopDetectionDecreasion();
+        //PublishEnemyStateChange(EnemyStates.DetectedPatrolling);
     }
 
-    private void PublishPlayerDetection()
+    private void StartDetectedCountDown()
     {
-        PlayerWasDetected?.Invoke();
-    }
-
-    private void StartDetectionDecrease()
-    {
-        if (Detected) return;
-        StopDetectionDecreasion();
-        previousDetectionDecresionRoutine = StartSuspicionDecrease();
-        StartCoroutine(previousDetectionDecresionRoutine);
-    }
-    private void StopDetectionDecreasion()
-    {
-        if (previousDetectionDecresionRoutine is not null) StopCoroutine(previousDetectionDecresionRoutine);
-    }
-
-    private IEnumerator StartSuspicionDecrease()
-    {
-        yield return new WaitForSeconds(secondsBeforeDetectionDecreases);
-        float decrease = minDecreasePerTick;
-        while(DetectionRate >0)
+        if(reDetectionRestartsCounter)
         {
-            DetectionRate -= decrease;
-
-            if (decrease < maxDecreasePerTick)
-            {
-                decrease += increaseInDecreasePerTick;
-            }
-            else
-            {
-                decrease = maxDecreasePerTick;
-            }
-            yield return new WaitForFixedUpdate();
+            if(detectedCounterCorutine!=null) StopCoroutine(detectedCounterCorutine);
+            detectedCounterCorutine = DetectionCountDownCorutine();
+            StartCoroutine(detectedCounterCorutine);
         }
-        DetectionRate = 0;
-        yield break;
+        else if(detectedCounterCorutine==null) 
+        {
+            detectedCounterCorutine = DetectionCountDownCorutine();
+            StartCoroutine(detectedCounterCorutine);
+        }
     }
+
+    private IEnumerator DetectionCountDownCorutine()
+    {
+        yield return new WaitForSeconds(detectedModeDurationInSeconds);
+        DetectedModeEnd();
+        PublishEnemyStateChange(EnemyStates.Chilling);
+        
+    }
+
+    private void DetectedModeEnd()
+    {
+        TurnLightsOff();
+        Detected = false;
+        AudioController.PlayNonDetectedMusic();
+        DetectedModeEnded?.Invoke();
+    }
+
 
 }
 
 public interface ILevelManager
 {
-    void PlayerIsBeingSeen(float distance);
-    void SoundWasHeard();
     void PublishEnemyStateChange(EnemyStates state);
-    void PlayerWasInstaDetected();
     void PlayerWasCaught();
 }

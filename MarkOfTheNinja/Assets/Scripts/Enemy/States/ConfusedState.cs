@@ -33,7 +33,7 @@ namespace Assets.Scripts.Enemy.States
 
         public override void PlayerIsBeingSeen(float distance)
         {
-            _lastRecivedContext.LevelManagerController.PlayerIsBeingSeen(distance);
+            detectionRateManager.PlayerIsBeingSeen(distance);
         }
 
         public override void PlayerLeftVisionRadius(Vector2 lastPlayerPosition)

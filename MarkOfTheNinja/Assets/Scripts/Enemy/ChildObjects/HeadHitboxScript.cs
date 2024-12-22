@@ -10,15 +10,15 @@ namespace Assets.Scripts.Enemy.ChildObjects
         private bool playerIsOnTop;
         private EnemyController controller;
         private BoxCollider2D boxCollider;
-        private GameObject slidePlayerOff;
-        private readonly string slidePlayerOffPrefabName = "SlideOffMeHitbox";
+        private GameObject BouncePlayerOff;
+        private readonly string bouncePlayerOffPrefabName = "BounceOffMeHitbox";
         // Use this for initialization
         void Start()
         {
             controller = GetComponentInParent<EnemyController>();
             boxCollider = GetComponent<BoxCollider2D>();
-            slidePlayerOff = transform.Find(slidePlayerOffPrefabName).gameObject;
-            slidePlayerOff.SetActive(false);
+            BouncePlayerOff = transform.Find(bouncePlayerOffPrefabName).gameObject;
+            BouncePlayerOff.SetActive(false);
         }
 
         // Update is called once per frame
@@ -38,10 +38,10 @@ namespace Assets.Scripts.Enemy.ChildObjects
         private IEnumerator SlideOff()
         {
             boxCollider.enabled = false;
-            slidePlayerOff.SetActive(true);
+            BouncePlayerOff.SetActive(true);
             yield return new WaitForSeconds(secondsOfSlideHitbox);
             boxCollider.enabled = true;
-            slidePlayerOff.SetActive(false);
+            BouncePlayerOff.SetActive(false);
         }
     }
 }

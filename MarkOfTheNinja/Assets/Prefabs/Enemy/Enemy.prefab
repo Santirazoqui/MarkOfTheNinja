@@ -1281,8 +1281,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3212033423498056089}
   - component: {fileID: 2597700870800095429}
+  - component: {fileID: 5818428198307111758}
   m_Layer: 7
-  m_Name: SlideOffMeHitbox
+  m_Name: BounceOffMeHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1297,7 +1298,7 @@ Transform:
   m_GameObject: {fileID: 6641853352316247833}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.009, y: -0.076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1335,7 +1336,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.003959298, y: 0.3273396}
+  m_Offset: {x: -0.0023365617, y: 0.123774976}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1346,8 +1347,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21596947, y: 0.5089911}
+  m_Size: {x: 0.17819461, y: 0.101861954}
   m_EdgeRadius: 0
+--- !u!114 &5818428198307111758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641853352316247833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e32cef76e590044925620fc61d168b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7391118944589700433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1478,7 @@ Transform:
   m_GameObject: {fileID: 7612524411227850983}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.044, y: 0.159, z: 0}
+  m_LocalPosition: {x: -0.044, y: 0.1447, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1504,7 +1517,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.005214639, y: 0.081038035}
+  m_Offset: {x: 0.005214639, y: 0.06431903}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1515,7 +1528,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13182425, y: 0.021181658}
+  m_Size: {x: 0.13182425, y: 0.119584955}
   m_EdgeRadius: 0
 --- !u!114 &6239645847631826919
 MonoBehaviour:
@@ -1626,6 +1639,7 @@ MonoBehaviour:
   persectutionSpeed: 400
   searchingRadius: 500
   minHeightDifferenceToThrowFireballs: 5
+  patrollingRadiusAroundPlayer: 5
   playerTag: Player
   animationEventForKillingPlayer: playerKilled
   animationEventForThrowingFireballEnded: thowingFireballEnded

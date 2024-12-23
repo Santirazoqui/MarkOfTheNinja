@@ -29,6 +29,7 @@ public class VisionConeController : MonoBehaviour
    
     public void ActivateDetectionCone()
     {
+        playerIsBeingSeen = false;
         gameObject.SetActive(true);
     }
 

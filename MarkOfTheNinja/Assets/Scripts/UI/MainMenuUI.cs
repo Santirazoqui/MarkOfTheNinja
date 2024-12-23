@@ -36,6 +36,12 @@ public class MainMenuUI : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
+    public void PlayEasyLevel()
+    {
+        PlayButtonSound();
+        SceneManager.LoadSceneAsync("EasyLevel");
+    }
+
     public void PlayMediumLevel()
     {
         PlayButtonSound();

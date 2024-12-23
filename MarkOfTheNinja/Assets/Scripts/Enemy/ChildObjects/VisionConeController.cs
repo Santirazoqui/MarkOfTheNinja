@@ -27,6 +27,16 @@ public class VisionConeController : MonoBehaviour
     private readonly int pathIndex = 0;
     private bool startFinished = false;
    
+    public void ActivateDetectionCone()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void DeactivateDetectionCone()
+    {
+        playerIsBeingSeen = false;
+        gameObject.SetActive(false);
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         PlayerWasSeen(collision);

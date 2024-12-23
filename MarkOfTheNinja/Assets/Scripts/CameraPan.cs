@@ -8,14 +8,22 @@ public class CameraPan : MonoBehaviour
 {
     [SerializeField] GameObject origin;
     [SerializeField] GameObject player;
+
+    [SerializeField] GameObject ExitGate;
+
     [SerializeField] GameObject camera;
     [SerializeField] GameObject followCamera;
-    [SerializeField] public float secondsToPan = 5;
+    [SerializeField] public float secondsToPan = 2;
     [SerializeField] public float secondsBeforePan = 1;
+
+    public float secondsInExitGate = 1;
+
     [SerializeField] FollowPlayerScript followPlayerScript; //pasar el PosReference que es hijo de Background
     [SerializeField] GameObject background;
 
     [SerializeField] public bool shouldPan = true;
+
+    public bool finishedPan = false;
 
     private PlayerController playerController;
 
@@ -32,12 +40,12 @@ public class CameraPan : MonoBehaviour
         playerController.Active = false;
         //Debug.Log("Deactivated player & Camera");
 
-        StartCoroutine(PanCamera());
+
+        StartCoroutine(PanCameras());
         //PanCamera();
 
 
         //Debug.Log("Reactivated player & Camera");
-
     }
 
     // Update is called once per frame
@@ -46,11 +54,24 @@ public class CameraPan : MonoBehaviour
 
     }
 
-    IEnumerator PanCamera()
+    IEnumerator PanCameras()
     {
-        Vector3 startPosition = origin.transform.position;
+        StartCoroutine(PanCamera(origin, ExitGate));
+        yield return new WaitForSeconds(secondsBeforePan + secondsToPan + secondsInExitGate);
+        StartCoroutine(PanCamera(ExitGate, player));
+        yield return new WaitForSeconds(secondsBeforePan + secondsToPan);
+        finishedPan = true;
+        followPlayerScript.enabled = true;
+
+        followCamera.SetActive(true);
+        playerController.Active = true;
+    }
+
+    IEnumerator PanCamera(GameObject from, GameObject to)
+    {
+        Vector3 startPosition = from.transform.position;
         startPosition.z = -1;
-        Vector3 endPosition = player.transform.position;
+        Vector3 endPosition = to.transform.position;
         endPosition.z = -1;
         float elapsedTime = 0;
 
@@ -77,11 +98,5 @@ public class CameraPan : MonoBehaviour
         }
 
         camera.transform.position = endPosition;
-
-        //followPlayerScript.player = player;
-        followPlayerScript.enabled = true;
-
-        followCamera.SetActive(true);
-        playerController.Active = true;
     }
 }

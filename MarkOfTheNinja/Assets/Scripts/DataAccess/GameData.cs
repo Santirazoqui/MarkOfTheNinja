@@ -10,20 +10,23 @@ namespace Assets.Scripts.DataAccess
     public class GameData
     {
         public Score? Score { get; set; }
-        public int? HighScore { get; set; }
+        public Dictionary<string, int>? HighScores { get; set; }
 
         public int? GameSceneIndex { get; set; }
 
         public float? TimeSpentInLevel { get; set; }
+
+        public string? PreviousLevelName { get; set; }
 
         internal GameDataInternal ToSerializableGameData()
         {
             var res =  new GameDataInternal()
             {
                 Score = Score,
-                HighScore = HighScore,
+                HighScores = HighScores,
                 GameSceneIndex = GameSceneIndex,
                 TimeSpentInLevel = TimeSpentInLevel,
+                PreviousLevelName = PreviousLevelName,
             };
 
             return res;
@@ -34,21 +37,24 @@ namespace Assets.Scripts.DataAccess
     internal class GameDataInternal
     {
         public Score? Score { get; set; }
-        public int? HighScore { get; set; }
+        public Dictionary<string, int>? HighScores { get; set; }
 
         public int? GameSceneIndex { get; set; }
 
         public float? TimeSpentInLevel { get; set; }
+        public string? PreviousLevelName { get; set; }
         public SerialializableVector? SpawnPoint { get; set; }
+
 
         internal GameData ToGameData()
         {
             var res = new GameData()
             {
                 Score = Score,
-                HighScore = HighScore,
+                HighScores = HighScores,
                 GameSceneIndex = GameSceneIndex,
                 TimeSpentInLevel = TimeSpentInLevel,
+                PreviousLevelName = PreviousLevelName,
             };
 
             return res;

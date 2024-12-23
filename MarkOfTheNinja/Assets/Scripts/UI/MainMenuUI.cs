@@ -24,14 +24,22 @@ public class MainMenuUI : MonoBehaviour
 
     public void OpenLevelSelect()
     {
+        PlayButtonSound();
         this.gameObject.SetActive(false);
         LevelSelectCanvas.gameObject.SetActive(true);
     }
 
     public void CloseLevelSelect()
     {
+        PlayButtonSound();
         LevelSelectCanvas.gameObject.SetActive(false);
         this.gameObject.SetActive(true);
+    }
+
+    public void PlayMediumLevel()
+    {
+        PlayButtonSound();
+        SceneManager.LoadSceneAsync("MediumLevel");
     }
 
     public void PlayHardLevel()

@@ -57,7 +57,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     private AudioPlayerController AudioController { get; set; }
 
     private IDataAccessManager dataAccessManager;
-    private GameData previousScore;
+    private GameData gameData;
     private IEnumerator turnLightsOnCorutine =null;
     private IEnumerator detectedCounterCorutine =null;
     private ISceneSwitcher sceneSwitcher;
@@ -68,7 +68,7 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
     {
         this.sceneSwitcher = sceneSwitcher;
         this.dataAccessManager = dataAccessManager;
-        previousScore = dataAccessManager.LoadData();
+        var gameData = dataAccessManager.LoadData();
     }
 
     private void Start()
@@ -194,15 +194,22 @@ public class LevelManagerController : SubscribeOnUpdate, ILevelManager
         ScoreAtLastCheckpoint = Score;
     }
 
+    private Dictionary<string, int> levelHighScores = new Dictionary<string, int>();
     private void SaveData()
     {
         var score = CalculateScore();
+        int currentLevelPreviousScore = gameData != null ? gameData.HighScores[SceneManager.GetActiveScene().name] : 0;
+        int highScore = (currentLevelPreviousScore != null && score.Total < currentLevelPreviousScore) 
+            ? currentLevelPreviousScore : score.Total;
+
+        levelHighScores[SceneManager.GetActiveScene().name] = highScore;
         var data = new GameData
         {
             GameSceneIndex = SceneManager.GetActiveScene().buildIndex,
+            PreviousLevelName = SceneManager.GetActiveScene().name,
             TimeSpentInLevel = this.TimeSpentInLevel,
             Score = score,
-            HighScore = (previousScore.HighScore != null && score.Total < previousScore.HighScore) ? previousScore.HighScore : score.Total,
+            HighScores = levelHighScores
         };
         
         dataAccessManager.SaveData(data);

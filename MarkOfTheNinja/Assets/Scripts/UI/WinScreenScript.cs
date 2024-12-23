@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
+using UnityEngine.SceneManagement;
 
 public class WinScreenScript : MonoBehaviour
 {
@@ -31,7 +32,9 @@ public class WinScreenScript : MonoBehaviour
     private void UpdateText()
     {
         if (dataAccess == null) return;
-        text.text = $"Raw score: {gameData.Score.RawPoints} \nFast bonus: {gameData.Score.TimeBonus} \nTotal: {gameData.Score.Total} \nHigh score: {gameData.HighScore}";
+        string previousLevelName = gameData.PreviousLevelName;
+        int highScore = gameData.HighScores[previousLevelName];
+        text.text = $"Raw score: {gameData.Score.RawPoints} \nFast bonus: {gameData.Score.TimeBonus} \nTotal: {gameData.Score.Total} \nHigh score: {highScore}";
 
     }
 }

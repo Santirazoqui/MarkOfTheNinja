@@ -105,10 +105,16 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -19, y: -23}
+        - {x: -25, y: -29}
+        - {x: -25, y: -32}
+        - {x: 25, y: -32}
+        - {x: 25, y: -29}
+        - {x: 19, y: -23}
       tessellationDetail: 0
       bones: []
       spriteID: a04de42ec42fcf148812270f0d6c4464
@@ -126,10 +132,16 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -32, y: 24}
+        - {x: -32, y: -24}
+        - {x: -29, y: -24}
+        - {x: -23, y: -19}
+        - {x: -23, y: 19}
+        - {x: -29, y: 24}
       tessellationDetail: 0
       bones: []
       spriteID: 12dcc26dadb0860458c533b61dcec12d
@@ -147,10 +159,16 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 29, y: 24}
+        - {x: 23, y: 19}
+        - {x: 23, y: -19}
+        - {x: 29, y: -23}
+        - {x: 32, y: -23}
+        - {x: 32, y: 24}
       tessellationDetail: 0
       bones: []
       spriteID: b01ee675519035b44a59b52f2d858f05
@@ -168,10 +186,16 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -23, y: 32}
+        - {x: -23, y: 29}
+        - {x: -19, y: 23}
+        - {x: 19, y: 23}
+        - {x: 24, y: 29}
+        - {x: 24, y: 32}
       tessellationDetail: 0
       bones: []
       spriteID: a58f604dcc7d21848bea14e77b079e56

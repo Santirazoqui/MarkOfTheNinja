@@ -519,6 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f22cd52d3b3cc42bfeb6ec721e6b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightIntensity: 0.2
+  lightIntensity: 0.1
   lightColor: {r: 1, g: 1, b: 1, a: 1}
   m_ApplyToSortingLayers: 4b2e1724a5eba3e0

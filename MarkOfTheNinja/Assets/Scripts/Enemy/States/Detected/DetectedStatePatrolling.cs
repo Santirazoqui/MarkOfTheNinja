@@ -201,7 +201,12 @@ namespace Assets.Scripts.Enemy.States.Detected
         //pos mortem
         private void DeactivateVisionCone()
         {
-            visionCone.gameObject.SetActive(false);
+            visionCone.DeactivateDetectionCone();
+        }
+
+        private void ActivateVisionCone()
+        {
+            visionCone.ActivateDetectionCone();
         }
 
         private void ActivateVisionCone()

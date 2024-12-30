@@ -136,7 +136,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnReset()
     {
-        visionCone.gameObject.SetActive(true);
+        visionCone.ActivateDetectionCone();
         SudoChangeStates(EnemyStates.Chilling);
         pathfinder.ResetToSnapshot();
     }

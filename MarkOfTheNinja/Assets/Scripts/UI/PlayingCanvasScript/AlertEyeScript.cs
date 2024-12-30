@@ -9,8 +9,9 @@ using System;
 public class AlertEyeScript : MonoBehaviour
 {
     [SerializeField] List<Sprite> alertEyes;
-
+    public float secondsForEachFrame = 0.2f;
     private LevelManagerController levelManagerController;
+    private IEnumerator closeOpenEyeRutine=null;
 
     Image alertEye;
 
@@ -18,41 +19,41 @@ public class AlertEyeScript : MonoBehaviour
     {
         levelManagerController = FindAnyObjectByType<LevelManagerController>();
         alertEye = GetComponent<Image>();
+        levelManagerController.DetectedModeStarted += OpenEye;
+        levelManagerController.DetectedModeEnded += CloseEye;
+        levelManagerController.LevelWasReset += () => { alertEye.sprite = alertEyes[0]; };
+    }
+    private void OpenEye()
+    {
+        if (closeOpenEyeRutine != null) StopCoroutine(closeOpenEyeRutine);
+        closeOpenEyeRutine = OpenOrCloseEye(false);
+        StartCoroutine(closeOpenEyeRutine);
     }
 
-    void Update()
+    private void CloseEye()
     {
-        ChangeAlertEye();
+        if (!levelManagerController.PlayerAlive) return;
+        if (closeOpenEyeRutine != null) StopCoroutine(closeOpenEyeRutine);
+        closeOpenEyeRutine = OpenOrCloseEye(true);
+        StartCoroutine(closeOpenEyeRutine);
     }
-
-    void ChangeAlertEye()
+    private IEnumerator OpenOrCloseEye(bool close)
     {
-        int digitsAfterComma = 1;
-        var rounder = Math.Pow(10, digitsAfterComma);
-        var number = Math.Floor(0 * rounder) / rounder;
-        if(number == 0)
+        if (close)
         {
-            alertEye.sprite = alertEyes[0];
+            for (int i = alertEyes.Count - 2; i >= 0; i--)
+            {
+                alertEye.sprite = alertEyes[i];
+                yield return new WaitForSeconds(secondsForEachFrame);
+            }
         }
-        else if(number > 0 && number <= 25)
+        else
         {
-            alertEye.sprite = alertEyes[1];
-        }
-        else if(number > 25 && number <= 50)
-        {
-            alertEye.sprite = alertEyes[2];
-        }
-        else if(number > 50 && number <= 75)
-        {
-            alertEye.sprite = alertEyes[3];
-        }
-        else if(number > 75 && number < 100)
-        {
-            alertEye.sprite = alertEyes[4];
-        } 
-        else if(number == 100)
-        {
-            alertEye.sprite = alertEyes[5];
+            for (int i = 1; i < alertEyes.Count; i++)
+            {
+                alertEye.sprite = alertEyes[i];
+                yield return new WaitForSeconds(secondsForEachFrame);
+            }
         }
     }
 }

@@ -772,8 +772,10 @@ namespace TarodevController
                 _dashVel = dir * Stats.DashVelocity;
                 _dashVel.y = _dashVel.y * Stats.DashVerticalMultiplier;
                 _dashing = true;
+                _airJumpsRemaining = 1;
                 _canDash = false;
                 hasDashedThisFrame = true;
+
                 _startedDashing = _time;
                 _nextDashTime = _time + Stats.DashCooldown;
                 DashChanged?.Invoke(true, dir);

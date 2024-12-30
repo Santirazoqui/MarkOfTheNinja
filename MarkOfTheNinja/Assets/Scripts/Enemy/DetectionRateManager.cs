@@ -69,6 +69,7 @@ public class DetectionRateManager : MonoBehaviour
     {
         if (!levelManagerController.PlayerAlive) return;
         DetectionRate = 100;
+        Debug.Log("Player was insta detected");
         EnterDetectedPhase();
     }
 
@@ -89,6 +90,7 @@ public class DetectionRateManager : MonoBehaviour
         {
             DetectionRate = 100;
             Detected = true;
+            Debug.Log("Player was detected because of amounted perception");
             EnterDetectedPhase();
         }
     }

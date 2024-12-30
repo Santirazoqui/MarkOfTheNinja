@@ -209,10 +209,6 @@ namespace Assets.Scripts.Enemy.States.Detected
             visionCone.ActivateDetectionCone();
         }
 
-        private void ActivateVisionCone()
-        {
-            visionCone.gameObject.SetActive(true);
-        }
 
 
         private void HandlePlayerCollition(GameObject player)
